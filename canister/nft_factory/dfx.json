@@ -1,0 +1,29 @@
+{
+  "canisters": {
+    "nft_factory_backend": {
+      "candid": "src/nft_factory_backend/nft_factory_backend.did",
+      "package": "nft_factory_backend",
+      "type": "rust"
+    },
+    "nft_factory_frontend": {
+      "dependencies": [
+        "nft_factory_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/nft_factory_frontend/src/index.html"
+      },
+      "source": [
+        "src/nft_factory_frontend/assets",
+        "dist/nft_factory_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "version": 1
+}
