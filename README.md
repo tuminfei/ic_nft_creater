@@ -2,7 +2,46 @@
 
 Easily design NFTs on IC network and sell them on Shopify just like regular products. It's so much fun to send NFTs to your customers' emails!
 
-## Shopify App Template - Remix
+## Introduction
+IC_NFT_Creator is a cutting-edge Shopify app designed to streamline the process of creating and launching NFT collections, product certificates, and more on the Dfinity IC network. Elevate your Shopify store's offerings and tap into the world of blockchain-based assets with our user-friendly and efficient platform.
+
+## Key Features
+
+### Effortless NFT Creation
+
+Easily generate and deploy NFT collections on the Dfinity IC network directly from your Shopify store. Our intuitive interface ensures a seamless experience, allowing even non-technical users to harness the power of blockchain technology.
+
+### Product Certification
+
+Provide authenticity and provenance to your products by creating digital certificates on the Dfinity IC network. Enhance customer trust and satisfaction by offering verifiable proof of ownership and origin.
+
+### Multi-Channel Sales
+
+IC_NFT_Creator enables you to leverage Shopify's extensive sales channels to market and sell your NFT collections. Expand your reach and connect with a broader audience through Shopify's established e-commerce ecosystem.
+
+### Customizable Token Attributes
+Tailor your NFTs to match your brand identity with customizable token attributes. Define metadata, rarity, and other unique characteristics to make your NFTs stand out in the decentralized marketplace.
+
+### Seamless Integration with Shopify
+
+Our app seamlessly integrates with your Shopify store, allowing for a hassle-free experience. Manage your NFTs and product certificates directly from your Shopify dashboard, providing a centralized hub for all your e-commerce activities.
+
+### Blockchain Security
+
+Leverage the security and transparency of blockchain technology to safeguard your NFTs and product certificates. Dfinity IC ensures a decentralized and tamper-resistant environment, protecting the integrity of your digital assets.
+
+### Automated Minting and Listing
+
+Save time and effort with automated minting and listing processes. IC_NFT_Creator streamlines the creation and listing of your NFTs, allowing you to focus on what matters most – growing your business.
+
+### Real-Time Analytics
+
+Gain insights into the performance of your NFT collections with real-time analytics. Track sales, engagement, and other key metrics to optimize your strategies and drive success in the decentralized marketplace.
+
+Unlock the full potential of your Shopify store by integrating IC_NFT_Creator. Join the blockchain revolution and provide your customers with unique, verifiable, and collectible digital assets. Elevate your e-commerce experience with the power of NFTs on the Dfinity IC network.
+
+
+# Shopify App Template - Remix
 
 This is a template for building a [Shopify app](https://shopify.dev/docs/apps/getting-started) using the [Remix](https://remix.run) framework.
 
