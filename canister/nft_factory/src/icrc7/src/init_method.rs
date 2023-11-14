@@ -1,19 +1,20 @@
-use ic_cdk_macros::{init, pre_upgrade, post_upgrade};
 use candid::candid_method;
+use ic_cdk_macros::{init, post_upgrade, pre_upgrade};
 use ic_stable_structures::{writer::Writer, Memory};
 
-use crate::{types::InitArg, state::{COLLECTION, Collection}};
+use crate::{
+    state::{Collection, COLLECTION},
+    types::InitArg,
+};
 
 #[init]
 #[candid_method(init)]
-pub fn init(
-    arg: InitArg
-){
-    let authority = match arg.minting_authority{
+pub fn init(arg: InitArg) {
+    let authority = match arg.minting_authority {
         None => ic_cdk::caller(),
-        Some(auth) => auth
+        Some(auth) => auth,
     };
-    COLLECTION.with(|c|{
+    COLLECTION.with(|c| {
         let mut c = c.borrow_mut();
         let collection = Collection {
             name: arg.name,
@@ -46,7 +47,8 @@ fn pre_upgrade() {
     // Serialize the state.
     // This example is using CBOR, but you can use any data format you like.
     let mut state_bytes = vec![];
-    COLLECTION.with(|s| ciborium::ser::into_writer(&*s.borrow(), &mut state_bytes))
+    COLLECTION
+        .with(|s| ciborium::ser::into_writer(&*s.borrow(), &mut state_bytes))
         .expect("failed to encode state");
 
     // Write the length of the serialized bytes to memory, followed by the
@@ -74,7 +76,5 @@ fn post_upgrade() {
 
     // Deserialize and set the state.
     let state = ciborium::de::from_reader(&*state_bytes).expect("failed to decode state");
-    COLLECTION.with(|s| {
-        *s.borrow_mut() = state
-    });
+    COLLECTION.with(|s| *s.borrow_mut() = state);
 }

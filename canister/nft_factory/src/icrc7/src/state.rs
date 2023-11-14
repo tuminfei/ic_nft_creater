@@ -266,9 +266,9 @@ impl Collection {
     }
 
     pub fn mint(&mut self, caller: &Principal, token: Token) -> u128 {
-        // if *caller != self.minting_authority {
-        //     ic_cdk::trap("Unauthorized Caller")
-        // }
+        if *caller != self.minting_authority {
+            ic_cdk::trap("Unauthorized Caller")
+        }
         if let Some(ref cap) = self.supply_cap {
             if self.total_supply >= *cap {
                 ic_cdk::trap("Supply Cap Reached")
