@@ -1,5 +1,10 @@
 {
   "canisters": {
+    "icrc7": {
+      "type": "custom",
+      "candid": "src/icrc7/icrc7.did",
+      "wasm": "target/wasm32-unknown-unknown/release/icrc7.wasm.gz"
+    },
     "nft_factory_backend": {
       "candid": "src/nft_factory_backend/nft_factory_backend.did",
       "package": "nft_factory_backend",
