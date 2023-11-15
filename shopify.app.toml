@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "5d61dbdb607945556f5270399712c180"
-application_url = "https://nutrition-department-centres-fbi.trycloudflare.com"
+application_url = "https://proxy-memory-jerry-isle.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://nutrition-department-centres-fbi.trycloudflare.com/auth/callback",
-  "https://nutrition-department-centres-fbi.trycloudflare.com/auth/shopify/callback",
-  "https://nutrition-department-centres-fbi.trycloudflare.com/api/auth/callback",
-  "https://nutrition-department-centres-fbi.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://proxy-memory-jerry-isle.trycloudflare.com/auth/callback",
+  "https://proxy-memory-jerry-isle.trycloudflare.com/auth/shopify/callback",
+  "https://proxy-memory-jerry-isle.trycloudflare.com/api/auth/callback",
+  "https://proxy-memory-jerry-isle.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
