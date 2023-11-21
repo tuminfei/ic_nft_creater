@@ -6,4 +6,5 @@ pub mod errors;
 pub mod types;
 pub mod query_method;
 pub mod update_method;
+pub mod http;
 pub mod candid_file_generator;

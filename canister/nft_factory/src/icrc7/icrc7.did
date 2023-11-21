@@ -23,6 +23,17 @@ type CollectionMetadata = record {
   icrc7_image : opt text;
   icrc7_name : text;
 };
+type HttpRequest = record {
+  url : text;
+  method : text;
+  body : vec nat8;
+  headers : vec record { text; text };
+};
+type HttpResponse = record {
+  body : vec nat8;
+  headers : vec record { text; text };
+  status_code : nat16;
+};
 type InitArg = record {
   supply_cap : opt nat;
   tx_window : nat16;
@@ -69,6 +80,7 @@ type TransferError = variant {
   TooOld;
 };
 service : (InitArg) -> {
+  http_request : (HttpRequest) -> (HttpResponse) query;
   icrc7_approve : (ApprovalArgs) -> (Result);
   icrc7_balance_of : (Account) -> (nat) query;
   icrc7_collection_metadata : () -> (CollectionMetadata) query;

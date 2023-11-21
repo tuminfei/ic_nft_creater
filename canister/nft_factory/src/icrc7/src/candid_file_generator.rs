@@ -4,6 +4,7 @@ use ic_cdk_macros::query;
 use icrc_ledger_types::{
     icrc1::account::Account, icrc::generic_metadata_value::MetadataValue
 };
+use crate::http::{HttpRequest, HttpResponse};
 
 #[query(name = "__get_candid_interface_tmp_hack")]
 fn export_candid() -> String {
