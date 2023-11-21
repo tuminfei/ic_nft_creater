@@ -2,8 +2,12 @@
   "canisters": {
     "icrc7": {
       "type": "custom",
+      "build": [
+        "cargo build -p icrc7 --target wasm32-unknown-unknown --release",
+        "ic-wasm -o src/icrc7/wasm/icrc7.wasm target/wasm32-unknown-unknown/release/icrc7.wasm shrink"
+    ],
       "candid": "src/icrc7/icrc7.did",
-      "wasm": "target/wasm32-unknown-unknown/release/icrc7.wasm.gz"
+      "wasm": "src/icrc7/wasm/icrc7.wasm"
     },
     "nft_factory_backend": {
       "candid": "src/nft_factory_backend/nft_factory_backend.did",

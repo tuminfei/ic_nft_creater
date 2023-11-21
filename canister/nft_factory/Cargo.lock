@@ -45,6 +45,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "23ce669cd6c8588f79e15cf450314f9638f967fc5770ff1c7c1deb0925ea7cfa"
 
 [[package]]
+name = "base64"
+version = "0.21.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "35636a1494ede3b646cc98f74f8e62c773a38a659ebc777a2cf26b9b74171df9"
+
+[[package]]
 name = "beef"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -356,6 +362,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "factory"
+version = "0.1.0"
+dependencies = [
+ "candid 0.8.4",
+ "ic-cdk 0.9.2",
+ "ic-cdk-macros 0.6.10",
+ "icrc-ledger-types",
+ "serde",
+]
+
+[[package]]
 name = "fixedbitset"
 version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -587,6 +604,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "ic-certified-map"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "197524aecec47db0b6c0c9f8821aad47272c2bd762c7a0ffe9715eaca0364061"
+dependencies = [
+ "serde",
+ "serde_bytes",
+ "sha2",
+]
+
+[[package]]
 name = "ic-stable-structures"
 version = "0.5.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -622,15 +650,20 @@ dependencies = [
 name = "icrc7"
 version = "0.1.0"
 dependencies = [
+ "base64",
  "candid 0.8.4",
  "ciborium",
  "ic-cdk 0.9.2",
  "ic-cdk-macros 0.6.10",
+ "ic-certified-map",
  "ic-stable-structures",
  "icrc-ledger-types",
+ "percent-encoding",
  "serde",
  "serde_bytes",
+ "serde_cbor",
  "serde_derive",
+ "sha2",
 ]
 
 [[package]]
@@ -906,6 +939,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "de3145af08024dea9fa9914f381a17b8fc6034dfb00f3a84013f7ff43f29ed4c"
 
 [[package]]
+name = "percent-encoding"
+version = "2.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9b2a4787296e9989611394c33f193f676704af1686e70b8f8033ab5ba9a35a94"
+
+[[package]]
 name = "petgraph"
 version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1101,6 +1140,16 @@ version = "0.11.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ab33ec92f677585af6d88c65593ae2375adde54efdbf16d597f2cbc7a6d368ff"
 dependencies = [
+ "serde",
+]
+
+[[package]]
+name = "serde_cbor"
+version = "0.11.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2bef2ebfde456fb76bbcf9f59315333decc4fda0b2b44b420243c11e0f5ec1f5"
+dependencies = [
+ "half",
  "serde",
 ]
 
