@@ -76,7 +76,6 @@ fn http_request(/* req: HttpRequest */) /* -> HttpResponse */
                         }
                         None => {
                             println!("The value is None");
-                            // 可选：在这里可以处理Option为None的情况
                         }
                     }
                 } else {
