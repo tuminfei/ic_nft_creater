@@ -16,7 +16,7 @@
         "ic-wasm -o src/icrc7_with_assets/wasm/icrc7_with_assets.wasm target/wasm32-unknown-unknown/release/icrc7_with_assets.wasm shrink"
       ],
       "candid": "src/icrc7_with_assets/icrc7_with_assets.did",
-      "wasm": "src/icrc7_with_assets/wasm/icrc7_with_assets.wasm"
+      "wasm": "src/icrc7_with_assets/wasm/icrc7_with_assets.wasm.gz"
     },
     "nft_factory_backend": {
       "candid": "src/nft_factory_backend/nft_factory_backend.did",
