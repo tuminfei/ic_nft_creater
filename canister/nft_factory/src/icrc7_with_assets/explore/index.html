@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Assets</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.9/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js"></script>
+    <style>
+      /* CSS */
+    </style>
+    <!-- <link href="./index.css" rel="stylesheet" /> -->
+  </head>
+  <body>
+    <div id="app">
+      <div class="title">
+        <span class="current"
+          >当前目录: {{dir!== '/' ? showDir(dir) : '根目录'}}</span
+        >
+        <span class="size">{{showSize(current.size)}}</span>
+      </div>
+      <div class="list">
+        <div class="tips">
+          <div class="mime" :class="{'sort': sort === 'mime'}">
+            <span :class="{'current': sort === 'mime'}" @click="onSort('mime')">
+              类型
+            </span>
+            <div class="svg" v-if="sort === 'mime'">
+              <svg
+                v-if="order === 'desc'"
+                @click="(e) => {onOrder('asc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M199.36 572.768a31.904 31.904 0 0022.624-9.376l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248L538.752 201.376a32 32 0 00-45.28 0L176.704 518.144a31.968 31.968 0 0022.656 54.624zm339.424-115.392a32 32 0 00-45.28 0L176.736 774.144a31.968 31.968 0 1045.248 45.248l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248l-308.32-308.352z"
+                />
+              </svg>
+              <svg
+                v-if="order === 'asc'"
+                @click="(e) => {onOrder('desc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M493.504 558.144a31.904 31.904 0 0045.28 0l308.352-308.352a31.968 31.968 0 10-45.248-45.248L516.16 490.272 221.984 196.128a31.968 31.968 0 10-45.248 45.248l316.768 316.768zm308.384-97.568L516.16 746.304 222.016 452.16a31.968 31.968 0 10-45.248 45.248l316.768 316.768a31.904 31.904 0 0045.28 0l308.352-308.352a32 32 0 10-45.28-45.248z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="name" :class="{'sort': sort === 'name'}">
+            <span :class="{'current': sort === 'name'}" @click="onSort('name')">
+              名称
+            </span>
+            <div class="svg" v-if="sort === 'name'">
+              <svg
+                v-if="order === 'desc'"
+                @click="(e) => {onOrder('asc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M199.36 572.768a31.904 31.904 0 0022.624-9.376l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248L538.752 201.376a32 32 0 00-45.28 0L176.704 518.144a31.968 31.968 0 0022.656 54.624zm339.424-115.392a32 32 0 00-45.28 0L176.736 774.144a31.968 31.968 0 1045.248 45.248l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248l-308.32-308.352z"
+                />
+              </svg>
+              <svg
+                v-if="order === 'asc'"
+                @click="(e) => {onOrder('desc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M493.504 558.144a31.904 31.904 0 0045.28 0l308.352-308.352a31.968 31.968 0 10-45.248-45.248L516.16 490.272 221.984 196.128a31.968 31.968 0 10-45.248 45.248l316.768 316.768zm308.384-97.568L516.16 746.304 222.016 452.16a31.968 31.968 0 10-45.248 45.248l316.768 316.768a31.904 31.904 0 0045.28 0l308.352-308.352a32 32 0 10-45.28-45.248z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="size" :class="{'sort': sort === 'size'}">
+            <span :class="{'current': sort === 'size'}" @click="onSort('size')"
+              >大小</span
+            >
+            <div class="svg" v-if="sort === 'size'">
+              <svg
+                v-if="order === 'desc'"
+                @click="(e) => {onOrder('asc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M199.36 572.768a31.904 31.904 0 0022.624-9.376l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248L538.752 201.376a32 32 0 00-45.28 0L176.704 518.144a31.968 31.968 0 0022.656 54.624zm339.424-115.392a32 32 0 00-45.28 0L176.736 774.144a31.968 31.968 0 1045.248 45.248l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248l-308.32-308.352z"
+                />
+              </svg>
+              <svg
+                v-if="order === 'asc'"
+                @click="(e) => {onOrder('desc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M493.504 558.144a31.904 31.904 0 0045.28 0l308.352-308.352a31.968 31.968 0 10-45.248-45.248L516.16 490.272 221.984 196.128a31.968 31.968 0 10-45.248 45.248l316.768 316.768zm308.384-97.568L516.16 746.304 222.016 452.16a31.968 31.968 0 10-45.248 45.248l316.768 316.768a31.904 31.904 0 0045.28 0l308.352-308.352a32 32 0 10-45.28-45.248z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="created" :class="{'sort': sort === 'created'}">
+            <span
+              :class="{'current': sort === 'created'}"
+              @click="onSort('created')"
+              >创建时间</span
+            >
+            <div class="svg" v-if="sort === 'created'">
+              <svg
+                v-if="order === 'desc'"
+                @click="(e) => {onOrder('asc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M199.36 572.768a31.904 31.904 0 0022.624-9.376l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248L538.752 201.376a32 32 0 00-45.28 0L176.704 518.144a31.968 31.968 0 0022.656 54.624zm339.424-115.392a32 32 0 00-45.28 0L176.736 774.144a31.968 31.968 0 1045.248 45.248l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248l-308.32-308.352z"
+                />
+              </svg>
+              <svg
+                v-if="order === 'asc'"
+                @click="(e) => {onOrder('desc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M493.504 558.144a31.904 31.904 0 0045.28 0l308.352-308.352a31.968 31.968 0 10-45.248-45.248L516.16 490.272 221.984 196.128a31.968 31.968 0 10-45.248 45.248l316.768 316.768zm308.384-97.568L516.16 746.304 222.016 452.16a31.968 31.968 0 10-45.248 45.248l316.768 316.768a31.904 31.904 0 0045.28 0l308.352-308.352a32 32 0 10-45.28-45.248z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="modified" :class="{'sort': sort === 'modified'}">
+            <span
+              :class="{'current': sort === 'modified'}"
+              @click="onSort('modified')"
+              >修改时间</span
+            >
+            <div class="svg" v-if="sort === 'modified'">
+              <svg
+                v-if="order === 'desc'"
+                @click="(e) => {onOrder('asc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M199.36 572.768a31.904 31.904 0 0022.624-9.376l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248L538.752 201.376a32 32 0 00-45.28 0L176.704 518.144a31.968 31.968 0 0022.656 54.624zm339.424-115.392a32 32 0 00-45.28 0L176.736 774.144a31.968 31.968 0 1045.248 45.248l294.144-294.144 285.728 285.728a31.968 31.968 0 1045.248-45.248l-308.32-308.352z"
+                />
+              </svg>
+              <svg
+                v-if="order === 'asc'"
+                @click="(e) => {onOrder('desc'); e.stopPropagation()}"
+                width="200"
+                height="200"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill="#272636"
+                  d="M493.504 558.144a31.904 31.904 0 0045.28 0l308.352-308.352a31.968 31.968 0 10-45.248-45.248L516.16 490.272 221.984 196.128a31.968 31.968 0 10-45.248 45.248l316.768 316.768zm308.384-97.568L516.16 746.304 222.016 452.16a31.968 31.968 0 10-45.248 45.248l316.768 316.768a31.904 31.904 0 0045.28 0l308.352-308.352a32 32 0 10-45.28-45.248z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="action">操作</div>
+        </div>
+        <div class="item" v-if="dir !== '/'" @click="onUpper">
+          <div class="mime">
+            <div class="inner">
+              <svg
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+                width="200"
+                height="200"
+              >
+                <path
+                  d="M418.133 298.667L375.467 256H213.333v512h640V298.667h-435.2zm477.867 0v512H170.667V213.333H396.8L439.467 256H896v42.667zM597.333 640H768v42.667H597.333V640z"
+                  fill="#272636"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="name">{{'..'}}</div>
+          <div class="size"></div>
+          <div class="created"></div>
+          <div class="modified"></div>
+          <div class="action"></div>
+        </div>
+        <div
+          class="item"
+          v-for="item in list"
+          :key="item.name"
+          @click="onItem(item)"
+        >
+          <div class="mime">
+            <div class="inner">
+              <svg
+                v-if="!item.mime"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+                width="200"
+                height="200"
+              >
+                <path
+                  d="M418.133 298.667L375.467 256H213.333v512h640V298.667h-435.2zm477.867 0v512H170.667V213.333H396.8L439.467 256H896v42.667zM597.333 640H768v42.667H597.333V640z"
+                  fill="#272636"
+                />
+              </svg>
+              <!-- <svg
+              v-else-if="item.mime.startsWith('image')"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+              width="200"
+              height="200"
+            >
+              <path
+                d="M831.792 82.405H191.55c-60.677 0-110.043 49.364-110.043 110.042v640.246c0 60.678 49.365 110.042 110.043 110.042h640.244c60.678 0 110.043-49.364 110.043-110.042V192.447c-.001-60.678-49.366-110.042-110.044-110.042zM191.55 122.42h640.244c38.613 0 70.027 31.415 70.027 70.027v134.35c-144.76 4.954-280.061 63.592-382.865 166.397-48.28 48.28-86.814 103.732-114.628 163.962-80.589-68.745-197.639-73.052-282.804-12.939v-451.77c-.001-38.612 31.412-70.027 70.026-70.027zm-70.027 710.272V696.09c74.04-72.026 192.53-71.925 266.451.302-23.496 62.998-35.762 130.383-35.762 199.672 0 2.336.42 4.57 1.157 6.653h-161.82c-38.613 0-70.026-31.414-70.026-70.026zm710.27 70.027H391.07a19.934 19.934 0 001.157-6.653c0-141.581 55.055-274.608 155.024-374.578 95.245-95.245 220.5-149.72 354.57-154.655v465.86c0 38.611-31.415 70.026-70.028 70.026z"
+                fill="#272636"
+              />
+              <path
+                d="M349.471 477.533c75.048 0 136.103-61.055 136.103-136.102S424.52 205.328 349.471 205.328 213.37 266.384 213.37 341.431s61.055 136.102 136.102 136.102zm0-232.19c52.983 0 96.088 43.106 96.088 96.088 0 52.983-43.105 96.088-96.088 96.088-52.982 0-96.087-43.105-96.087-96.088 0-52.982 43.105-96.087 96.087-96.087z"
+                fill="#272636"
+              />
+            </svg> -->
+              <img v-else-if="item.mime.startsWith('image')" :src="item.path" />
+              <svg
+                v-else-if="item.mime.startsWith('video')"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+                width="200"
+                height="200"
+              >
+                <path
+                  d="M825.6 153.6H198.4C124.5 153.6 64 214.1 64 288v448c0 73.9 60.5 134.4 134.4 134.4h627.2c73.9 0 134.4-60.5 134.4-134.4V288c0-73.9-60.5-134.4-134.4-134.4zm-138.2 44.8l112 112H706l-112-112h93.4zm-156.8 0l112 112H526.7l-112-112h115.9zm-179.2 0l112 112H347.5l-112-112h115.9zM108.8 288c0-41.4 28.4-76.1 66.7-86.3l108.7 108.7H108.8V288zm806.4 448c0 49.4-40.2 89.6-89.6 89.6H198.4c-49.4 0-89.6-40.2-89.6-89.6V355.2h806.4V736zm0-425.6h-52.5l-112-112h74.9c49.4 0 89.6 40.2 89.6 89.6v22.4z"
+                  fill="#272636"
+                />
+                <path
+                  d="M454 687.2l149.3-77.6c27.5-13.8 27.5-53 0-66.8L468 472.2c-31.2-15.6-68 7.1-68 42v139.6c0 27.8 29.2 45.8 54 33.4zM444.8 512l134.4 67.2-134.4 67.2V512z"
+                  fill="#272636"
+                />
+              </svg>
+              <svg
+                v-else
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+                width="200"
+                height="200"
+              >
+                <path
+                  d="M888.495 313.883l-198.02-198.02c-7.992-7.992-20.957-7.992-28.95 0s-7.992 20.947 0 28.939L824.61 307.886H608.815v-265.2c0-11.307-9.159-20.466-20.466-20.466H180.254c-11.307 0-20.466 9.159-20.466 20.466v938.628c0 11.297 9.159 20.466 20.466 20.466h693.761c11.308 0 20.466-9.169 20.466-20.466V328.352a20.463 20.463 0 00-5.986-14.47zm-34.946 646.965H200.72V63.152h367.163v265.2c0 11.308 9.169 20.466 20.466 20.466h265.2v612.03z"
+                  fill="#272636"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="name">
+            {{!item.mime ? showDir(item.name) : item.name}}
+          </div>
+          <div class="size">{{showSize(item.size)}}</div>
+          <div class="created">{{showDate(item.created)}}</div>
+          <div class="modified">{{showDate(item.modified)}}</div>
+          <div class="action">
+            <div v-if="item.type==='file'" @click="(e) => e.stopPropagation()">
+              <a :href="item.path" target="_blank"> 预览 </a>
+              <div>{{' '}}</div>
+              <a :href="`${item.path}?attachment=`" target="_blank"> 下载 </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const { createApp, ref, computed } = Vue;
+      createApp({
+        setup() {
+          const _files = [];
+
+          // console.debug(JSON.stringify(_files));
+
+          const files = ref(
+            (() => {
+              let files = _files.map((file) => {
+                const path = file.path;
+                const size = file.size;
+                const headers = file.headers;
+                const created = file.created;
+                const modified = file.modified;
+                const hash = file.hash;
+
+                const dir = path.substring(0, path.lastIndexOf("/") + 1);
+                const name = path.replace(dir, "");
+                const mime = (() => {
+                  for (let i = 0; i < headers.length; i++) {
+                    if (headers[i].key.toLowerCase() === "content-type")
+                      return headers[i].value;
+                  }
+                  return "";
+                })();
+
+                return {
+                  type: "file",
+                  ...file,
+                  dir,
+                  name,
+                  mime,
+                };
+              });
+
+              console.debug("files remote", files);
+
+              const read_dir = (dir) => {
+                if (files.find((f) => f.path === dir)) return;
+                // 0. 处理子文件夹
+                const dirs = files.filter(
+                  (f) =>
+                    f.path.startsWith(dir) &&
+                    f.path.substring(dir.length).indexOf("/") > -1
+                );
+                // console.debug("files", dir, "dirs", dirs);
+                dirs.forEach((f) => {
+                  let name = f.path.substring(dir.length);
+                  const index = name.indexOf("/");
+                  name = name.substring(0, index + 1);
+                  //   console.debug("files", dir, "dirs ->", dir + name);
+                  read_dir(dir + name);
+                });
+                // 1. 找到该目录下的所有文件
+                const children = files.filter((f) => {
+                  if (!f.path.startsWith(dir)) return false;
+                  let name = f.path.substring(dir.length);
+                  const splitted = name.split("/");
+                  if (splitted.length > 2) return false;
+                  if (splitted.length === 2 && splitted[1]) return false;
+                  return true;
+                });
+                // console.debug("files", dir, "children", children);
+                // 2. 计算上级目录
+                const upper = (() => {
+                  if (dir === "/") return "";
+                  const removed = dir.substring(0, dir.lastIndexOf("/"));
+                  return removed.substring(0, removed.lastIndexOf("/") + 1);
+                })();
+
+                // 3. 加入列表
+                files.push({
+                  type: "dir",
+                  path: dir,
+                  size: children.map((f) => f.size).reduce((a, b) => a + b, 0),
+                  headers: [],
+                  created: children.length
+                    ? Math.min(...children.map((f) => f.created))
+                    : 0,
+                  modified: children.length
+                    ? Math.min(...children.map((f) => f.modified))
+                    : 0,
+                  hash: "",
+                  dir: upper,
+                  name: dir,
+                  mime: "",
+                });
+              };
+
+              read_dir("/");
+
+              return files;
+            })()
+          );
+
+          const wrapped_files = computed(() => {});
+
+          console.debug("files", files.value);
+
+          const dir = ref("/");
+          const sort = ref("name");
+          const order = ref("asc");
+
+          const current = computed(() =>
+            files.value.find((f) => f.name === dir.value)
+          );
+
+          const list = computed(() => {
+            const list = files.value.filter((f) => f.dir === dir.value);
+            const dirs = list.filter((d) => d.type === "dir");
+            const _files = list.filter((f) => f.type === "file");
+            const compare = (a, b) => {
+              switch (sort.value) {
+                case "mime":
+                  return a.mime.localeCompare(b.mime);
+                case "name":
+                  return a.name.localeCompare(b.name);
+                case "size":
+                  return a.size - b.size;
+                case "created":
+                  return a.created - b.created;
+                case "modified":
+                  return a.size - b.modified;
+              }
+              return 0;
+            };
+            dirs.sort(compare);
+            _files.sort(compare);
+            if (order.value === "desc") {
+              dirs.reverse();
+              _files.reverse();
+            }
+            return [...dirs, ..._files];
+          });
+
+          console.debug("list", dir.value, sort.value, order.value, list.value);
+
+          const onUpper = () => {
+            // console.debug("onUpper");
+            if (dir.value === "/") return;
+            let removed = dir.value.substring(0, dir.value.lastIndexOf("/"));
+            removed = removed.substring(0, removed.lastIndexOf("/") + 1);
+            dir.value = removed;
+          };
+
+          const onItem = (file) => {
+            // console.debug("onItem", file);
+            if (file.type !== "dir") return;
+            dir.value = file.path;
+          };
+
+          const showDir = (dir) => dir.substring(1, dir.length - 1);
+
+          const showSize = (size) => {
+            if (size === 0) return "Empty";
+            if (size < 1024) return `${size} B`;
+            if (size < 1024 * 1024) return `${(size / 1024).toFixed(2)} KB`;
+            if (size < 1024 * 1024 * 1024)
+              return `${(size / 1024 / 1024).toFixed(2)} MB`;
+            return `${(size / 1024 / 1024 / 1024).toFixed(2)} GB`;
+          };
+
+          const showDate = (timestamp) => {
+            const date = dayjs(timestamp);
+            return date.format("YYYY-MM-DD HH:mm:ss");
+          };
+
+          const onOrder = (o) => (order.value = o);
+          const onSort = (s) => (sort.value = s);
+
+          return {
+            dir,
+            sort,
+            order,
+            current,
+            list,
+            onUpper,
+            onItem,
+            showDir,
+            showSize,
+            showDate,
+            onOrder,
+            onSort,
+          };
+        },
+      }).mount("#app");
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

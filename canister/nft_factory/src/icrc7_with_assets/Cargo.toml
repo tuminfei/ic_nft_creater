@@ -1,0 +1,27 @@
+[package]
+name = "icrc7_with_assets"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+candid = "0.9.3"           # 不能升级, 因为 ic-cdk 依赖的是 0.8 版本的
+ic-cdk = "0.10.0"
+ciborium = "0.2.1"
+ic-cdk-macros = "0.6.0"
+ic-certified-map = "0.4.0"
+ic-stable-structures = "0.5.5"
+serde = { version = "1", features = ["derive"]}
+serde_derive = "1.0.166"
+icrc-ledger-types = "0.1.4"
+serde_bytes = "0.11.11"
+
+ic-canister-kit = { version = "0.2.0" }
+
+sha2 = "0.10.6"
+hex = "0.4.3"
+percent-encoding = "2.2.0"
+regex = "1.6.0"

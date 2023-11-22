@@ -135,10 +135,10 @@ dependencies = [
  "crc32fast",
  "data-encoding",
  "hex",
- "lalrpop",
- "lalrpop-util",
+ "lalrpop 0.19.12",
+ "lalrpop-util 0.19.12",
  "leb128",
- "logos",
+ "logos 0.12.1",
  "num-bigint",
  "num-traits",
  "num_enum 0.5.11",
@@ -161,10 +161,14 @@ dependencies = [
  "byteorder",
  "candid_derive 0.6.4",
  "codespan-reporting",
+ "convert_case",
  "crc32fast",
  "data-encoding",
  "hex",
+ "lalrpop 0.20.0",
+ "lalrpop-util 0.20.0",
  "leb128",
+ "logos 0.13.0",
  "num-bigint",
  "num-traits",
  "num_enum 0.6.1",
@@ -251,6 +255,15 @@ checksum = "3538270d33cc669650c4b093848450d380def10c331d38c768e34cac80576e6e"
 dependencies = [
  "termcolor",
  "unicode-width",
+]
+
+[[package]]
+name = "convert_case"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ec182b0ca2f35d8fc196cf3404988fd8b8c739a4d270ff118a398feb0cbec1ca"
+dependencies = [
+ "unicode-segmentation",
 ]
 
 [[package]]
@@ -368,7 +381,7 @@ dependencies = [
  "candid 0.8.4",
  "ic-cdk 0.9.2",
  "ic-cdk-macros 0.6.10",
- "icrc-ledger-types",
+ "icrc-ledger-types 0.1.0",
  "serde",
 ]
 
@@ -520,6 +533,23 @@ checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
 name = "ic-canister-kit"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d6d628cbb2252f78d2e3e5a5e1da548e0945a102c0e17bd7be962fd441812075"
+dependencies = [
+ "base32",
+ "candid 0.9.11",
+ "crc32fast",
+ "hex",
+ "ic-cdk 0.10.0",
+ "ic-cdk-timers 0.4.0",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
+name = "ic-canister-kit"
 version = "0.3.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7a3df1b89a38f4a03224462a416f14ec5bd67e4f375aa6e75d127d1ff70643c1"
@@ -529,7 +559,7 @@ dependencies = [
  "crc32fast",
  "hex",
  "ic-cdk 0.11.3",
- "ic-cdk-timers",
+ "ic-cdk-timers 0.5.1",
  "serde",
  "serde_json",
  "sha2",
@@ -543,6 +573,19 @@ checksum = "ff1375116689aeeffdc6e96ec8ed1953671aee1dcd01016ab86e0606e93bec94"
 dependencies = [
  "candid 0.8.4",
  "ic-cdk-macros 0.6.10",
+ "ic0 0.18.11",
+ "serde",
+ "serde_bytes",
+]
+
+[[package]]
+name = "ic-cdk"
+version = "0.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08d4c0b932bf454d5d60e61e13c3c944972fcfd74dc82b9ed5c8b0a75979cf50"
+dependencies = [
+ "candid 0.9.11",
+ "ic-cdk-macros 0.7.1",
  "ic0 0.18.11",
  "serde",
  "serde_bytes",
@@ -577,6 +620,20 @@ dependencies = [
 
 [[package]]
 name = "ic-cdk-macros"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "411c0dd4c149132b68e679274d397053332ee29996c6a541075895881916333b"
+dependencies = [
+ "candid 0.9.11",
+ "proc-macro2",
+ "quote",
+ "serde",
+ "serde_tokenstream",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "ic-cdk-macros"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b6295fd7389c198a97dd99b28b846e18487d99303077102d817eebbf6a924cd"
@@ -587,6 +644,20 @@ dependencies = [
  "serde",
  "serde_tokenstream",
  "syn 1.0.109",
+]
+
+[[package]]
+name = "ic-cdk-timers"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "198e55e4d9e069903fbea1dceae6fd28f7e0b38d5a4e1026ed2c772e1d55f5e0"
+dependencies = [
+ "futures",
+ "ic-cdk 0.10.0",
+ "ic0 0.18.11",
+ "serde",
+ "serde_bytes",
+ "slotmap",
 ]
 
 [[package]]
@@ -647,6 +718,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "icrc-ledger-types"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dafdc6d688022822cda32f534ea13bb0b72b5f1a82235fbb4bc24250b1d8418b"
+dependencies = [
+ "base32",
+ "candid 0.9.11",
+ "crc32fast",
+ "hex",
+ "num-bigint",
+ "num-traits",
+ "serde",
+ "serde_bytes",
+ "sha2",
+]
+
+[[package]]
 name = "icrc7"
 version = "0.1.0"
 dependencies = [
@@ -657,11 +745,32 @@ dependencies = [
  "ic-cdk-macros 0.6.10",
  "ic-certified-map",
  "ic-stable-structures",
- "icrc-ledger-types",
+ "icrc-ledger-types 0.1.0",
  "percent-encoding",
  "serde",
  "serde_bytes",
  "serde_cbor",
+ "serde_derive",
+ "sha2",
+]
+
+[[package]]
+name = "icrc7_with_assets"
+version = "0.1.0"
+dependencies = [
+ "candid 0.9.11",
+ "ciborium",
+ "hex",
+ "ic-canister-kit 0.2.0",
+ "ic-cdk 0.10.0",
+ "ic-cdk-macros 0.6.10",
+ "ic-certified-map",
+ "ic-stable-structures",
+ "icrc-ledger-types 0.1.4",
+ "percent-encoding",
+ "regex",
+ "serde",
+ "serde_bytes",
  "serde_derive",
  "sha2",
 ]
@@ -714,10 +823,33 @@ dependencies = [
  "ena",
  "is-terminal",
  "itertools",
- "lalrpop-util",
+ "lalrpop-util 0.19.12",
  "petgraph",
  "regex",
  "regex-syntax 0.6.29",
+ "string_cache",
+ "term",
+ "tiny-keccak",
+ "unicode-xid",
+]
+
+[[package]]
+name = "lalrpop"
+version = "0.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "da4081d44f4611b66c6dd725e6de3169f9f63905421e8626fcb86b6a898998b8"
+dependencies = [
+ "ascii-canvas",
+ "bit-set",
+ "diff",
+ "ena",
+ "is-terminal",
+ "itertools",
+ "lalrpop-util 0.20.0",
+ "petgraph",
+ "pico-args",
+ "regex",
+ "regex-syntax 0.7.5",
  "string_cache",
  "term",
  "tiny-keccak",
@@ -729,6 +861,15 @@ name = "lalrpop-util"
 version = "0.19.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3c48237b9604c5a4702de6b824e02006c3214327564636aef27c1028a8fa0ed"
+dependencies = [
+ "regex",
+]
+
+[[package]]
+name = "lalrpop-util"
+version = "0.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3f35c735096c0293d313e8f2a641627472b83d01b937177fe76e5e2708d31e0d"
 dependencies = [
  "regex",
 ]
@@ -790,7 +931,30 @@ version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf8b031682c67a8e3d5446840f9573eb7fe26efe7ec8d195c9ac4c0647c502f1"
 dependencies = [
- "logos-derive",
+ "logos-derive 0.12.1",
+]
+
+[[package]]
+name = "logos"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c000ca4d908ff18ac99b93a062cb8958d331c3220719c52e77cb19cc6ac5d2c1"
+dependencies = [
+ "logos-derive 0.13.0",
+]
+
+[[package]]
+name = "logos-codegen"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dc487311295e0002e452025d6b580b77bb17286de87b57138f3b5db711cded68"
+dependencies = [
+ "beef",
+ "fnv",
+ "proc-macro2",
+ "quote",
+ "regex-syntax 0.6.29",
+ "syn 2.0.39",
 ]
 
 [[package]]
@@ -805,6 +969,15 @@ dependencies = [
  "quote",
  "regex-syntax 0.6.29",
  "syn 1.0.109",
+]
+
+[[package]]
+name = "logos-derive"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dbfc0d229f1f42d790440136d941afd806bc9e949e2bcb8faa813b0f00d1267e"
+dependencies = [
+ "logos-codegen",
 ]
 
 [[package]]
@@ -824,7 +997,7 @@ name = "nft_factory_backend"
 version = "0.1.0"
 dependencies = [
  "candid 0.9.11",
- "ic-canister-kit",
+ "ic-canister-kit 0.3.18",
  "ic-cdk 0.11.3",
  "serde",
  "serde_json",
@@ -964,6 +1137,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "pico-args"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5be167a7af36ee22fe3115051bc51f6e6c7054c9348e28deb4f49bd6f705a315"
+
+[[package]]
 name = "pin-project-lite"
 version = "0.2.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1087,6 +1266,12 @@ name = "regex-syntax"
 version = "0.6.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f162c6dd7b008981e4d40210aca20b4bd0f9b60ca9271061b07f78537722f2e1"
+
+[[package]]
+name = "regex-syntax"
+version = "0.7.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dbb5fb1acd8a1a18b3dd5be62d25485eb770e05afb408a9627d14d451bae12da"
 
 [[package]]
 name = "regex-syntax"
@@ -1358,6 +1543,12 @@ name = "unicode-ident"
 version = "1.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b"
+
+[[package]]
+name = "unicode-segmentation"
+version = "1.10.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1dd624098567895118886609431a7c3b8f516e41d30e0643f03d94592a147e36"
 
 [[package]]
 name = "unicode-width"

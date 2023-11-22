@@ -5,9 +5,18 @@
       "build": [
         "cargo build -p icrc7 --target wasm32-unknown-unknown --release",
         "ic-wasm -o src/icrc7/wasm/icrc7.wasm target/wasm32-unknown-unknown/release/icrc7.wasm shrink"
-    ],
+      ],
       "candid": "src/icrc7/icrc7.did",
       "wasm": "src/icrc7/wasm/icrc7.wasm"
+    },
+    "icrc7_with_assets": {
+      "type": "custom",
+      "build": [
+        "cargo build -p icrc7_with_assets --target wasm32-unknown-unknown --release",
+        "ic-wasm -o src/icrc7_with_assets/wasm/icrc7_with_assets.wasm target/wasm32-unknown-unknown/release/icrc7_with_assets.wasm shrink"
+      ],
+      "candid": "src/icrc7_with_assets/icrc7_with_assets.did",
+      "wasm": "src/icrc7_with_assets/wasm/icrc7_with_assets.wasm"
     },
     "nft_factory_backend": {
       "candid": "src/nft_factory_backend/nft_factory_backend.did",

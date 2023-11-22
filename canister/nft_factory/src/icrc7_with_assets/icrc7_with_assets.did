@@ -1,0 +1,149 @@
+type Account = record { owner : principal; subaccount : opt vec nat8 };
+type ApprovalArgs = record {
+  memo : opt vec nat8;
+  from_subaccount : opt vec nat8;
+  token_ids : opt vec nat;
+  created_at_time : opt nat64;
+  expires_at : opt nat64;
+  spender : Account;
+};
+type ApprovalError = variant {
+  GenericError : record { msg : text; error_code : nat };
+  TemporaryUnavailable;
+  Unauthorized : record { tokens_ids : vec nat };
+  TooOld;
+};
+type CollectionMetadata = record {
+  icrc7_supply_cap : opt nat;
+  icrc7_description : opt text;
+  icrc7_total_supply : nat;
+  icrc7_royalty_recipient : opt Account;
+  icrc7_royalties : opt nat16;
+  icrc7_symbol : text;
+  icrc7_image : opt text;
+  icrc7_name : text;
+};
+type CustomHttpRequest = record {
+  url : text;
+  method : text;
+  body : vec nat8;
+  headers : vec record { text; text };
+};
+type CustomHttpResponse = record {
+  body : vec nat8;
+  headers : vec record { text; text };
+  streaming_strategy : opt StreamingStrategy;
+  status_code : nat16;
+};
+type InitArg = record {
+  supply_cap : opt nat;
+  tx_window : nat16;
+  permitted_drift : nat16;
+  name : text;
+  description : opt text;
+  minting_authority : opt principal;
+  royalties : opt nat16;
+  image : opt text;
+  royalties_recipient : opt Account;
+  symbol : text;
+};
+type MaintainingReason = record { created : nat64; message : text };
+type MetadataValue = variant {
+  Int : int;
+  Nat : nat;
+  Blob : vec nat8;
+  Text : text;
+};
+type MintArgs = record {
+  id : nat;
+  to : Account;
+  name : text;
+  description : opt text;
+  image : opt vec nat8;
+};
+type QueryFile = record {
+  created : nat64;
+  modified : nat64;
+  hash : text;
+  path : text;
+  size : nat64;
+  headers : vec record { text; text };
+};
+type Result = variant { Ok : nat; Err : ApprovalError };
+type Result_1 = variant { Ok : nat; Err : TransferError };
+type Standard = record { url : text; name : text };
+type StreamingCallbackHttpResponse = record {
+  token : opt StreamingCallbackToken;
+  body : vec nat8;
+};
+type StreamingCallbackToken = record {
+  end : nat64;
+  path : text;
+  headers : vec record { text; text };
+  start : nat64;
+  params : text;
+};
+type StreamingStrategy = variant {
+  Callback : record {
+    token : StreamingCallbackToken;
+    callback : func (StreamingCallbackToken) -> (
+        StreamingCallbackHttpResponse,
+      ) query;
+  };
+};
+type TransferArgs = record {
+  to : Account;
+  spender_subaccount : opt vec nat8;
+  from : Account;
+  memo : opt vec nat8;
+  is_atomic : opt bool;
+  token_ids : vec nat;
+  created_at_time : opt nat64;
+};
+type TransferError = variant {
+  GenericError : record { msg : text; error_code : nat };
+  TemporaryUnavailable;
+  Duplicate : record { duplicate_of : nat };
+  Unauthorized : record { tokens_ids : vec nat };
+  CreatedInFuture : record { ledger_time : nat64 };
+  TooOld;
+};
+type UploadingArg = record {
+  chunk : vec nat8;
+  path : text;
+  size : nat64;
+  headers : vec record { text; text };
+  index : nat32;
+  chunk_size : nat64;
+};
+service : (InitArg) -> {
+  assets_delete : (vec text) -> ();
+  assets_download : (text) -> (vec nat8) query;
+  assets_download_by : (text, nat64, nat64) -> (vec nat8) query;
+  assets_files : () -> (vec QueryFile) query;
+  assets_upload : (vec UploadingArg) -> ();
+  http_request : (CustomHttpRequest) -> (CustomHttpResponse) query;
+  icrc7_approve : (ApprovalArgs) -> (Result);
+  icrc7_balance_of : (Account) -> (nat) query;
+  icrc7_collection_metadata : () -> (CollectionMetadata) query;
+  icrc7_description : () -> (opt text) query;
+  icrc7_image : () -> (opt text) query;
+  icrc7_metadata : (nat) -> (vec record { text; MetadataValue }) query;
+  icrc7_mint : (MintArgs) -> (nat);
+  icrc7_name : () -> (text) query;
+  icrc7_owner_of : (nat) -> (Account) query;
+  icrc7_royalties : () -> (opt nat16) query;
+  icrc7_royalty_recipient : () -> (opt Account) query;
+  icrc7_supply_cap : () -> (opt nat) query;
+  icrc7_supported_standards : () -> (vec Standard) query;
+  icrc7_symbol : () -> (text) query;
+  icrc7_tokens_of : (Account) -> (vec nat) query;
+  icrc7_total_supply : () -> (nat) query;
+  icrc7_transfer : (TransferArgs) -> (Result_1);
+  maintainable_is_maintaining : () -> (bool) query;
+  maintainable_set_maintaining : (opt MaintainingReason) -> ();
+  permission_get_admins : () -> (vec principal) query;
+  permission_is_admin : (principal) -> (bool) query;
+  permission_remove_admin : (principal) -> ();
+  permission_set_admin : (principal) -> ();
+}

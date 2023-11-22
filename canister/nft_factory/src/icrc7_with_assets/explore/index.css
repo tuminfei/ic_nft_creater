@@ -1,0 +1,180 @@
+#app {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+#app>div {
+  width: 100%;
+}
+
+.title {
+  background-color: rgb(123, 217, 236);
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title>.current {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.title>.size {
+  font-size: 18px;
+}
+
+.title>.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.list {
+  margin-top: 10px;
+}
+
+.list>div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list>div .mime {
+  width: 80px;
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list>div .mime>.inner {
+  width: 30px;
+  height: 30px;
+}
+
+.list>div .mime>.inner>svg {
+  width: 100%;
+  height: 100%;
+}
+
+.list>div .mime>.inner>img {
+  width: 100%;
+  height: 100%;
+}
+
+.list>div .name {
+  min-width: 300px;
+  height: 30px;
+  font-size: 18px;
+  opacity: .9;
+  flex-shrink: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.list>div .size {
+  width: 90px;
+  height: 30px;
+  font-size: 18px;
+  opacity: .9;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list>div .created {
+  width: 190px;
+  height: 30px;
+  font-size: 18px;
+  opacity: .9;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list>div .modified {
+  width: 190px;
+  height: 30px;
+  font-size: 18px;
+  opacity: .9;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list>div .action {
+  width: 90px;
+  height: 30px;
+  font-size: 18px;
+  opacity: .9;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.list>div .action>div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+.list>div .action>div>div {
+  width: 5px;
+}
+
+.list>.tips {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.list>.tips>div>span {
+  cursor: pointer;
+  user-select: none;
+}
+
+.list>.tips>div>span.current {
+  cursor: default;
+}
+
+.list>.tips .svg {
+  margin-left: 10px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+.list>.tips .svg svg {
+  width: 100%;
+  height: 100%;
+}
+
+.list>.item {
+  font-size: 20px;
+  height: 50px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.list>.item:last-child {
+  border-bottom: none;
+}
+
+.list>.item:hover {
+  background-color: aliceblue;
+  cursor: pointer;
+}
