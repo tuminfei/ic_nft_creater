@@ -8,10 +8,10 @@ use ic_cdk::api::management_canister::main::{
 
 const WASM: &[u8] = std::include_bytes!("./../../icrc7_with_assets/wasm/icrc7_with_assets.wasm.gz");
 
-pub async fn get_an_address(caller: &Principal) -> Principal {
+pub async fn get_an_address(caller: &Principal, owner: &Principal) -> Principal {
     ic_cdk::println!("{}", caller.clone());
     let canister_setting = CanisterSettings {
-        controllers: Some(vec![caller.clone(), ic_cdk::id()]),
+        controllers: Some(vec![caller.clone(), owner.clone(), ic_cdk::id()]),
         compute_allocation: Some(Nat::from(0_u64)),
         memory_allocation: Some(Nat::from(0_u64)),
         freezing_threshold: Some(Nat::from(0_u64)),
@@ -64,10 +64,11 @@ pub async fn create_icrc7_collection(arg: CreateArg) -> Principal {
     must_be_running();
 
     let caller = ic_cdk::caller();
+    let owner = arg.owner.clone();
     let arg = InitArg::from((caller, arg));
     let nft_name = arg.name.clone();
     let nft_symbol = arg.symbol.clone();
-    let address = get_an_address(&caller).await;
+    let address = get_an_address(&caller, &owner).await;
     if address == Principal::anonymous() {
         ic_cdk::trap("Failed to get an address")
     }
@@ -84,7 +85,7 @@ pub async fn create_icrc7_collection(arg: CreateArg) -> Principal {
         id: record_id,
         name: nft_name,
         symbol: nft_symbol,
-        owner: caller,
+        owner: owner,
         proxy: caller,
         canister_id: result,
         created_at: ic_cdk::api::time(),

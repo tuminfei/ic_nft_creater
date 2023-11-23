@@ -79,6 +79,7 @@ pub struct CreateArg {
     pub description: Option<String>,
     pub image: Option<Vec<u8>>,
     pub supply_cap: Option<u128>,
+    pub owner: Principal,
 }
 
 impl From<(Principal, CreateArg)> for InitArg{

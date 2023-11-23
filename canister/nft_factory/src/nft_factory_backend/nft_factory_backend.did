@@ -1,4 +1,13 @@
 type Account = record { owner : principal; subaccount : opt vec nat8 };
+type CanisterData = record {
+  id : nat64;
+  owner : principal;
+  name : text;
+  canister_id : principal;
+  created_at : nat64;
+  proxy : principal;
+  symbol : text;
+};
 type CanisterStatusResponse = record {
   status : CanisterStatusType;
   memory_size : nat;
@@ -10,6 +19,7 @@ type CanisterStatusResponse = record {
 type CanisterStatusType = variant { stopped; stopping; running };
 type CreateArg = record {
   supply_cap : opt nat;
+  owner : principal;
   name : text;
   description : opt text;
   royalties : opt nat16;
@@ -29,6 +39,8 @@ service : () -> {
   __get_candid_interface_tmp_hack : () -> (text) query;
   canister_status : () -> (CanisterStatusResponse);
   create_icrc7_collection : (CreateArg) -> (principal);
+  factory_canister_info : (nat64) -> (opt CanisterData) query;
+  factory_canister_list : () -> (vec CanisterData) query;
   maintainable_is_maintaining : () -> (bool) query;
   maintainable_set_maintaining : (opt MaintainingReason) -> ();
   permission_get_admins : () -> (vec principal) query;
