@@ -1,16 +1,19 @@
 use std::cell::{RefCell, RefMut};
 
+use crate::types::{StableCanisters, StableCanistersState};
 use ic_canister_kit::{
     identity::caller,
     types::{Initial, Maintainable, MaintainableState, Permissions, PermissionsState, Stable},
 };
 
-pub const PERMISSION_ADMIN: &str = "admin"; // 所有权限
+pub const PERMISSION_ADMIN: &str = "admin";
 
 #[derive(Debug, Default)]
 pub struct State {
     pub permissions: Permissions,
     pub maintainable: Maintainable,
+    pub next_canister_id: u64,
+    pub canisters: StableCanisters,
 }
 
 impl Initial for State {
@@ -22,6 +25,8 @@ impl Initial for State {
 type RestoreState = (
     PermissionsState,
     MaintainableState,
+    u64,
+    StableCanistersState,
 );
 type StoreState = RestoreState;
 
@@ -30,6 +35,8 @@ impl Stable<StoreState, RestoreState> for State {
         (
             self.permissions.store(),
             self.maintainable.store(),
+            self.next_canister_id,
+            self.canisters.store(),
         )
     }
 
@@ -39,11 +46,9 @@ impl Stable<StoreState, RestoreState> for State {
     }
 }
 
-
 thread_local! {
     static STATE: RefCell<State> = RefCell::default();
 }
-
 
 #[ic_cdk::post_upgrade]
 fn post_upgrade() {
