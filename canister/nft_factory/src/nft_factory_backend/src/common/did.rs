@@ -1,3 +1,5 @@
+use candid::Principal;
+
 #[candid::candid_method(query, rename = "__get_candid_interface_tmp_hack")]
 fn __export_candid() -> String {
     todo!()
