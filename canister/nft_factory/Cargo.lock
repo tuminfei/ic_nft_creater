@@ -542,24 +542,7 @@ dependencies = [
  "crc32fast",
  "hex",
  "ic-cdk 0.10.0",
- "ic-cdk-timers 0.4.0",
- "serde",
- "serde_json",
- "sha2",
-]
-
-[[package]]
-name = "ic-canister-kit"
-version = "0.3.18"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7a3df1b89a38f4a03224462a416f14ec5bd67e4f375aa6e75d127d1ff70643c1"
-dependencies = [
- "base32",
- "candid 0.9.11",
- "crc32fast",
- "hex",
- "ic-cdk 0.11.3",
- "ic-cdk-timers 0.5.1",
+ "ic-cdk-timers",
  "serde",
  "serde_json",
  "sha2",
@@ -661,20 +644,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ic-cdk-timers"
-version = "0.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "96fa62243d3a412ceae88d6ad213614769e8b0bbcaeb98abb2e7985074257356"
-dependencies = [
- "futures",
- "ic-cdk 0.11.3",
- "ic0 0.21.1",
- "serde",
- "serde_bytes",
- "slotmap",
-]
-
-[[package]]
 name = "ic-certified-map"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -761,7 +730,7 @@ dependencies = [
  "candid 0.9.11",
  "ciborium",
  "hex",
- "ic-canister-kit 0.2.0",
+ "ic-canister-kit",
  "ic-cdk 0.10.0",
  "ic-cdk-macros 0.6.10",
  "ic-certified-map",
@@ -997,7 +966,7 @@ name = "nft_factory_backend"
 version = "0.1.0"
 dependencies = [
  "candid 0.9.11",
- "ic-canister-kit 0.3.18",
+ "ic-canister-kit",
  "ic-cdk 0.11.3",
  "serde",
  "serde_json",

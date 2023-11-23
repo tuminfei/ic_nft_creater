@@ -8,7 +8,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-candid = "0.9.3"           # 不能升级, 因为 ic-cdk 依赖的是 0.8 版本的
+candid = "0.9.3"
 ic-cdk = "0.10.0"
 ciborium = "0.2.1"
 ic-cdk-macros = "0.6.0"
