@@ -1,5 +1,5 @@
-use crate::stable::{is_admin, must_be_running};
-use crate::types::{CreateArg, InitArg};
+use crate::stable::{is_admin, must_be_running, STATE};
+use crate::types::{CanisterData, CreateArg, InitArg};
 use candid::{Encode, Nat, Principal};
 use ic_cdk::api::management_canister::main::{
     CanisterIdRecord, CanisterInstallMode, CanisterSettings, CreateCanisterArgument,
@@ -65,13 +65,35 @@ pub async fn create_icrc7_collection(arg: CreateArg) -> Principal {
 
     let caller = ic_cdk::caller();
     let arg = InitArg::from((caller, arg));
+    let nft_name = arg.name.clone();
+    let nft_symbol = arg.symbol.clone();
     let address = get_an_address(&caller).await;
     if address == Principal::anonymous() {
         ic_cdk::trap("Failed to get an address")
     }
     let arg = Encode!(&arg).unwrap();
-    match install_wasm(WASM.to_vec(), address, arg).await {
+
+    let result = match install_wasm(WASM.to_vec(), address, arg).await {
         true => address,
         false => ic_cdk::trap("Failed to install code"),
-    }
+    };
+
+    let record_id: u64 = STATE.with(|state| state.borrow().next_canister_id);
+    let next_record_id = record_id + 1;
+    let canister_info: CanisterData = CanisterData {
+        id: record_id,
+        name: nft_name,
+        symbol: nft_symbol,
+        owner: caller,
+        proxy: caller,
+        canister_id: result,
+        created_at: ic_cdk::api::time(),
+    };
+
+    STATE.with(|state| state.borrow_mut().next_canister_id = next_record_id);
+    STATE.with(|_state| {
+        let mut state = _state.borrow_mut();
+        state.canisters.canisters.insert(record_id, canister_info);
+    });
+    return result;
 }

@@ -47,7 +47,7 @@ impl Stable<StoreState, RestoreState> for State {
 }
 
 thread_local! {
-    static STATE: RefCell<State> = RefCell::default();
+    pub static STATE: RefCell<State> = RefCell::default();
 }
 
 #[ic_cdk::post_upgrade]
