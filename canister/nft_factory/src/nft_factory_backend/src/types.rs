@@ -59,7 +59,7 @@ impl Stable<StableCanistersState, StableCanistersState> for StableCanisters {
 }
 
 #[derive(CandidType)]
-pub struct InitArg{
+pub struct InitArg {
     pub name: String,
     pub symbol: String,
     pub minting_authority: Option<Principal>,
@@ -68,6 +68,8 @@ pub struct InitArg{
     pub description: Option<String>,
     pub image: Option<Vec<u8>>,
     pub supply_cap: Option<u128>,
+    pub tx_window: u16,
+    pub permitted_drift: u16,
 }
 
 #[derive(CandidType, Deserialize)]
@@ -79,11 +81,24 @@ pub struct CreateArg {
     pub description: Option<String>,
     pub image: Option<Vec<u8>>,
     pub supply_cap: Option<u128>,
+    pub tx_window: u16,
+    pub permitted_drift: u16,
     pub owner: Principal,
 }
 
-impl From<(Principal, CreateArg)> for InitArg{
+impl From<(Principal, CreateArg)> for InitArg {
     fn from((minting_authority, arg): (Principal, CreateArg)) -> Self {
-        InitArg { name: arg.name, symbol: arg.symbol, minting_authority: Some(minting_authority), royalties: arg.royalties, royalties_recipient: arg.royalties_recipient, description: arg.description, image: arg.image, supply_cap: arg.supply_cap }
+        InitArg {
+            name: arg.name,
+            symbol: arg.symbol,
+            minting_authority: Some(minting_authority),
+            royalties: arg.royalties,
+            royalties_recipient: arg.royalties_recipient,
+            description: arg.description,
+            image: arg.image,
+            supply_cap: arg.supply_cap,
+            tx_window: arg.tx_window,
+            permitted_drift: arg.permitted_drift,
+        }
     }
 }

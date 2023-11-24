@@ -65,9 +65,9 @@ pub async fn create_icrc7_collection(arg: CreateArg) -> Principal {
 
     let caller = ic_cdk::caller();
     let owner = arg.owner.clone();
-    let arg = InitArg::from((caller, arg));
     let nft_name = arg.name.clone();
     let nft_symbol = arg.symbol.clone();
+    let arg = InitArg::from((caller, arg));
     let address = get_an_address(&caller, &owner).await;
     if address == Principal::anonymous() {
         ic_cdk::trap("Failed to get an address")
