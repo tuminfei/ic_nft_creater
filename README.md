@@ -1,6 +1,6 @@
 # IC NFT Creator
 
-![Image text](https://raw.githubusercontent.com/tuminfei/ic_nft_creator/master/public/logo.png)
+![Image text](https://raw.githubusercontent.com/tuminfei/ic_nft_creater/master/public/logo.png)
 
 Easily design NFTs on IC network and sell them on Shopify just like regular products. It's so much fun to send NFTs to your customers' emails!
 
