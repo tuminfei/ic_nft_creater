@@ -19,7 +19,9 @@ type CanisterStatusResponse = record {
 type CanisterStatusType = variant { stopped; stopping; running };
 type CreateArg = record {
   supply_cap : opt nat;
+  tx_window : nat16;
   owner : principal;
+  permitted_drift : nat16;
   name : text;
   description : opt text;
   royalties : opt nat16;
