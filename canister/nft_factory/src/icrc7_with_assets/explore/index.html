@@ -13,23 +13,142 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.9/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js"></script>
     <style>
-      /* CSS */
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      #app {
+        max-width: 1200px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+
+      .title {
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .tips {
+        display: flex;
+        align-items: center;
+        background-color: #eee;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+
+      .mime,
+      .name,
+      .size,
+      .created,
+      .modified,
+      .action {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .mime svg,
+      .name svg,
+      .size svg,
+      .created svg,
+      .modified svg,
+      .action svg {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+      }
+
+      .mime span,
+      .name span,
+      .size span,
+      .created span,
+      .modified span,
+      .action span {
+        cursor: pointer;
+      }
+
+      .mime.sort,
+      .name.sort,
+      .size.sort,
+      .created.sort,
+      .modified.sort,
+      .action.sort {
+        background-color: #ddd;
+      }
+
+      .mime.current,
+      .name.current,
+      .size.current,
+      .created.current,
+      .modified.current,
+      .action.current {
+        font-weight: bold;
+        color: #007bff;
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .item:hover {
+        background-color: #f0f0f0;
+      }
+
+      .item div {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .item .mime img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+
+      .item .action a {
+        text-decoration: none;
+        color: #007bff;
+        margin-right: 5px;
+      }
+
+      .item .action a:hover {
+        text-decoration: underline;
+      }
     </style>
     <!-- <link href="./index.css" rel="stylesheet" /> -->
   </head>
   <body>
     <div id="app">
       <div class="title">
-        <span class="current"
-          >当前目录: {{dir!== '/' ? showDir(dir) : '根目录'}}</span
-        >
+        <span class="current">Current Dir: {{dir!== '/' ? showDir(dir) : 'Root'}}</span>
         <span class="size">{{showSize(current.size)}}</span>
       </div>
       <div class="list">
         <div class="tips">
           <div class="mime" :class="{'sort': sort === 'mime'}">
             <span :class="{'current': sort === 'mime'}" @click="onSort('mime')">
-              类型
+              Type
             </span>
             <div class="svg" v-if="sort === 'mime'">
               <svg
@@ -62,7 +181,7 @@
           </div>
           <div class="name" :class="{'sort': sort === 'name'}">
             <span :class="{'current': sort === 'name'}" @click="onSort('name')">
-              名称
+              Name
             </span>
             <div class="svg" v-if="sort === 'name'">
               <svg
@@ -95,7 +214,7 @@
           </div>
           <div class="size" :class="{'sort': sort === 'size'}">
             <span :class="{'current': sort === 'size'}" @click="onSort('size')"
-              >大小</span
+              >Size</span
             >
             <div class="svg" v-if="sort === 'size'">
               <svg
@@ -130,7 +249,7 @@
             <span
               :class="{'current': sort === 'created'}"
               @click="onSort('created')"
-              >创建时间</span
+              >Created At</span
             >
             <div class="svg" v-if="sort === 'created'">
               <svg
@@ -165,7 +284,7 @@
             <span
               :class="{'current': sort === 'modified'}"
               @click="onSort('modified')"
-              >修改时间</span
+              >Updated At</span
             >
             <div class="svg" v-if="sort === 'modified'">
               <svg
@@ -196,7 +315,7 @@
               </svg>
             </div>
           </div>
-          <div class="action">操作</div>
+          <div class="action">Action</div>
         </div>
         <div class="item" v-if="dir !== '/'" @click="onUpper">
           <div class="mime">
@@ -295,9 +414,9 @@
           <div class="modified">{{showDate(item.modified)}}</div>
           <div class="action">
             <div v-if="item.type==='file'" @click="(e) => e.stopPropagation()">
-              <a :href="item.path" target="_blank"> 预览 </a>
+              <a :href="item.path" target="_blank"> Review </a>
               <div>{{' '}}</div>
-              <a :href="`${item.path}?attachment=`" target="_blank"> 下载 </a>
+              <a :href="`${item.path}?attachment=`" target="_blank"> Download </a>
             </div>
           </div>
         </div>
