@@ -1,6 +1,11 @@
 cargo build --release --target wasm32-unknown-unknown --package icrc7
 ic-wasm target/wasm32-unknown-unknown/release/icrc7.wasm -o target/wasm32-unknown-unknown/release/icrc7.wasm shrink
-gzip -f target/wasm32-unknown-unknown/release/icrc7.wasm
+gzip -f target/wasm32-unknown-unknown/release/icrc7.wasm > src/icrc7/wasm/icrc7.wasm.gz
+
+cargo build --release --target wasm32-unknown-unknown --package icrc7_with_assets
+ic-wasm target/wasm32-unknown-unknown/release/icrc7_with_assets.wasm -o target/wasm32-unknown-unknown/release/icrc7_with_assets.wasm shrink
+cp target/wasm32-unknown-unknown/release/icrc7_with_assets.wasm src/icrc7_with_assets/wasm/icrc7_with_assets.wasm
+gzip -f target/wasm32-unknown-unknown/release/icrc7_with_assets.wasm > src/icrc7_with_assets/wasm/icrc7_with_assets.wasm.gz
 
 
 dfx deploy icrc7 --argument '(record {
