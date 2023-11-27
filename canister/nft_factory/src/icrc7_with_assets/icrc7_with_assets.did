@@ -137,6 +137,7 @@ service : (InitArg) -> {
   icrc7_supply_cap : () -> (opt nat) query;
   icrc7_supported_standards : () -> (vec Standard) query;
   icrc7_symbol : () -> (text) query;
+  icrc7_tokens_ids : () -> (vec nat) query;
   icrc7_tokens_of : (Account) -> (vec nat) query;
   icrc7_total_supply : () -> (nat) query;
   icrc7_transfer : (TransferArgs) -> (Result_1);

@@ -86,6 +86,12 @@ pub fn icrc7_tokens_of(account: Account) -> Vec<u128>{
 
 #[query]
 #[candid_method(query)]
+pub fn icrc7_tokens_ids() -> Vec<u128>{
+    COLLECTION.with(|collection| collection.borrow().tokens_ids())
+}
+
+#[query]
+#[candid_method(query)]
 pub fn icrc7_supported_standards() -> Vec<Standard>{
     vec![
         Standard{

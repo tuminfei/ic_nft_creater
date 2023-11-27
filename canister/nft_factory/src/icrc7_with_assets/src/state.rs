@@ -305,6 +305,14 @@ impl Collection {
         ids
     }
 
+    pub fn tokens_ids(&self) -> Vec<u128> {
+        let mut ids = vec![];
+        for (id, _) in self.tokens.iter() {
+            ids.push(id.clone())
+        }
+        ids
+    }
+
     pub fn token_metadata(&self, id: &u128) -> Vec<(String, MetadataValue)> {
         match self.tokens.get(id) {
             Some(token) => token.token_metadata(),
