@@ -72,6 +72,16 @@ type QueryFile = record {
 type Result = variant { Ok : nat; Err : ApprovalError };
 type Result_1 = variant { Ok : nat; Err : TransferError };
 type Standard = record { url : text; name : text };
+type StatusRequest = record {
+  memory_size : bool;
+  cycles : bool;
+  heap_memory_size : bool;
+};
+type StatusResponse = record {
+  memory_size : opt nat64;
+  cycles : opt nat64;
+  heap_memory_size : opt nat64;
+};
 type StreamingCallbackHttpResponse = record {
   token : opt StreamingCallbackToken;
   body : vec nat8;
@@ -122,6 +132,7 @@ service : (InitArg) -> {
   assets_download_by : (text, nat64, nat64) -> (vec nat8) query;
   assets_files : () -> (vec QueryFile) query;
   assets_upload : (vec UploadingArg) -> ();
+  get_status : (StatusRequest) -> (StatusResponse) query;
   http_request : (CustomHttpRequest) -> (CustomHttpResponse) query;
   icrc7_approve : (ApprovalArgs) -> (Result);
   icrc7_balance_of : (Account) -> (nat) query;

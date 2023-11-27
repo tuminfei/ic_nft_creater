@@ -1,6 +1,7 @@
 pub mod init_method;
 pub mod memory;
 pub mod utils;
+pub mod ic_util;
 pub mod state;
 pub mod errors;
 pub mod types;

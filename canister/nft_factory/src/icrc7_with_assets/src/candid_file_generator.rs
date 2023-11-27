@@ -4,6 +4,7 @@ use ic_cdk_macros::query;
 use icrc_ledger_types::{icrc::generic_metadata_value::MetadataValue, icrc1::account::Account};
 
 use crate::assets::types::*;
+use crate::system::types::*;
 use ic_canister_kit::types::*;
 
 #[query(name = "__get_candid_interface_tmp_hack")]
