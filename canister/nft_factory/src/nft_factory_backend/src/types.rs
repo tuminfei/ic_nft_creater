@@ -1,8 +1,10 @@
 use candid::{CandidType, Deserialize, Principal};
 use ic_canister_kit::types::Stable;
 pub use ic_canister_kit::types::*;
+use crate::canister_icrc7::CanisterInfo;
 use icrc_ledger_types::icrc1::account::Account;
 use std::collections::HashMap;
+
 
 #[derive(CandidType, Deserialize, Debug, Clone)]
 pub struct CanisterData {
@@ -13,6 +15,7 @@ pub struct CanisterData {
     pub proxy: Principal,
     pub canister_id: Principal,
     pub created_at: u64,
+    pub canister_info: CanisterInfo,
 }
 
 impl Default for CanisterData {
@@ -25,6 +28,7 @@ impl Default for CanisterData {
             proxy: Principal::anonymous(),
             canister_id: Principal::anonymous(),
             created_at: 0,
+            canister_info: CanisterInfo::default()
         }
     }
 }

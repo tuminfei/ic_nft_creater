@@ -43,7 +43,6 @@ impl Stable<StoreState, RestoreState> for State {
     fn restore(&mut self, restore: RestoreState) {
         self.permissions.restore(restore.0);
         self.maintainable.restore(restore.1);
-        self.canisters.restore(restore.3);
     }
 }
 

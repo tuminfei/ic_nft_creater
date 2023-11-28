@@ -14,5 +14,6 @@ ic-cdk = "0.11.3"
 serde = { version = "1.0.190", features = ["derive"] }
 serde_json = "1.0.95"
 icrc-ledger-types = "0.1.4"
+chrono = {version = "0.4.22", default-features = false, features = ["clock", "std"]}
 
 ic-canister-kit = { version = "0.2.0" }

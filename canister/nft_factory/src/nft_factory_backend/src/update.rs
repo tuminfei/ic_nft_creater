@@ -1,3 +1,4 @@
+use crate::canister_icrc7::CanisterInfo;
 use crate::stable::{is_admin, must_be_running, STATE};
 use crate::types::{CanisterData, CreateArg, InitArg};
 use candid::{Encode, Nat, Principal};
@@ -89,6 +90,7 @@ pub async fn create_icrc7_collection(arg: CreateArg) -> Principal {
         proxy: caller,
         canister_id: result,
         created_at: ic_cdk::api::time(),
+        canister_info: CanisterInfo::default(),
     };
 
     STATE.with(|state| state.borrow_mut().next_canister_id = next_record_id);

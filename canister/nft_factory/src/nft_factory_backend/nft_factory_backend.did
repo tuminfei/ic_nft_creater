@@ -5,8 +5,14 @@ type CanisterData = record {
   name : text;
   canister_id : principal;
   created_at : nat64;
+  canister_info : CanisterInfo;
   proxy : principal;
   symbol : text;
+};
+type CanisterInfo = record {
+  memory_size : nat64;
+  cycles : nat64;
+  heap_memory_size : nat64;
 };
 type CanisterStatusResponse = record {
   status : CanisterStatusType;
@@ -49,6 +55,7 @@ service : () -> {
   permission_is_admin : (principal) -> (bool) query;
   permission_remove_admin : (principal) -> ();
   permission_set_admin : (principal) -> ();
+  schedule_trigger : () -> ();
   wallet_balance : () -> (nat) query;
   wallet_receive : () -> (WalletReceiveResult);
   whoami : () -> (principal) query;
