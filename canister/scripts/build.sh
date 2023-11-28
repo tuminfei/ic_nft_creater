@@ -58,3 +58,5 @@ dfx canister call nft_factory_backend create_icrc7_collection '(record{
   tx_window=24;
   permitted_drift=2;
 })'
+
+dfx canister call nft_factory_backend schedule_trigger
