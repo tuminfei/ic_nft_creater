@@ -60,3 +60,5 @@ dfx canister call nft_factory_backend create_icrc7_collection '(record{
 })'
 
 dfx canister call nft_factory_backend schedule_trigger
+
+dfx canister call nft_factory_backend schedule_start  '(100:nat64)'

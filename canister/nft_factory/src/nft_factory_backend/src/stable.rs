@@ -5,6 +5,7 @@ use ic_canister_kit::{
     identity::caller,
     types::{Initial, Maintainable, MaintainableState, Permissions, PermissionsState, Stable},
 };
+use ic_cdk_timers::TimerId;
 
 pub const PERMISSION_ADMIN: &str = "admin";
 
@@ -49,6 +50,7 @@ impl Stable<StoreState, RestoreState> for State {
 
 thread_local! {
     pub static STATE: RefCell<State> = RefCell::default();
+    pub static TIMER_IDS: RefCell<Vec<TimerId>> = RefCell::new(Vec::new());
 }
 
 #[ic_cdk::post_upgrade]

@@ -55,6 +55,8 @@ service : () -> {
   permission_is_admin : (principal) -> (bool) query;
   permission_remove_admin : (principal) -> ();
   permission_set_admin : (principal) -> ();
+  schedule_start : (nat64) -> ();
+  schedule_stop : () -> ();
   schedule_trigger : () -> ();
   wallet_balance : () -> (nat) query;
   wallet_receive : () -> (WalletReceiveResult);
