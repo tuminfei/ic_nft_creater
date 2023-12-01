@@ -7,7 +7,7 @@ use ic_canister_kit::{
 
 use crate::assets::types::{CoreAssets, CoreAssetsState, UploadingAssets, UploadingAssetsState};
 
-pub const PERMISSION_ADMIN: &str = "admin"; // 所有权限
+pub const PERMISSION_ADMIN: &str = "admin";
 
 #[derive(Debug, Default)]
 pub struct State {
@@ -49,14 +49,10 @@ impl Stable<StoreState, RestoreState> for State {
     }
 }
 
-// ================= 需要持久化的数据 ================
-
 thread_local! {
-    // 存储系统数据
     pub static STATE: RefCell<State> = RefCell::default();
 }
 
-// ==================== 升级时的恢复逻辑 ====================
 pub fn post_upgrade() {
     STATE.with(|state_ref| {
         let mut state: RefMut<dyn Stable<StoreState, RestoreState>> = state_ref.borrow_mut();
@@ -64,7 +60,6 @@ pub fn post_upgrade() {
     });
 }
 
-// ==================== 升级时的保存逻辑，下次升级执行 ====================
 pub fn pre_upgrade() {
     STATE.with(|state_ref| {
         let mut state: RefMut<dyn Stable<StoreState, RestoreState>> = state_ref.borrow_mut();
@@ -72,30 +67,26 @@ pub fn pre_upgrade() {
     });
 }
 
-// 工具方法
-/// 外界需要系统状态时
 pub fn with_state<F, R>(callback: F) -> R
 where
     F: FnOnce(&State) -> R,
 {
     STATE.with(|_state| {
-        let state = _state.borrow(); // 取得不可变对象
+        let state = _state.borrow();
         callback(&state)
     })
 }
 
-/// 需要可变系统状态时
 pub fn with_mut_state<F, R>(callback: F) -> R
 where
     F: FnOnce(&mut State) -> R,
 {
     STATE.with(|_state| {
-        let mut state = _state.borrow_mut(); // 取得不可变对象
+        let mut state = _state.borrow_mut();
         callback(&mut state)
     })
 }
 
-// 相关方法
 pub fn is_admin() -> Result<(), String> {
     let caller = caller();
     with_state(|s| {
