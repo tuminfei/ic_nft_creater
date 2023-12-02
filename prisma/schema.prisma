@@ -32,3 +32,20 @@ model QRCode {
   scans            Int      @default(0)
   createdAt        DateTime @default(now())
 }
+
+model NFTCollection {
+  id                  Int      @id @default(autoincrement())
+  name                String
+  shop                String
+  description         String
+  owner               String
+  image               String
+  symbol              String
+  tx_window           Int
+  permitted_drift     Int
+  royalties           Int
+  royalties_recipient String
+  supply_cap          Int
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime
+}
