@@ -22,7 +22,12 @@ export default function App() {
         <Link to="/app" rel="home">
           Home
         </Link>
-        <Link to="/app/additional">Additional page</Link>
+        <Link to="/app/additional">NFT Collection</Link>
+        <Link to="/app/additional">NFT Mint</Link>
+        <Link to="/app/additional">NFT Sell</Link>
+        <Link to="/app/additional">NFT Gift</Link>
+        <Link to="/app/additional">Orders</Link>
+        <Link to="/app/additional">Settings</Link>
       </ui-nav-menu>
       <Outlet />
     </AppProvider>
