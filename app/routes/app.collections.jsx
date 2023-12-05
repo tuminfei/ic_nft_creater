@@ -99,7 +99,7 @@ export default function Index() {
       <ui-title-bar title="NFT Collections">
         <button
           variant="primary"
-          onClick={() => navigate("/app/nft_collections/new")}
+          onClick={() => navigate("/app/collections/new")}
         >
           Create NFT Collection
         </button>
@@ -109,7 +109,7 @@ export default function Index() {
           <Card padding="0">
             {nft_collections.length === 0 ? (
               <EmptyCollectionState
-                onAction={() => navigate("nft_collections/new")}
+                onAction={() => navigate("collections/new")}
               />
             ) : (
               <CollectionTable nft_collections={nft_collections} />

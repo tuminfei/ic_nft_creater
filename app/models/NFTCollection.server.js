@@ -21,3 +21,23 @@ export async function getNFTCollections(shop, graphql) {
 
   return { nft_collections };
 }
+
+export function validateCollection(data) {
+  const errors = {};
+
+  if (!data.name) {
+    errors.name = "Name is required";
+  }
+
+  if (!data.symbol) {
+    errors.symbol = "Symbol is required";
+  }
+
+  if (!data.owner) {
+    errors.owner = "Owner is required";
+  }
+
+  if (Object.keys(errors).length) {
+    return errors;
+  }
+}
