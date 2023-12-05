@@ -5,6 +5,7 @@ CREATE TABLE "NFTCollection" (
     "shop" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "owner" TEXT NOT NULL,
+    "canister_id" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "symbol" TEXT NOT NULL,
     "tx_window" INTEGER NOT NULL,

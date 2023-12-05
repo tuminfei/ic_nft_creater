@@ -39,6 +39,7 @@ model NFTCollection {
   shop                String
   description         String
   owner               String
+  canister_id         String
   image               String
   symbol              String
   tx_window           Int
@@ -48,4 +49,13 @@ model NFTCollection {
   supply_cap          Int
   createdAt           DateTime @default(now())
   updatedAt           DateTime
+}
+
+model Settings {
+  id          Int      @id @default(autoincrement())
+  info_key    String
+  info_value  String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
 }

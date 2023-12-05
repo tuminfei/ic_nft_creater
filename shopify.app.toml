@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "5d61dbdb607945556f5270399712c180"
-application_url = "https://proxy-memory-jerry-isle.trycloudflare.com"
+application_url = "https://jose-claimed-plot-findings.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://proxy-memory-jerry-isle.trycloudflare.com/auth/callback",
-  "https://proxy-memory-jerry-isle.trycloudflare.com/auth/shopify/callback",
-  "https://proxy-memory-jerry-isle.trycloudflare.com/api/auth/callback",
-  "https://proxy-memory-jerry-isle.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://jose-claimed-plot-findings.trycloudflare.com/auth/callback",
+  "https://jose-claimed-plot-findings.trycloudflare.com/auth/shopify/callback",
+  "https://jose-claimed-plot-findings.trycloudflare.com/api/auth/callback",
+  "https://jose-claimed-plot-findings.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
