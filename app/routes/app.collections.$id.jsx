@@ -25,7 +25,6 @@ import {
   BlockStack,
   PageActions,
 } from "@shopify/polaris";
-import { ImageMajor } from "@shopify/polaris-icons";
 
 import db from "../db.server";
 import { getNFTCollection, validateCollection } from "../models/NFTCollection.server";
