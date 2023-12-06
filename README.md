@@ -291,5 +291,7 @@ This template uses [Remix](https://remix.run). The following Shopify tools are a
 
 ## Canister Info
 URLs:
-  Backend canister via Candid interface:
-    nft_factory_backend: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=myniu-wqaaa-aaaah-advna-cai
+
+Backend canister via Candid interface:
+
+nft_factory_backend: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=myniu-wqaaa-aaaah-advna-cai
