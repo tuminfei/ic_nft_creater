@@ -1,0 +1,64 @@
+type Account = record { owner : principal; subaccount : opt vec nat8 };
+type CanisterData = record {
+  id : nat64;
+  owner : principal;
+  name : text;
+  canister_id : principal;
+  created_at : nat64;
+  canister_info : CanisterInfo;
+  proxy : principal;
+  symbol : text;
+};
+type CanisterInfo = record {
+  memory_size : nat64;
+  cycles : nat64;
+  heap_memory_size : nat64;
+};
+type CanisterStatusResponse = record {
+  status : CanisterStatusType;
+  memory_size : nat;
+  cycles : nat;
+  settings : DefiniteCanisterSettings;
+  idle_cycles_burned_per_day : nat;
+  module_hash : opt vec nat8;
+};
+type CanisterStatusType = variant { stopped; stopping; running };
+type CreateArg = record {
+  supply_cap : opt nat;
+  tx_window : nat16;
+  owner : principal;
+  permitted_drift : nat16;
+  name : text;
+  description : opt text;
+  royalties : opt nat16;
+  image : opt vec nat8;
+  royalties_recipient : opt Account;
+  symbol : text;
+};
+type DefiniteCanisterSettings = record {
+  freezing_threshold : nat;
+  controllers : vec principal;
+  memory_allocation : nat;
+  compute_allocation : nat;
+};
+type MaintainingReason = record { created : nat64; message : text };
+type WalletReceiveResult = record { accepted : nat64 };
+service : () -> {
+  __get_candid_interface_tmp_hack : () -> (text) query;
+  canister_status : () -> (CanisterStatusResponse);
+  create_icrc7_collection : (CreateArg) -> (principal);
+  factory_canister_info : (nat64) -> (opt CanisterData) query;
+  factory_canister_list : () -> (vec CanisterData) query;
+  maintainable_is_maintaining : () -> (bool) query;
+  maintainable_set_maintaining : (opt MaintainingReason) -> ();
+  permission_get_admins : () -> (vec principal) query;
+  permission_is_admin : (principal) -> (bool) query;
+  permission_remove_admin : (principal) -> ();
+  permission_set_admin : (principal) -> ();
+  schedule_start : (nat64) -> ();
+  schedule_stop : () -> ();
+  schedule_trigger : () -> ();
+  wallet_balance : () -> (nat) query;
+  wallet_receive : () -> (WalletReceiveResult);
+  whoami : () -> (principal) query;
+}
