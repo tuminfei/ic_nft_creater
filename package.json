@@ -19,7 +19,12 @@
     "prisma": "prisma"
   },
   "dependencies": {
-    "@dfinity/agent": "^0.19.3",
+    "@dfinity/agent": "^0.20.2",
+    "@dfinity/assets": "^0.20.2",
+    "@dfinity/candid": "^0.20.2",
+    "@dfinity/identity": "^0.20.2",
+    "@dfinity/identity-secp256k1": "^0.20.2",
+    "@dfinity/principal": "^0.20.2",
     "@prisma/client": "^4.13.0",
     "@remix-run/node": "^2.0.0",
     "@remix-run/react": "^2.0.0",
@@ -33,7 +38,9 @@
     "@shopify/shopify-app-remix": "^2.1.0",
     "@shopify/shopify-app-session-storage-prisma": "^2.0.0",
     "cross-env": "^7.0.3",
+    "image-thumbnail": "^1.0.15",
     "isbot": "latest",
+    "isomorphic-fetch": "^3.0.0",
     "prisma": "^4.13.0",
     "qrcode": "^1.5.3",
     "react": "^18.2.0",
