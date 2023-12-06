@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "15957d22030f9d24ce2357cea5cdd97a"
-application_url = "https://wanna-cia-deals-gras.trycloudflare.com"
+application_url = "https://czech-spent-colored-terminals.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://wanna-cia-deals-gras.trycloudflare.com/auth/callback",
-  "https://wanna-cia-deals-gras.trycloudflare.com/auth/shopify/callback",
-  "https://wanna-cia-deals-gras.trycloudflare.com/api/auth/callback",
-  "https://wanna-cia-deals-gras.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://czech-spent-colored-terminals.trycloudflare.com/auth/callback",
+  "https://czech-spent-colored-terminals.trycloudflare.com/auth/shopify/callback",
+  "https://czech-spent-colored-terminals.trycloudflare.com/api/auth/callback",
+  "https://czech-spent-colored-terminals.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

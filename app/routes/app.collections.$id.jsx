@@ -10,13 +10,7 @@ import {
 import { authenticate } from "../shopify.server";
 import {
   Card,
-  Bleed,
-  Button,
-  ChoiceList,
-  Divider,
-  EmptyState,
-  InlineStack,
-  InlineError,
+  FormLayout,
   Layout,
   Page,
   Text,
@@ -115,37 +109,68 @@ export default function CollectionForm() {
         <Layout.Section>
           <BlockStack gap="500">
             <Card>
-              <BlockStack gap="500">
-                <Text as={"h2"} variant="headingLg">
-                  Name
-                </Text>
+              <FormLayout>
                 <TextField
                   id="name"
-                  helpText="Only store staff can see this name"
-                  label="name"
-                  labelHidden
+                  label="Name"
                   autoComplete="off"
                   value={formState.name}
                   onChange={(name) => setFormState({ ...formState, name })}
                   error={errors.name}
                 />
-              </BlockStack>
-              <BlockStack gap="500">
-                <Text as={"h2"} variant="headingLg">
-                Description
-                </Text>
                 <TextField
                   id="description"
-                  helpText="Only store staff can see this description"
-                  label="description"
-                  labelHidden
+                  label="Description"
                   autoComplete="off"
                   value={formState.description}
-                  type="text"
+                  multiline={5}
                   onChange={(description) => setFormState({ ...formState, description })}
                   error={errors.description}
                 />
-              </BlockStack>
+                <TextField
+                  id="symbol"
+                  label="Symbol"
+                  autoComplete="off"
+                  value={formState.symbol}
+                  onChange={(symbol) => setFormState({ ...formState, symbol })}
+                  error={errors.symbol}
+                />
+                <TextField
+                  id="tx_window"
+                  label="Tx Window"
+                  autoComplete="off"
+                  type="number"
+                  value={formState.tx_window}
+                  onChange={(tx_window) => setFormState({ ...formState, tx_window })}
+                  error={errors.tx_window}
+                />
+                <TextField
+                  id="permitted_drift"
+                  label="Permitted Drift"
+                  autoComplete="off"
+                  type="number"
+                  value={formState.permitted_drift}
+                  onChange={(permitted_drift) => setFormState({ ...formState, permitted_drift })}
+                  error={errors.permitted_drift}
+                />
+                <TextField
+                  id="royalties"
+                  label="Royalties"
+                  autoComplete="off"
+                  type="number"
+                  value={formState.royalties}
+                  onChange={(royalties) => setFormState({ ...formState, royalties })}
+                  error={errors.royalties}
+                />
+                <TextField
+                  id="royalties_recipient"
+                  label="Royalties Recipient"
+                  autoComplete="off"
+                  value={formState.royalties_recipient}
+                  onChange={(royalties_recipient) => setFormState({ ...formState, royalties_recipient })}
+                  error={errors.royalties_recipient}
+                />
+              </FormLayout>
             </Card>
           </BlockStack>
         </Layout.Section>
