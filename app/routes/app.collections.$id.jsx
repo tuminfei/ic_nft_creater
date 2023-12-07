@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { json, redirect } from "@remix-run/node";
 import {
   useActionData,
@@ -18,7 +18,10 @@ import {
   Thumbnail,
   BlockStack,
   PageActions,
+  LegacyCard,
+  DropZone
 } from "@shopify/polaris";
+import { NoteMinor } from '@shopify/polaris-icons';
 
 import db from "../db.server";
 import { getNFTCollection, validateCollection } from "../models/NFTCollection.server";
@@ -98,6 +101,35 @@ export default function CollectionForm() {
     submit(data, { method: "post" });
   }
 
+  const [file, setFile] = useState();
+  const handleDropZoneDrop = useCallback(
+    (_dropFiles, acceptedFiles, _rejectedFiles) =>
+      setFile(acceptedFiles[0]),
+    [],
+  );
+
+  const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+  const fileUpload = !file && <DropZone.FileUpload />;
+  const uploadedFile = file && (
+    <LegacyStack>
+      <Thumbnail
+        size="small"
+        alt={file.name}
+        source={
+          validImageTypes.includes(file.type)
+            ? window.URL.createObjectURL(file)
+            : NoteMinor
+        }
+      />
+      <div>
+        {file.name}{' '}
+        <Text variant="bodySm" as="p">
+          {file.size} bytes
+        </Text>
+      </div>
+    </LegacyStack>
+  );
+
   return (
     <Page>
       <ui-title-bar title={nft_collection.id ? "Edit NFT Collection" : "Create new NFT Collection"}>
@@ -117,6 +149,7 @@ export default function CollectionForm() {
                   value={formState.name}
                   onChange={(name) => setFormState({ ...formState, name })}
                   error={errors.name}
+                  i
                 />
                 <TextField
                   id="description"
@@ -172,6 +205,12 @@ export default function CollectionForm() {
                 />
               </FormLayout>
             </Card>
+            <LegacyCard title="Media" sectioned>
+              <DropZone allowMultiple={false} onDrop={handleDropZoneDrop}>
+                {uploadedFile}
+                {fileUpload}
+              </DropZone>
+            </LegacyCard>
           </BlockStack>
         </Layout.Section>
         <Layout.Section>
