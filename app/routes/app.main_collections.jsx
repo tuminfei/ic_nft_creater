@@ -109,7 +109,7 @@ export default function Index() {
           <Card padding="0">
             {nft_collections.length === 0 ? (
               <EmptyCollectionState
-                onAction={() => navigate("collections/new")}
+                onAction={() => navigate("/app/collections/new")}
               />
             ) : (
               <CollectionTable nft_collections={nft_collections} />

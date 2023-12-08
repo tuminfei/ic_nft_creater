@@ -91,10 +91,10 @@ export default function CollectionForm() {
       owner: formState.owner,
       symbol: formState.symbol,
       tx_window: formState.tx_window || 0,
-      permitted_drift: formState.permitted_drift,
-      royalties: formState.royalties || 0,
-      royalties_recipient: formState.royalties_recipient || '',
-      supply_cap: formState.supply_cap || '',
+      permitted_drift: formState.permitted_drift || 0,
+      royalties: formState.royalties,
+      royalties_recipient: formState.royalties_recipient,
+      supply_cap: formState.supply_cap,
     };
 
     setCleanFormState({ ...formState });
@@ -202,6 +202,14 @@ export default function CollectionForm() {
                   value={formState.royalties_recipient}
                   onChange={(royalties_recipient) => setFormState({ ...formState, royalties_recipient })}
                   error={errors.royalties_recipient}
+                />
+                <TextField
+                  id="owner"
+                  label="NFT Owner"
+                  autoComplete="off"
+                  value={formState.owner}
+                  onChange={(owner) => setFormState({ ...formState, owner })}
+                  error={errors.owner}
                 />
               </FormLayout>
             </Card>

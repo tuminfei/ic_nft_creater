@@ -37,16 +37,16 @@ model NFTCollection {
   id                  Int      @id @default(autoincrement())
   name                String
   shop                String
-  description         String
+  description         String?
   owner               String
-  canister_id         String
-  image               String
+  canister_id         String?
+  image               String?
   symbol              String
   tx_window           Int
   permitted_drift     Int
-  royalties           Int
-  royalties_recipient String
-  supply_cap          Int
+  royalties           Int?
+  royalties_recipient String?
+  supply_cap          Int?
   createdAt           DateTime @default(now())
   updatedAt           DateTime
 }
