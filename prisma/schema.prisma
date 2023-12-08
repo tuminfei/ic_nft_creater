@@ -48,7 +48,7 @@ model NFTCollection {
   royalties_recipient String?
   supply_cap          Int?
   createdAt           DateTime @default(now())
-  updatedAt           DateTime
+  updatedAt           DateTime?
 }
 
 model Settings {

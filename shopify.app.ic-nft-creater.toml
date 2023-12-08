@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "15957d22030f9d24ce2357cea5cdd97a"
-application_url = "https://residence-grams-kids-resolutions.trycloudflare.com"
+application_url = "https://pricing-mass-understand-town.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://residence-grams-kids-resolutions.trycloudflare.com/auth/callback",
-  "https://residence-grams-kids-resolutions.trycloudflare.com/auth/shopify/callback",
-  "https://residence-grams-kids-resolutions.trycloudflare.com/api/auth/callback",
-  "https://residence-grams-kids-resolutions.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://pricing-mass-understand-town.trycloudflare.com/auth/callback",
+  "https://pricing-mass-understand-town.trycloudflare.com/auth/shopify/callback",
+  "https://pricing-mass-understand-town.trycloudflare.com/api/auth/callback",
+  "https://pricing-mass-understand-town.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

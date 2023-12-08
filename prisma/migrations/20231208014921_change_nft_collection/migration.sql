@@ -15,7 +15,7 @@ CREATE TABLE "new_NFTCollection" (
     "royalties_recipient" TEXT,
     "supply_cap" INTEGER,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "updatedAt" DATETIME
 );
 INSERT INTO "new_NFTCollection" ("canister_id", "createdAt", "description", "id", "image", "name", "owner", "permitted_drift", "royalties", "royalties_recipient", "shop", "supply_cap", "symbol", "tx_window", "updatedAt") SELECT "canister_id", "createdAt", "description", "id", "image", "name", "owner", "permitted_drift", "royalties", "royalties_recipient", "shop", "supply_cap", "symbol", "tx_window", "updatedAt" FROM "NFTCollection";
 DROP TABLE "NFTCollection";

@@ -19,7 +19,7 @@ export async function getNFTCollections(shop, graphql) {
 
   if (nft_collections.length === 0) return [];
 
-  return { nft_collections };
+  return nft_collections;
 }
 
 export function validateCollection(data) {
@@ -40,4 +40,27 @@ export function validateCollection(data) {
   if (Object.keys(errors).length) {
     return errors;
   }
+}
+
+export function converCollection(data) {
+  if (data.tx_window) {
+    data.tx_window = parseInt(data.tx_window);
+  }
+  if (data.permitted_drift) {
+    data.permitted_drift = parseInt(data.permitted_drift);
+  }
+  if (data.royalties) {
+    if (data.royalties == 'null') {
+      data.royalties = null;
+    } else {
+      data.royalties = parseInt(data.royalties);
+    }
+  }
+  if (data.royalties_recipient && data.royalties_recipient == 'null') {
+    data.royalties_recipient = null;
+  }
+  if (data.supply_cap && data.supply_cap == 'null') {
+    data.supply_cap = null;
+  }
+  return data;
 }

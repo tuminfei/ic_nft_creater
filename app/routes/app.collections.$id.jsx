@@ -24,7 +24,7 @@ import {
 import { NoteMinor } from '@shopify/polaris-icons';
 
 import db from "../db.server";
-import { getNFTCollection, validateCollection } from "../models/NFTCollection.server";
+import { getNFTCollection, validateCollection, converCollection } from "../models/NFTCollection.server";
 
 export async function loader({ request, params }) {
   const { admin } = await authenticate.admin(request);
@@ -32,6 +32,7 @@ export async function loader({ request, params }) {
   if (params.id === "new") {
     return json({
       name: "",
+      canister_id: null,
     });
   }
 
@@ -43,7 +44,7 @@ export async function action({ request, params }) {
   const { shop } = session;
 
   /** @type {any} */
-  const data = {
+  let data = {
     ...Object.fromEntries(await request.formData()),
     shop,
   };
@@ -54,6 +55,7 @@ export async function action({ request, params }) {
   }
 
   const errors = validateCollection(data);
+  data = converCollection(data);
 
   if (errors) {
     return json({ errors }, { status: 422 });
@@ -92,9 +94,9 @@ export default function CollectionForm() {
       symbol: formState.symbol,
       tx_window: formState.tx_window || 0,
       permitted_drift: formState.permitted_drift || 0,
-      royalties: formState.royalties,
-      royalties_recipient: formState.royalties_recipient,
-      supply_cap: formState.supply_cap,
+      royalties: formState.royalties || null,
+      royalties_recipient: formState.royalties_recipient || null,
+      supply_cap: formState.supply_cap || null,
     };
 
     setCleanFormState({ ...formState });

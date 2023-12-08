@@ -16,7 +16,6 @@ import { ImageMajor } from "@shopify/polaris-icons";
 export async function loader({ request }) {
   const { admin, session } = await authenticate.admin(request);
   const nft_collections = await getNFTCollections(session.shop, admin.graphql);
-
   return json({
     nft_collections,
   });
