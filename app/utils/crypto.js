@@ -2,7 +2,7 @@ const bip39 = require("bip39");
 const HDKey = require("hdkey");
 const Secp256k1 = require("secp256k1");
 const CryptoJS = require("crypto-js");
-const { Secp256k1KeyIdentity } = require("@dfinity/identity");
+const { Secp256k1KeyIdentity } = require("@dfinity/identity-secp256k1");
 const { Principal } = require("@dfinity/principal");
 
 const {

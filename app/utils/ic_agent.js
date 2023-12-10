@@ -1,4 +1,3 @@
-const fetch = require("node-fetch");
 const { Actor, HttpAgent } = require("@dfinity/agent");
 const { getAccountCredentials } = require("./crypto");
 
@@ -12,7 +11,7 @@ icAgent.getIdentity = (mnemonic) => {
 };
 
 icAgent.getActorWithIdentity = (host, identity, canisterId, idlFactory) => {
-  const defaultAgent = new HttpAgent({ host, fetch });
+  const defaultAgent = new HttpAgent({ host });
 
   const agent = new HttpAgent({
     source: defaultAgent,
