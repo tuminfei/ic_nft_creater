@@ -14,5 +14,15 @@ let factoryActor = icAgent.getActorWithIdentity(
 icAgent.factoryActor = factoryActor;
 
 const factoryService = {
-  async create_icrc7_collection() {},
+  async create_icrc7_collection() { },
+
+  async factory_canister_list() {
+    let canister_infos = await factoryActor.factory_canister_list();
+    return canister_infos;
+  }
+};
+
+module.exports = {
+  factory_canister_id,
+  factoryService,
 };
