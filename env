@@ -1,4 +1,7 @@
+NODE_ENV= "development"
+
 SYSTEM_ACCOUNT_PID="i7z6q-2c4ks-pjwft-gw5fb-jxd2n-mp6v7-3sxuy-v66y7-c3jjv-2te7o-nqe"
 SYSTEM_ACCOUNT_SEED="test test test test test test test test test test test test"
 
 SYSTEM_FACTORY_CANISTER_ID="myniu-wqaaa-aaaah-advna-cai"
+SYSTEM_LOCAL_FACTORY_CANISTER_ID="be2us-64aaa-aaaaa-qaabq-cai"

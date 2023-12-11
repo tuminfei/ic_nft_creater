@@ -20,5 +20,7 @@ target/
 node_modules/
 dist/
 
+/canister/target
+
 # environment variables
 .env

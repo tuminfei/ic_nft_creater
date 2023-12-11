@@ -1,3 +1,4 @@
+const { fetch } = require('isomorphic-fetch');
 const { Actor, HttpAgent } = require("@dfinity/agent");
 const { getAccountCredentials } = require("./crypto");
 
@@ -11,11 +12,12 @@ icAgent.getIdentity = (mnemonic) => {
 };
 
 icAgent.getActorWithIdentity = (host, identity, canisterId, idlFactory) => {
-  const defaultAgent = new HttpAgent({ host });
+  const defaultAgent = new HttpAgent({ host, fetch });
 
   const agent = new HttpAgent({
     source: defaultAgent,
     identity,
+    verifyQuerySignatures: false,
   });
   const actor = Actor.createActor(idlFactory, {
     canisterId: canisterId,
