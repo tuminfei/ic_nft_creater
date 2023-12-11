@@ -1,4 +1,4 @@
-const { fetch } = require('isomorphic-fetch');
+const { fetch } = require("isomorphic-fetch");
 const { Actor, HttpAgent } = require("@dfinity/agent");
 const { getAccountCredentials } = require("./crypto");
 

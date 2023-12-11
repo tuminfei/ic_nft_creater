@@ -19,12 +19,17 @@ import {
   BlockStack,
   PageActions,
   LegacyCard,
-  DropZone
+  DropZone,
 } from "@shopify/polaris";
-import { NoteMinor } from '@shopify/polaris-icons';
+import { NoteMinor } from "@shopify/polaris-icons";
+import { factoryService } from "../canister/nft_factory_service";
 
 import db from "../db.server";
-import { getNFTCollection, validateCollection, converCollection } from "../models/NFTCollection.server";
+import {
+  getNFTCollection,
+  validateCollection,
+  converCollection,
+} from "../models/NFTCollection.server";
 
 export async function loader({ request, params }) {
   const { admin } = await authenticate.admin(request);
@@ -61,10 +66,22 @@ export async function action({ request, params }) {
     return json({ errors }, { status: 422 });
   }
 
-  const nft_collection =
-    params.id === "new"
-      ? await db.nFTCollection.create({ data })
-      : await db.nFTCollection.update({ where: { id: Number(params.id) }, data });
+  let nft_collection = null;
+  if (params.id === "new") {
+    nft_collection = await db.nFTCollection.create({ data });
+    await factoryService.create_icrc7_collection(
+      nft_collection.name,
+      nft_collection.symbol,
+      nft_collection.owner,
+      nft_collection.tx_window,
+      nft_collection.permitted_drift
+    );
+  } else {
+    nft_collection = await db.nFTCollection.update({
+      where: { id: Number(params.id) },
+      data,
+    });
+  }
 
   return redirect(`/app/collections/${nft_collection.id}`);
 }
@@ -105,12 +122,11 @@ export default function CollectionForm() {
 
   const [file, setFile] = useState();
   const handleDropZoneDrop = useCallback(
-    (_dropFiles, acceptedFiles, _rejectedFiles) =>
-      setFile(acceptedFiles[0]),
-    [],
+    (_dropFiles, acceptedFiles, _rejectedFiles) => setFile(acceptedFiles[0]),
+    []
   );
 
-  const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+  const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
   const fileUpload = !file && <DropZone.FileUpload />;
   const uploadedFile = file && (
     <LegacyStack>
@@ -124,7 +140,7 @@ export default function CollectionForm() {
         }
       />
       <div>
-        {file.name}{' '}
+        {file.name}{" "}
         <Text variant="bodySm" as="p">
           {file.size} bytes
         </Text>
@@ -134,7 +150,13 @@ export default function CollectionForm() {
 
   return (
     <Page>
-      <ui-title-bar title={nft_collection.id ? "Edit NFT Collection" : "Create new NFT Collection"}>
+      <ui-title-bar
+        title={
+          nft_collection.id
+            ? "Edit NFT Collection"
+            : "Create new NFT Collection"
+        }
+      >
         <button variant="breadcrumb" onClick={() => navigate("/app")}>
           NFT Collections
         </button>
@@ -159,7 +181,9 @@ export default function CollectionForm() {
                   autoComplete="off"
                   value={formState.description}
                   multiline={5}
-                  onChange={(description) => setFormState({ ...formState, description })}
+                  onChange={(description) =>
+                    setFormState({ ...formState, description })
+                  }
                   error={errors.description}
                 />
                 <TextField
@@ -176,7 +200,9 @@ export default function CollectionForm() {
                   autoComplete="off"
                   type="number"
                   value={formState.tx_window}
-                  onChange={(tx_window) => setFormState({ ...formState, tx_window })}
+                  onChange={(tx_window) =>
+                    setFormState({ ...formState, tx_window })
+                  }
                   error={errors.tx_window}
                 />
                 <TextField
@@ -185,7 +211,9 @@ export default function CollectionForm() {
                   autoComplete="off"
                   type="number"
                   value={formState.permitted_drift}
-                  onChange={(permitted_drift) => setFormState({ ...formState, permitted_drift })}
+                  onChange={(permitted_drift) =>
+                    setFormState({ ...formState, permitted_drift })
+                  }
                   error={errors.permitted_drift}
                 />
                 <TextField
@@ -194,7 +222,9 @@ export default function CollectionForm() {
                   autoComplete="off"
                   type="number"
                   value={formState.royalties}
-                  onChange={(royalties) => setFormState({ ...formState, royalties })}
+                  onChange={(royalties) =>
+                    setFormState({ ...formState, royalties })
+                  }
                   error={errors.royalties}
                 />
                 <TextField
@@ -202,7 +232,9 @@ export default function CollectionForm() {
                   label="Royalties Recipient"
                   autoComplete="off"
                   value={formState.royalties_recipient}
-                  onChange={(royalties_recipient) => setFormState({ ...formState, royalties_recipient })}
+                  onChange={(royalties_recipient) =>
+                    setFormState({ ...formState, royalties_recipient })
+                  }
                   error={errors.royalties_recipient}
                 />
                 <TextField
@@ -229,7 +261,11 @@ export default function CollectionForm() {
               {
                 content: "Delete",
                 loading: isDeleting,
-                disabled: !nft_collection.id || !nft_collection || isSaving || isDeleting,
+                disabled:
+                  !nft_collection.id ||
+                  !nft_collection ||
+                  isSaving ||
+                  isDeleting,
                 destructive: true,
                 outline: true,
                 onAction: () =>

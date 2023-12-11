@@ -4,7 +4,10 @@ const { getAccountCredentials } = require("../utils/crypto");
 const constants = require("../utils/constants");
 
 let system_identity = getAccountCredentials(process.env.SYSTEM_ACCOUNT_SEED, 0);
-let ic_host = process.env.NODE_ENV == 'production' ? constants.IC_HOST : constants.IC_LOCAL_HOST;
+let ic_host =
+  process.env.NODE_ENV == "production"
+    ? constants.IC_HOST
+    : constants.IC_LOCAL_HOST;
 
 class nftService {
   constructor(canister_id) {
@@ -20,11 +23,8 @@ class nftService {
   mint() {
     null;
   }
-};
-
-
+}
 
 module.exports = {
   nftService,
 };
-
