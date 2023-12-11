@@ -1,23 +1,34 @@
-const icAgent = require("../utils/ic_agent");
-const { idlFactory: factoryIdl } = require("./did/icrc7_with_assets.did");
-const { getAccountCredentials } = require("../utils/crypto");
-const constants = require("../utils/constants");
-const { Principal } = require("@dfinity/principal");
+import ICAgentUtils from "../utils/ic_agent";
+import CryptoUtils from "../utils/crypto";
+import { idlFactory } from "./did/nft_factory_backend.did";
+import {
+  IC_HOST,
+  IC_LOCAL_HOST,
+  SYSTEM_FACTORY_CANISTER_ID,
+  SYSTEM_LOCAL_FACTORY_CANISTER_ID,
+} from "../utils/constants";
+import { Principal } from "@dfinity/principal";
 
-let system_identity = getAccountCredentials(process.env.SYSTEM_ACCOUNT_SEED, 0);
-let ic_host =
-  process.env.NODE_ENV == "production"
-    ? constants.IC_HOST
-    : constants.IC_LOCAL_HOST;
-let factoryActor = icAgent.getActorWithIdentity(
-  ic_host,
-  system_identity,
-  factory_canister_id,
-  factoryIdl
-);
-icAgent.factoryActor = factoryActor;
+class FactoryCanisterService {
+  constructor() {
+    this.system_identity = CryptoUtils.getAccountCredentials(
+      process.env.SYSTEM_ACCOUNT_SEED,
+      0
+    );
+    this.ic_host =
+      process.env.NODE_ENV == "production" ? IC_HOST : IC_LOCAL_HOST;
+    this.factory_canister_id =
+      process.env.NODE_ENV == "production"
+        ? SYSTEM_FACTORY_CANISTER_ID
+        : SYSTEM_LOCAL_FACTORY_CANISTER_ID;
+    this.actor = ICAgentUtils.getActorWithIdentity(
+      this.ic_host,
+      this.system_identity,
+      this.factory_canister_id,
+      idlFactory
+    );
+  }
 
-const factoryService = {
   async create_icrc7_collection(
     name,
     symbol,
@@ -34,17 +45,14 @@ const factoryService = {
       symbol: symbol,
     };
 
-    let canister_info = await factoryActor.create_icrc7_collection(create_arg);
+    let canister_info = await this.actor.create_icrc7_collection(create_arg);
     return canister_info;
-  },
+  }
 
   async factory_canister_list() {
-    let canister_infos = await factoryActor.factory_canister_list();
+    let canister_infos = await this.actor.factory_canister_list();
     return canister_infos;
-  },
-};
+  }
+}
 
-module.exports = {
-  factory_canister_id,
-  factoryService,
-};
+export default FactoryCanisterService;

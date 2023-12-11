@@ -1,66 +1,61 @@
-/* from plug-controller project */
+import crc32 from "buffer-crc32";
+import CryptoJS from "crypto-js";
 
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable no-bitwise */
-const crc32 = require("buffer-crc32");
-const CryptoJS = require("crypto-js");
-
-function byteArrayToWordArray(byteArray) {
-  const wordArray = [];
-  let i;
-  for (i = 0; i < byteArray.length; i += 1) {
-    wordArray[(i / 4) | 0] |= byteArray[i] << (24 - 8 * i);
-  }
-  // eslint-disable-next-line
-  const result = CryptoJS.lib.WordArray.create(wordArray, byteArray.length);
-  return result;
-}
-
-function wordToByteArray(word, length) {
-  const byteArray = [];
-  const xFF = 0xff;
-  if (length > 0) byteArray.push(word >>> 24);
-  if (length > 1) byteArray.push((word >>> 16) & xFF);
-  if (length > 2) byteArray.push((word >>> 8) & xFF);
-  if (length > 3) byteArray.push(word & xFF);
-
-  return byteArray;
-}
-
-function wordArrayToByteArray(wordArray, length) {
-  if (
-    wordArray.hasOwnProperty("sigBytes") &&
-    wordArray.hasOwnProperty("words")
-  ) {
-    length = wordArray.sigBytes;
-    wordArray = wordArray.words;
+class BinaryClass {
+  static byteArrayToWordArray(byteArray) {
+    const wordArray = [];
+    let i;
+    for (i = 0; i < byteArray.length; i += 1) {
+      wordArray[(i / 4) | 0] |= byteArray[i] << (24 - 8 * i);
+    }
+    const result = CryptoJS.lib.WordArray.create(wordArray, byteArray.length);
+    return result;
   }
 
-  let result = [];
-  let bytes;
-  let i = 0;
-  while (length > 0) {
-    bytes = wordToByteArray(wordArray[i], Math.min(4, length));
-    length -= bytes.length;
-    result = [...result, bytes];
-    i++;
+  static wordToByteArray(word, length) {
+    const byteArray = [];
+    const xFF = 0xff;
+    if (length > 0) byteArray.push(word >>> 24);
+    if (length > 1) byteArray.push((word >>> 16) & xFF);
+    if (length > 2) byteArray.push((word >>> 8) & xFF);
+    if (length > 3) byteArray.push(word & xFF);
+
+    return byteArray;
   }
-  return [].concat.apply([], result);
+
+  static wordArrayToByteArray(wordArray, length) {
+    if (
+      wordArray.hasOwnProperty("sigBytes") &&
+      wordArray.hasOwnProperty("words")
+    ) {
+      length = wordArray.sigBytes;
+      wordArray = wordArray.words;
+    }
+
+    let result = [];
+    let bytes;
+    let i = 0;
+    while (length > 0) {
+      bytes = this.wordToByteArray(wordArray[i], Math.min(4, length));
+      length -= bytes.length;
+      result = [...result, ...bytes];
+      i++;
+    }
+    return result;
+  }
+
+  static intToHex(val) {
+    return val < 0
+      ? (Number(val) >>> 0).toString(16)
+      : Number(val).toString(16);
+  }
+
+  // We generate a CRC32 checksum, and transform it into a hexString
+  static generateChecksum(hash) {
+    const crc = crc32.unsigned(Buffer.from(hash));
+    const hex = this.intToHex(crc);
+    return hex.padStart(8, "0");
+  }
 }
 
-function intToHex(val) {
-  return val < 0 ? (Number(val) >>> 0).toString(16) : Number(val).toString(16);
-}
-
-// We generate a CRC32 checksum, and trnasform it into a hexString
-function generateChecksum(hash) {
-  const crc = crc32.unsigned(Buffer.from(hash));
-  const hex = intToHex(crc);
-  return hex.padStart(8, "0");
-}
-
-module.exports = {
-  byteArrayToWordArray,
-  wordArrayToByteArray,
-  generateChecksum,
-};
+export default BinaryClass;

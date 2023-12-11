@@ -22,13 +22,13 @@ import {
   DropZone,
 } from "@shopify/polaris";
 import { NoteMinor } from "@shopify/polaris-icons";
-import { factoryService } from "../canister/nft_factory_service";
 
 import db from "../db.server";
 import {
   getNFTCollection,
   validateCollection,
   converCollection,
+  canisterCreateCollection,
 } from "../models/NFTCollection.server";
 
 export async function loader({ request, params }) {
@@ -69,13 +69,7 @@ export async function action({ request, params }) {
   let nft_collection = null;
   if (params.id === "new") {
     nft_collection = await db.nFTCollection.create({ data });
-    await factoryService.create_icrc7_collection(
-      nft_collection.name,
-      nft_collection.symbol,
-      nft_collection.owner,
-      nft_collection.tx_window,
-      nft_collection.permitted_drift
-    );
+    await canisterCreateCollection(nft_collection);
   } else {
     nft_collection = await db.nFTCollection.update({
       where: { id: Number(params.id) },

@@ -1,5 +1,6 @@
 import invariant from "tiny-invariant";
 import db from "../db.server";
+import FactoryCanisterService from "../canister/nft_factory_service";
 
 export async function getNFTCollection(id, graphql) {
   const nft_collection = await db.nFTCollection.findFirst({ where: { id } });
@@ -50,17 +51,29 @@ export function converCollection(data) {
     data.permitted_drift = parseInt(data.permitted_drift);
   }
   if (data.royalties) {
-    if (data.royalties == 'null') {
+    if (data.royalties == "null") {
       data.royalties = null;
     } else {
       data.royalties = parseInt(data.royalties);
     }
   }
-  if (data.royalties_recipient && data.royalties_recipient == 'null') {
+  if (data.royalties_recipient && data.royalties_recipient == "null") {
     data.royalties_recipient = null;
   }
-  if (data.supply_cap && data.supply_cap == 'null') {
+  if (data.supply_cap && data.supply_cap == "null") {
     data.supply_cap = null;
   }
   return data;
+}
+
+export async function canisterCreateCollection(nft_collection) {
+  const service = new FactoryCanisterService();
+  const rest = await service.create_icrc7_collection(
+    nft_collection.name,
+    nft_collection.symbol,
+    nft_collection.owner,
+    nft_collection.tx_window,
+    nft_collection.permitted_drift
+  );
+  return rest;
 }
