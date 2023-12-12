@@ -30,6 +30,7 @@ import {
   converCollection,
   canisterCreateCollection,
 } from "../models/NFTCollection.server";
+import { Principal } from "@dfinity/principal";
 
 export async function loader({ request, params }) {
   const { admin } = await authenticate.admin(request);
@@ -69,7 +70,12 @@ export async function action({ request, params }) {
   let nft_collection = null;
   if (params.id === "new") {
     nft_collection = await db.nFTCollection.create({ data });
-    await canisterCreateCollection(nft_collection);
+    let rest = await canisterCreateCollection(nft_collection);
+    let nft_canister_id = Principal.from(rest).toString();
+    await db.nFTCollection.update({
+      where: { id: nft_collection.id },
+      data: { canister_id: nft_canister_id },
+    });
   } else {
     nft_collection = await db.nFTCollection.update({
       where: { id: Number(params.id) },
