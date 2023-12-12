@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "15957d22030f9d24ce2357cea5cdd97a"
-application_url = "https://rankings-ellis-poland-business.trycloudflare.com"
+application_url = "https://receivers-organizing-b-numerous.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://rankings-ellis-poland-business.trycloudflare.com/auth/callback",
-  "https://rankings-ellis-poland-business.trycloudflare.com/auth/shopify/callback",
-  "https://rankings-ellis-poland-business.trycloudflare.com/api/auth/callback",
-  "https://rankings-ellis-poland-business.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://receivers-organizing-b-numerous.trycloudflare.com/auth/callback",
+  "https://receivers-organizing-b-numerous.trycloudflare.com/auth/shopify/callback",
+  "https://receivers-organizing-b-numerous.trycloudflare.com/api/auth/callback",
+  "https://receivers-organizing-b-numerous.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

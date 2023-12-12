@@ -13,8 +13,14 @@ class ICAgentUtils {
     const agent = new HttpAgent({
       source: defaultAgent,
       identity,
-      verifyQuerySignatures: false,
     });
+
+    if(process.env.NODE_ENV !== "production") {
+      agent.fetchRootKey().catch(err=>{
+        console.warn("Unable to fetch root key. Check to ensure that your local replica is running");
+        console.error(err);
+      });
+    }
 
     const actor = Actor.createActor(idlFactory, {
       canisterId,
