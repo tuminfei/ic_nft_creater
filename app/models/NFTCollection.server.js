@@ -71,6 +71,7 @@ export async function canisterCreateCollection(nft_collection) {
   const rest = await service.create_icrc7_collection(
     nft_collection.name,
     nft_collection.symbol,
+    nft_collection.description,
     nft_collection.owner,
     nft_collection.tx_window,
     nft_collection.permitted_drift

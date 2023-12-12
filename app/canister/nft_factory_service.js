@@ -32,17 +32,26 @@ class FactoryCanisterService {
   async create_icrc7_collection(
     name,
     symbol,
+    description,
     owner,
     tx_window,
     permitted_drift
   ) {
     const p_owner = Principal.fromText(owner);
+    const p_description = description
+      ? CryptoUtils.fromHexString(description)
+      : [];
     const create_arg = {
       tx_window: tx_window || 24,
       owner: p_owner,
       permitted_drift: permitted_drift || 2,
       name: name,
       symbol: symbol,
+      description: p_description,
+      image: [],
+      royalties: [],
+      royalties_recipient: [],
+      supply_cap: [],
     };
 
     let canister_info = await this.actor.create_icrc7_collection(create_arg);
