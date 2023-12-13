@@ -52,6 +52,7 @@ model NFTCollection {
   status_cycles           BigInt?
   createdAt               DateTime  @default(now())
   updatedAt               DateTime?
+  nft_infos               NFTInfo[]
 }
 
 model Settings {
@@ -61,4 +62,23 @@ model Settings {
   description String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime?
+}
+
+model NFTInfo {
+  id                 Int           @id @default(autoincrement())
+  shop               String
+  nft_collection     NFTCollection @relation(fields: [nft_collection_id], references: [id])
+  nft_collection_id  Int
+  token_id           BigInt
+  name               String
+  description        String?
+  owner              String?
+  subaccount         String?
+  canister_id        String?
+  image              String?
+  product_id         String?
+  product_handle     String?
+  product_variant_id String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime?
 }
