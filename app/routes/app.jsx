@@ -23,7 +23,7 @@ export default function App() {
           Home
         </Link>
         <Link to="/app/main_collections">NFT Collection</Link>
-        <Link to="/app/additional">NFT Mint</Link>
+        <Link to="/app/main_nfts">NFT Mint</Link>
         <Link to="/app/additional">NFT Sell</Link>
         <Link to="/app/additional">NFT Gift</Link>
         <Link to="/app/additional">Orders</Link>
