@@ -54,6 +54,7 @@ const CollectionTable = ({ nft_collections }) => (
       { title: "Canister Id" },
       { title: "Date created" },
       { title: "Supply Cap" },
+      { title: "Cycles" },
     ]}
     selectable={false}
   >
@@ -86,6 +87,7 @@ const CollectionTableRow = ({ nft_collection }) => (
       {new Date(nft_collection.createdAt).toDateString()}
     </IndexTable.Cell>
     <IndexTable.Cell>{nft_collection.supply_cap}</IndexTable.Cell>
+    <IndexTable.Cell>{nft_collection.status_cycles}</IndexTable.Cell>
   </IndexTable.Row>
 );
 

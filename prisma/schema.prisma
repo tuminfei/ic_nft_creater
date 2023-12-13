@@ -47,9 +47,9 @@ model NFTCollection {
   royalties               Int?
   royalties_recipient     String?
   supply_cap              Int?
-  status_memory_size      Int?
-  status_heap_memory_size Int?
-  status_cycles           Int?
+  status_memory_size      BigInt?
+  status_heap_memory_size BigInt?
+  status_cycles           BigInt?
   createdAt               DateTime  @default(now())
   updatedAt               DateTime?
 }

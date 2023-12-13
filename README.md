@@ -42,6 +42,28 @@ Gain insights into the performance of your NFT collections with real-time analyt
 
 Unlock the full potential of your Shopify store by integrating IC_NFT_Creator. Join the blockchain revolution and provide your customers with unique, verifiable, and collectible digital assets. Elevate your e-commerce experience with the power of NFTs on the Dfinity IC network.
 
+# Milestone
+
+## Milestone #1
+
+- Develop an NFT canister based on ICRC7, integrating file storage management and relevant monitoring interfaces to enhance ICRC7 capabilities.
+- Integrate NFT metadata storage securely on the IC blockchain.
+- Develop a factory canister for easy integration with Shopify, enabling users to create and manage NFT assets online.
+- Develop monitoring for the factory canister and generated NFT canisters, allowing users to query their NFT asset information on Shopify.
+
+## Milestone #2
+
+- Integrate Shopify Payment Gateway (Enable users to sell NFTs and receive payments through Shopify)
+- Develop NFT Search and Filtering System (Enable users to search and filter NFTs based on attributes)
+- Create Email Delivery System (Allow users to send NFTs as email attachments to buyers)
+
+## Milestone #3
+
+- Enhance User Interface for NFT Management and Marketplace
+- Integrate NFT Metadata Storage (Store NFT metadata securely on the IC blockchain)
+- Implement Social Media Sharing (Enable users to share their NFT listings on social media platforms)
+- Conduct thorough Testing and Bug FixesDesign NFTs with ease
+
 
 # Shopify App Template - Remix
 
