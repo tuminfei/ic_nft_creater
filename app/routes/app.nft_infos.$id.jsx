@@ -29,8 +29,7 @@ import { getNFTInfo, validateInfo } from "../models/NFTInfo.server";
 import { Principal } from "@dfinity/principal";
 
 export async function loader({ request, params }) {
-  const { admin } = await authenticate.admin(request);
-  const { session } = await authenticate.admin(request);
+  const { admin, session } = await authenticate.admin(request);
 
   if (params.id === "new") {
     const nft_collections = await db.nFTCollection.findMany({
@@ -117,11 +116,10 @@ export default function NFTInfoForm() {
 
   const [selected, setSelected] = useState("nft_collection_id");
   const handleSelectChange = useCallback((value) => setSelected(value), []);
-  const options = nft_collections.map(item => ({
+  const options = nft_collections.map((item) => ({
     label: item.name,
-    value: item.id
+    value: item.id,
   }));
-
 
   const [file, setFile] = useState();
   const handleDropZoneDrop = useCallback(
