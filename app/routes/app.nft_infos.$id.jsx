@@ -120,11 +120,14 @@ export default function NFTInfoForm() {
     submit(data, { method: "post" });
   }
 
-  const [selected, setSelected] = useState("nft_collection_id");
-  const handleSelectChange = useCallback((value) => setSelected(value), []);
+  const [selected, setSelected] = useState("");
+  const handleSelectChange = useCallback((nft_collection_id) => {
+    setSelected(nft_collection_id);
+    setFormState({ ...formState, nft_collection_id });
+  }, []);
   const options = nft_collections.map((item) => ({
     label: item.name,
-    value: item.id,
+    value: item.id.toString(),
   }));
 
   const [file, setFile] = useState();
@@ -224,12 +227,14 @@ export default function NFTInfoForm() {
                   error={errors.owner}
                 />
                 <TextField
-                  id="owner"
-                  label="NFT Owner"
+                  id="subaccount"
+                  label="NFT Owner Subaccount"
                   autoComplete="off"
-                  value={formState.owner}
-                  onChange={(owner) => setFormState({ ...formState, owner })}
-                  error={errors.owner}
+                  value={formState.subaccount}
+                  onChange={(subaccount) =>
+                    setFormState({ ...formState, subaccount })
+                  }
+                  error={errors.subaccount}
                 />
               </FormLayout>
             </Card>

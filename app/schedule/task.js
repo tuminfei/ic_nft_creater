@@ -5,7 +5,7 @@ import db from "../db.server";
 
 function startScheduledTask() {
   const server = new FactoryCanisterService();
-  const job1 = schedule.scheduleJob("*/1 * * * *", async function () {
+  const job1 = schedule.scheduleJob("*/10 * * * *", async function () {
     console.info(new Date(), "start get factory canisters....");
     let canister_infos = [];
     try {

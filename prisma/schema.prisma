@@ -53,6 +53,8 @@ model NFTCollection {
   createdAt               DateTime  @default(now())
   updatedAt               DateTime?
   nft_infos               NFTInfo[]
+
+  @@index([shop])
 }
 
 model Settings {
@@ -82,4 +84,7 @@ model NFTInfo {
   onchain            Boolean?
   createdAt          DateTime      @default(now())
   updatedAt          DateTime?
+
+  @@index([shop])
+  @@index([shop, nft_collection_id])
 }

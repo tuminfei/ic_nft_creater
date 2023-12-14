@@ -34,6 +34,10 @@ export function validateInfo(data) {
     errors.owner = "Owner is required";
   }
 
+  if (!data.nft_collection_id) {
+    errors.owner = "NFT Collection is required";
+  }
+
   if (Object.keys(errors).length) {
     return errors;
   }
