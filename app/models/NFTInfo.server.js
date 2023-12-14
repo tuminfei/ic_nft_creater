@@ -1,5 +1,6 @@
 import invariant from "tiny-invariant";
 import db from "../db.server";
+import NFTCanisterService from "../canister/nft_icrc7_service";
 
 export async function getNFTInfo(id, graphql) {
   const nft_info = await db.nFTInfo.findFirst({ where: { id } });
@@ -36,4 +37,16 @@ export function validateInfo(data) {
   if (Object.keys(errors).length) {
     return errors;
   }
+}
+
+export async function canisterMintNFT(nft_info) {
+  const service = new NFTCanisterService(nft_info.nft_collection().canister_id);
+  const rest = await service.create_icrc7_collection(
+    nft_info.token_id,
+    nft_info.name,
+    nft_info.description,
+    nft_info.image,
+    nft_info.owner
+  );
+  return rest;
 }

@@ -25,8 +25,11 @@ import {
 import { NoteMinor } from "@shopify/polaris-icons";
 
 import db from "../db.server";
-import { getNFTInfo, validateInfo } from "../models/NFTInfo.server";
-import { Principal } from "@dfinity/principal";
+import {
+  getNFTInfo,
+  validateInfo,
+  canisterMintNFT,
+} from "../models/NFTInfo.server";
 
 export async function loader({ request, params }) {
   const { admin, session } = await authenticate.admin(request);
@@ -67,12 +70,15 @@ export async function action({ request, params }) {
   let nft_info = null;
   if (params.id === "new") {
     nft_info = await db.nFTInfo.create({ data });
-    // let rest = await canisterCreateCollection(nft_collection);
-    // let nft_canister_id = Principal.from(rest).toString();
-    // await db.nFTCollection.update({
-    //   where: { id: nft_collection.id },
-    //   data: { canister_id: nft_canister_id },
-    // });
+    try {
+      await canisterMintNFT(nft_info);
+      await db.nFTInfo.update({
+        where: { id: nft_info.id },
+        data: { onchain: true },
+      });
+    } catch (error) {
+      console.log("mint nft error, token_id:", nft_info.token_id);
+    }
   } else {
     nft_info = await db.nFTInfo.update({
       where: { id: Number(params.id) },

@@ -19,8 +19,27 @@ class NFTCanisterService {
     );
   }
 
-  async mint() {
-    return null;
+  async mint(token_id, name, description, image, owner) {
+    const p_owner = Principal.fromText(owner);
+    const p_description = description
+      ? CryptoUtils.fromHexString(description)
+      : [];
+    const p_image = image ? CryptoUtils.fromHexString(image) : [];
+    const p_to = {
+      owner: p_owner,
+      subaccount: [],
+    };
+
+    const create_arg = {
+      id: BigInt(token_id) || 24,
+      name: name,
+      description: p_description,
+      image: p_image,
+      to: p_to,
+    };
+
+    let nft_info = await this.actor.icrc7_mint(create_arg);
+    return nft_info;
   }
 }
 
