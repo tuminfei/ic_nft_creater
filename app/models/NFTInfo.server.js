@@ -16,6 +16,7 @@ export async function getNFTInfos(shop, graphql) {
   const nft_infos = await db.nFTInfo.findMany({
     where: { shop },
     orderBy: { id: "desc" },
+    include: { nft_collection: true },
   });
 
   if (nft_infos.length === 0) return [];
@@ -43,9 +44,26 @@ export function validateInfo(data) {
   }
 }
 
+export function converData(data) {
+  if (data.token_id) {
+    data.token_id = parseInt(data.token_id);
+  }
+  if (data.nft_collection_id) {
+    data.nft_collection_id = parseInt(data.nft_collection_id);
+  }
+  if (data.subaccount && data.subaccount == "null") {
+    data.subaccount = null;
+  }
+  if (data.image && data.image == "null") {
+    data.image = null;
+  }
+  return data;
+}
+
 export async function canisterMintNFT(nft_info) {
-  const service = new NFTCanisterService(nft_info.nft_collection().canister_id);
-  const rest = await service.create_icrc7_collection(
+  const nft_collection = await db.nFTCollection.findFirst({where: {id: nft_info.nft_collection_id}});
+  const service = new NFTCanisterService(nft_collection.canister_id);
+  const rest = await service.mint(
     nft_info.token_id,
     nft_info.name,
     nft_info.description,

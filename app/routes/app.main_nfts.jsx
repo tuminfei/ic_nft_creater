@@ -8,6 +8,7 @@ import {
   Page,
   IndexTable,
   Thumbnail,
+  Text,
 } from "@shopify/polaris";
 
 import { getNFTInfos } from "../models/NFTInfo.server";
@@ -40,7 +41,7 @@ function truncate(str, { length = 25 } = {}) {
   return str.slice(0, length) + "…";
 }
 
-const NFTTable = ({ getNFTInfos }) => (
+const NFTTable = ({ nft_infos }) => (
   <IndexTable
     resourceName={{
       singular: "NFT Info",
@@ -55,19 +56,24 @@ const NFTTable = ({ getNFTInfos }) => (
       { title: "Image" },
       { title: "Owner" },
       { title: "Product" },
+      { title: "Onchain" },
       { title: "Date created" },
     ]}
     selectable={false}
   >
-    {nft_infos.map((nft_info, index) => (
-      <NFTTableRow key={nft_info.id} nft_info={nft_info} table_index={index} />
+    {nft_infos.map((nft_info) => (
+      <NFTTableRow key={nft_info.id} nft_info={nft_info} />
     ))}
   </IndexTable>
 );
 
 const NFTTableRow = ({ nft_info }) => (
   <IndexTable.Row id={nft_info.id} position={nft_info.id}>
-    <IndexTable.Cell>{table_index}</IndexTable.Cell>
+    <IndexTable.Cell>
+      <Text variant="bodyMd" fontWeight="bold" as="span">
+        # {nft_info.id}
+      </Text>
+    </IndexTable.Cell>
     <IndexTable.Cell>
       <Link to={`nft_infos/${nft_info.id}`}>{truncate(nft_info.name)}</Link>
     </IndexTable.Cell>
@@ -82,6 +88,7 @@ const NFTTableRow = ({ nft_info }) => (
     </IndexTable.Cell>
     <IndexTable.Cell>{nft_info.owner}</IndexTable.Cell>
     <IndexTable.Cell>{nft_info.product_id}</IndexTable.Cell>
+    <IndexTable.Cell>{nft_info.onchain}</IndexTable.Cell>
     <IndexTable.Cell>
       {new Date(nft_info.createdAt).toDateString()}
     </IndexTable.Cell>

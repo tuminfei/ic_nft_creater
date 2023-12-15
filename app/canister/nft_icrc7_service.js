@@ -1,7 +1,8 @@
 import ICAgentUtils from "../utils/ic_agent";
 import CryptoUtils from "../utils/crypto";
-import { idlFactory } from "./did/nft_factory_backend.did";
+import { idlFactory } from "./did/icrc7_with_assets.did";
 import { IC_HOST, IC_LOCAL_HOST } from "../utils/constants";
+import { Principal } from "@dfinity/principal";
 
 class NFTCanisterService {
   constructor(canister_id) {

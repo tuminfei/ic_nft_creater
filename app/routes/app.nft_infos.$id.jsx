@@ -29,6 +29,7 @@ import {
   getNFTInfo,
   validateInfo,
   canisterMintNFT,
+  converData,
 } from "../models/NFTInfo.server";
 
 export async function loader({ request, params }) {
@@ -62,6 +63,7 @@ export async function action({ request, params }) {
   };
 
   const errors = validateInfo(data);
+  data = converData(data);
 
   if (errors) {
     return json({ errors }, { status: 422 });
@@ -77,6 +79,7 @@ export async function action({ request, params }) {
         data: { onchain: true },
       });
     } catch (error) {
+      console.log(error);
       console.log("mint nft error, token_id:", nft_info.token_id);
     }
   } else {
