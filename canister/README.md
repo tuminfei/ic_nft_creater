@@ -8,6 +8,23 @@ The icrc7_with_assets canister is an integrated module that combines the functio
 - Assets Management: Users can seamlessly manage and store their NFT assets within the IC network, streamlining the overall asset management process.
 - Monitoring Capabilities:The canister provides monitoring features, allowing users to keep track of their NFT assets and gain insights into their usage and status.
 
+## Deploy:
+
+```shell
+dfx deploy icrc7_with_assets --argument '(record {
+  tx_window=24;
+  permitted_drift=2;
+  name="Space";
+  symbol="Space";
+  minting_authority=opt principal"3yyxm-t5fpe-v32em-ac6lr-xyort-wuscb-dvl4x-3wnwi-hqkyj-xortw-oqe";
+  royalties=null;
+  royalties_recipient=null;    
+  description=opt "ICRC7 Standard Token";
+  image=null;    
+  supply_cap=null;  
+})'
+```
+
 # nft_factory_backend Canister
 
 The nft_factory_backend canister serves as a factory and management module for the icrc7_with_assets canister. This component enables merchants using the IC_NFT_CREATOR's APP to directly issue NFT collections adhering to the icrc7_with_assets standard.
@@ -31,3 +48,9 @@ The APP utilizes the monitoring module of nft_factory_backend to collect and pre
 - Asset Management Support:
 Through nft_factory_backend, merchants can efficiently manage their NFT assets, ensuring a streamlined and organized approach to asset management within the IC ecosystem.
 In summary, the integration of icrc7_with_assets and nft_factory_backend provides a comprehensive solution for users and merchants to embrace the ICRC7 NFT standard, manage assets effectively, and monitor the performance of NFT canisters on the Internet Computer network.
+
+## Deploy:
+
+```shell
+dfx deploy nft_factory_backend
+```
