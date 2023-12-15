@@ -22,10 +22,11 @@ class NFTCanisterService {
 
   async mint(token_id, name, description, image, owner) {
     const p_owner = Principal.fromText(owner);
-    const p_description = description
+    const p_description = description && description !== ''
       ? CryptoUtils.fromHexString(description)
       : [];
-    const p_image = image ? CryptoUtils.fromHexString(image) : [];
+      
+    const p_image = image && image !== "undefined" ? CryptoUtils.fromHexString(image) : [];
     const p_to = {
       owner: p_owner,
       subaccount: [],
@@ -38,7 +39,6 @@ class NFTCanisterService {
       image: p_image,
       to: p_to,
     };
-
     let nft_info = await this.actor.icrc7_mint(create_arg);
     return nft_info;
   }

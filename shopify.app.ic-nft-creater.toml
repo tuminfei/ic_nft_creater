@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "15957d22030f9d24ce2357cea5cdd97a"
-application_url = "https://pulse-cleaning-crime-bin.trycloudflare.com"
+application_url = "https://compare-construction-carnival-compatibility.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://pulse-cleaning-crime-bin.trycloudflare.com/auth/callback",
-  "https://pulse-cleaning-crime-bin.trycloudflare.com/auth/shopify/callback",
-  "https://pulse-cleaning-crime-bin.trycloudflare.com/api/auth/callback",
-  "https://pulse-cleaning-crime-bin.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://compare-construction-carnival-compatibility.trycloudflare.com/auth/callback",
+  "https://compare-construction-carnival-compatibility.trycloudflare.com/auth/shopify/callback",
+  "https://compare-construction-carnival-compatibility.trycloudflare.com/api/auth/callback",
+  "https://compare-construction-carnival-compatibility.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
