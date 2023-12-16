@@ -96,7 +96,7 @@ export default function Index() {
   const navigate = useNavigate();
 
   return (
-    <Page>
+    <Page fullWidth>
       <ui-title-bar title="NFT Collections">
         <button
           variant="primary"

@@ -100,7 +100,7 @@ export default function Index() {
   const navigate = useNavigate();
 
   return (
-    <Page>
+    <Page fullWidth>
       <ui-title-bar title="Mint NFT">
         <button
           variant="primary"
