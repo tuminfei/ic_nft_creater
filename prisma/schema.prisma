@@ -57,7 +57,7 @@ model NFTCollection {
   @@index([shop])
 }
 
-model Settings {
+model AppSetting {
   id          Int       @id @default(autoincrement())
   info_key    String
   info_value  String
