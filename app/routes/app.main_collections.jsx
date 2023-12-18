@@ -8,6 +8,7 @@ import {
   Page,
   IndexTable,
   Thumbnail,
+  Text,
 } from "@shopify/polaris";
 
 import { getNFTCollections } from "../models/NFTCollection.server";
@@ -48,9 +49,10 @@ const CollectionTable = ({ nft_collections }) => (
     }}
     itemCount={nft_collections.length}
     headings={[
-      { title: "Thumbnail", hidden: true },
+      { title: "Index", hidden: true },
       { title: "Name" },
       { title: "Symbol" },
+      { title: "Thumbnail" },
       { title: "Canister Id" },
       { title: "Date created" },
       { title: "Supply Cap" },
@@ -70,11 +72,9 @@ const CollectionTable = ({ nft_collections }) => (
 const CollectionTableRow = ({ nft_collection }) => (
   <IndexTable.Row id={nft_collection.id} position={nft_collection.id}>
     <IndexTable.Cell>
-      <Thumbnail
-        source={nft_collection.image || ImageMajor}
-        alt={nft_collection.name}
-        size="small"
-      />
+      <Text variant="bodyMd" fontWeight="bold" as="span">
+        # {nft_collection.id}
+      </Text>
     </IndexTable.Cell>
     <IndexTable.Cell>
       <Link to={`nft_collections/${nft_collection.id}`}>
@@ -82,6 +82,13 @@ const CollectionTableRow = ({ nft_collection }) => (
       </Link>
     </IndexTable.Cell>
     <IndexTable.Cell>{nft_collection.symbol}</IndexTable.Cell>
+    <IndexTable.Cell>
+      <Thumbnail
+        source={nft_collection.image || ImageMajor}
+        alt={nft_collection.name}
+        size="small"
+      />
+    </IndexTable.Cell>
     <IndexTable.Cell>{nft_collection.canister_id}</IndexTable.Cell>
     <IndexTable.Cell>
       {new Date(nft_collection.createdAt).toDateString()}

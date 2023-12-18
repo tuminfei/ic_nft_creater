@@ -56,34 +56,40 @@ export default function AppSettingForm() {
     <Page>
       <ui-title-bar title="Edit App Settings"></ui-title-bar>
       <Layout>
-        <Layout.Section>
-          <BlockStack gap="500">
-            <Card>
-              <FormLayout>
-                <TextField
-                  id="merchant_principal"
-                  label="Merchant Principal"
-                  autoComplete="off"
-                  value={formState.merchant_principal}
-                  onChange={(merchant_principal) =>
-                    setFormState({ ...formState, merchant_principal })
-                  }
-                  i
-                />
-                <TextField
-                  id="app_description"
-                  label="Description"
-                  autoComplete="off"
-                  value={formState.app_description}
-                  multiline={5}
-                  onChange={(app_description) =>
-                    setFormState({ ...formState, app_description })
-                  }
-                />
-              </FormLayout>
-            </Card>
-          </BlockStack>
-        </Layout.Section>
+        <Layout.AnnotatedSection
+          id="appSettings"
+          title="App Settings"
+          description="The merchant sets some basic information on the 'ic nft creator' app."
+        >
+          <Layout.Section>
+            <BlockStack gap="500">
+              <Card>
+                <FormLayout>
+                  <TextField
+                    id="merchant_principal"
+                    label="Merchant Principal"
+                    autoComplete="off"
+                    value={formState.merchant_principal}
+                    onChange={(merchant_principal) =>
+                      setFormState({ ...formState, merchant_principal })
+                    }
+                    i
+                  />
+                  <TextField
+                    id="app_description"
+                    label="Description"
+                    autoComplete="off"
+                    value={formState.app_description}
+                    multiline={5}
+                    onChange={(app_description) =>
+                      setFormState({ ...formState, app_description })
+                    }
+                  />
+                </FormLayout>
+              </Card>
+            </BlockStack>
+          </Layout.Section>
+        </Layout.AnnotatedSection>
         <Layout.Section>
           <PageActions
             primaryAction={{

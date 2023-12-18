@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "15957d22030f9d24ce2357cea5cdd97a"
-application_url = "https://wav-rg-tex-sugar.trycloudflare.com"
+application_url = "https://expects-producing-additional-registry.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://wav-rg-tex-sugar.trycloudflare.com/auth/callback",
-  "https://wav-rg-tex-sugar.trycloudflare.com/auth/shopify/callback",
-  "https://wav-rg-tex-sugar.trycloudflare.com/api/auth/callback",
-  "https://wav-rg-tex-sugar.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://expects-producing-additional-registry.trycloudflare.com/auth/callback",
+  "https://expects-producing-additional-registry.trycloudflare.com/auth/shopify/callback",
+  "https://expects-producing-additional-registry.trycloudflare.com/api/auth/callback",
+  "https://expects-producing-additional-registry.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
