@@ -62,6 +62,7 @@ model AppSetting {
   info_key    String
   info_value  String
   description String?
+  shop        String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime?
 }
