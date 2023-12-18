@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "15957d22030f9d24ce2357cea5cdd97a"
-application_url = "https://indian-im-causing-x.trycloudflare.com"
+application_url = "https://attract-draws-sue-killing.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://indian-im-causing-x.trycloudflare.com/auth/callback",
-  "https://indian-im-causing-x.trycloudflare.com/auth/shopify/callback",
-  "https://indian-im-causing-x.trycloudflare.com/api/auth/callback",
-  "https://indian-im-causing-x.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://attract-draws-sue-killing.trycloudflare.com/auth/callback",
+  "https://attract-draws-sue-killing.trycloudflare.com/auth/shopify/callback",
+  "https://attract-draws-sue-killing.trycloudflare.com/api/auth/callback",
+  "https://attract-draws-sue-killing.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

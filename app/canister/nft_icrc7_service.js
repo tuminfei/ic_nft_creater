@@ -38,7 +38,7 @@ class NFTCanisterService {
       id: BigInt(token_id) || 24,
       name: name,
       description: p_description,
-      image: p_image,
+      image: [p_image],
       to: p_to,
     };
     let nft_info = await this.actor.icrc7_mint(create_arg);
