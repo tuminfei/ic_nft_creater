@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "15957d22030f9d24ce2357cea5cdd97a"
-application_url = "https://i-raymond-more-expensive.trycloudflare.com"
+application_url = "https://closing-nvidia-alerts-surprised.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://i-raymond-more-expensive.trycloudflare.com/auth/callback",
-  "https://i-raymond-more-expensive.trycloudflare.com/auth/shopify/callback",
-  "https://i-raymond-more-expensive.trycloudflare.com/api/auth/callback",
-  "https://i-raymond-more-expensive.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://closing-nvidia-alerts-surprised.trycloudflare.com/auth/callback",
+  "https://closing-nvidia-alerts-surprised.trycloudflare.com/auth/shopify/callback",
+  "https://closing-nvidia-alerts-surprised.trycloudflare.com/api/auth/callback",
+  "https://closing-nvidia-alerts-surprised.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
