@@ -1,4 +1,4 @@
-const bip39 = require('bip39');
+const bip39 = require("bip39");
 import HDKey from "hdkey";
 import Secp256k1 from "secp256k1";
 import CryptoJS from "crypto-js";
@@ -77,6 +77,10 @@ class CryptoUtils {
     }
     return value;
   }
+
+  static asciiStringToByteArray = (text) => {
+    return Array.from(text).map((c) => c.charCodeAt(0));
+  };
 
   static tokenIdentifier(principal, index) {
     const array = new Uint8Array([

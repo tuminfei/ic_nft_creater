@@ -22,11 +22,13 @@ class NFTCanisterService {
 
   async mint(token_id, name, description, image, owner) {
     const p_owner = Principal.fromText(owner);
-    const p_description = description && description !== ''
-      ? CryptoUtils.fromHexString(description)
-      : [];
-      
-    const p_image = image && image !== "undefined" ? CryptoUtils.fromHexString(image) : [];
+    const p_description =
+      description && description !== "" ? [description] : [];
+
+    const p_image =
+      image && image !== "undefined"
+        ? CryptoUtils.asciiStringToByteArray(image)
+        : [];
     const p_to = {
       owner: p_owner,
       subaccount: [],

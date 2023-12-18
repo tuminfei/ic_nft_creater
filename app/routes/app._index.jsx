@@ -13,7 +13,9 @@ import {
   Text,
   BlockStack,
   InlineStack,
+  CalloutCard,
 } from "@shopify/polaris";
+import { StoreMajor } from "@shopify/polaris-icons";
 import logo from "../images/logo.png";
 
 export default function Index() {
@@ -43,14 +45,30 @@ export default function Index() {
         </MediaCard>
         <Grid>
           <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 6, xl: 6 }}>
-            <LegacyCard title="Collection" sectioned>
-              <p>View a summary of your online store’s sales.</p>
-            </LegacyCard>
+            <CalloutCard
+              title="Collection"
+              illustration="https://cdn.shopify.com/shopifycloud/web/assets/v1/0ecc04f85cc74cb4.svg"
+              primaryAction={{
+                content: "Create Collection",
+                url: "/app/main_collections",
+              }}
+            >
+              <p>Total number created:</p>
+              <p>Total number of sales:</p>
+            </CalloutCard>
           </Grid.Cell>
           <Grid.Cell columnSpan={{ xs: 6, sm: 3, md: 3, lg: 6, xl: 6 }}>
-            <LegacyCard title="NFT" sectioned>
-              <p>View a summary of your online store’s orders.</p>
-            </LegacyCard>
+            <CalloutCard
+              title="NFT"
+              illustration="https://cdn.shopify.com/shopifycloud/web/assets/v1/93a30c07e111eac4.svg"
+              primaryAction={{
+                content: "Mint NFT",
+                url: "/app/main_nfts",
+              }}
+            >
+              <p>Total number created:</p>
+              <p>Total number of sales:</p>
+            </CalloutCard>
           </Grid.Cell>
         </Grid>
       </BlockStack>
