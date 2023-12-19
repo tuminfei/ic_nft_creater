@@ -64,6 +64,18 @@ Unlock the full potential of your Shopify store by integrating IC_NFT_Creator. J
 - Implement Social Media Sharing (Enable users to share their NFT listings on social media platforms)
 - Conduct thorough Testing and Bug FixesDesign NFTs with ease
 
+# Example Canister Info
+
+URLs:
+
+Backend canister via Candid interface:
+
+nft_factory_backend: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=myniu-wqaaa-aaaah-advna-cai
+
+icrc7_with_assets: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=vght4-jyaaa-aaaag-aceyq-cai
+
+icrc7_with_assets: https://vght4-jyaaa-aaaag-aceyq-cai.raw.icp0.io/
+
 
 # Shopify App Template - Remix
 
@@ -310,14 +322,3 @@ This template uses [Remix](https://remix.run). The following Shopify tools are a
 - [App extensions](https://shopify.dev/docs/apps/app-extensions/list)
 - [Shopify Functions](https://shopify.dev/docs/api/functions)
 - [Getting started with internationalizing your app](https://shopify.dev/docs/apps/best-practices/internationalization/getting-started)
-
-## Canister Info
-URLs:
-
-Backend canister via Candid interface:
-
-nft_factory_backend: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=myniu-wqaaa-aaaah-advna-cai
-
-icrc7_with_assets: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=vght4-jyaaa-aaaag-aceyq-cai
-
-icrc7_with_assets: https://vght4-jyaaa-aaaag-aceyq-cai.raw.icp0.io/
