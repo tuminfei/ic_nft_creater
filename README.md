@@ -317,3 +317,5 @@ URLs:
 Backend canister via Candid interface:
 
 nft_factory_backend: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=myniu-wqaaa-aaaah-advna-cai
+
+icrc7_with_assets: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=vght4-jyaaa-aaaag-aceyq-cai

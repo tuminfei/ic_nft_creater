@@ -2,5 +2,9 @@
   "nft_factory_backend": {
     "ic": "myniu-wqaaa-aaaah-advna-cai",
     "local": "be2us-64aaa-aaaaa-qaabq-cai"
+  },
+  "icrc7_with_assets": {
+    "ic": "vght4-jyaaa-aaaag-aceyq-cai",
+    "local": "avqkn-guaaa-aaaaa-qaaea-cai"
   }
 }
