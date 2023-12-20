@@ -15,3 +15,8 @@ pub struct StatusResponse {
     pub memory_size: Option<u64>,
     pub heap_memory_size: Option<u64>,
 }
+
+#[derive(Clone, Debug, CandidType, Deserialize)]
+pub struct WalletReceiveResponse {
+    pub accepted: u64,
+}

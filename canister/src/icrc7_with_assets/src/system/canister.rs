@@ -1,4 +1,4 @@
-use super::types::{StatusRequest, StatusResponse};
+use super::types::{StatusRequest, StatusResponse, WalletReceiveResponse};
 use crate::ic_util;
 
 #[ic_cdk::query(name = "get_status")]
@@ -12,6 +12,21 @@ pub fn get_status(request: StatusRequest) -> StatusResponse {
         cycles,
         memory_size,
         heap_memory_size,
+    }
+}
+
+#[ic_cdk::update(name = "wallet_receive")]
+#[candid::candid_method(update, rename = "wallet_receive")]
+pub fn wallet_receive() -> WalletReceiveResponse {
+    let available = ic_cdk::api::call::msg_cycles_available128();
+
+    if available == 0 {
+        return WalletReceiveResponse { accepted: 0 };
+    }
+    let accepted = ic_cdk::api::call::msg_cycles_accept128(available);
+    assert!(accepted == available);
+    WalletReceiveResponse {
+        accepted: accepted as u64,
     }
 }
 

@@ -126,6 +126,7 @@ type UploadingArg = record {
   index : nat32;
   chunk_size : nat64;
 };
+type WalletReceiveResponse = record { accepted : nat64 };
 service : (InitArg) -> {
   assets_delete : (vec text) -> ();
   assets_download : (text) -> (vec nat8) query;
@@ -158,4 +159,5 @@ service : (InitArg) -> {
   permission_is_admin : (principal) -> (bool) query;
   permission_remove_admin : (principal) -> ();
   permission_set_admin : (principal) -> ();
+  wallet_receive : () -> (WalletReceiveResponse);
 }
