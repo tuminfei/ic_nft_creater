@@ -1,24 +1,30 @@
 import { json } from "@remix-run/node";
-import { useLoaderData, Link, useNavigate } from "@remix-run/react";
+import { useState } from "react";
+import { useLoaderData } from "@remix-run/react";
 import { authenticate } from "../shopify.server";
 import React from "react";
 import {
-  Card,
-  EmptyState,
-  Layout,
   Page,
   Grid,
-  LegacyCard,
   MediaCard,
-  Text,
   BlockStack,
-  InlineStack,
   CalloutCard,
 } from "@shopify/polaris";
-import { StoreMajor } from "@shopify/polaris-icons";
+import { getStatistics } from "../models/NFTCollection.server";
 import logo from "../images/logo.png";
 
+export async function loader({ request, params }) {
+  const { session } = await authenticate.admin(request);
+  const { shop } = session;
+
+  return json(await getStatistics(shop));
+}
+
 export default function Index() {
+  const statistic_data = useLoaderData();
+  const [statisticState, setStatisticState] = useState(statistic_data);
+  console.log(statisticState);
+
   return (
     <Page fullWidth>
       <BlockStack gap="500">
@@ -53,7 +59,7 @@ export default function Index() {
                 url: "/app/main_collections",
               }}
             >
-              <p>Total number created:</p>
+              <p>Total number created:&nbsp;&nbsp;{statisticState.collection_count}</p>
               <p>Total number of sales:</p>
             </CalloutCard>
           </Grid.Cell>
@@ -66,7 +72,7 @@ export default function Index() {
                 url: "/app/main_nfts",
               }}
             >
-              <p>Total number created:</p>
+              <p>Total number created:&nbsp;&nbsp;{statisticState.nft_count}</p>
               <p>Total number of sales:</p>
             </CalloutCard>
           </Grid.Cell>

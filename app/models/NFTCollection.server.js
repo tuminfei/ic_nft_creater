@@ -23,6 +23,17 @@ export async function getNFTCollections(shop, graphql) {
   return nft_collections;
 }
 
+export async function getStatistics(shop) {
+  const collection_count = await db.nFTCollection.count({
+    where: { shop },
+  });
+  const nft_count = await db.nFTInfo.count({
+    where: { shop },
+  });
+
+  return { collection_count, nft_count };
+}
+
 export function validateCollection(data) {
   const errors = {};
 
