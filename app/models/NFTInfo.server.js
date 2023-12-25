@@ -2,6 +2,10 @@ import invariant from "tiny-invariant";
 import db from "../db.server";
 import NFTCanisterService from "../canister/nft_icrc7_service";
 
+// upload image 5.9M size
+const CHUNK_SIZE = 1024 * 1024 * 6 - 1024 * 128;
+const FILE_BASE_PATH = "nft/";
+
 export async function getNFTInfo(id, graphql) {
   const nft_info = await db.nFTInfo.findFirst({ where: { id } });
 
@@ -61,7 +65,9 @@ export function converData(data) {
 }
 
 export async function canisterMintNFT(nft_info) {
-  const nft_collection = await db.nFTCollection.findFirst({where: {id: nft_info.nft_collection_id}});
+  const nft_collection = await db.nFTCollection.findFirst({
+    where: { id: nft_info.nft_collection_id },
+  });
   const service = new NFTCanisterService(nft_collection.canister_id);
   const rest = await service.mint(
     nft_info.token_id,
@@ -69,6 +75,34 @@ export async function canisterMintNFT(nft_info) {
     nft_info.description,
     nft_info.image,
     nft_info.owner
+  );
+  return rest;
+}
+
+export async function canisterUploadImg(
+  nft_collection_id,
+  file_size,
+  file_type,
+  file_name,
+  file_data
+) {
+  const nft_collection = await db.nFTCollection.findFirst({
+    where: { id: nft_collection_id },
+  });
+
+  const chunk_size = CHUNK_SIZE;
+  const file_path = FILE_BASE_PATH + file_name;
+  const file_headers = [[file_type, file_type]];
+  const binary_data = Buffer.from(file_data, "base64");
+  const chunk = new Uint8Array(binary_data);
+
+  const service = new NFTCanisterService(nft_collection.canister_id);
+  const rest = await service.assets_upload(
+    chunk,
+    file_path,
+    file_size,
+    file_headers,
+    chunk_size
   );
   return rest;
 }

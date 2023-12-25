@@ -44,6 +44,19 @@ class NFTCanisterService {
     let nft_info = await this.actor.icrc7_mint(create_arg);
     return nft_info;
   }
+
+  async assets_upload(chunk, path, size, headers, chunk_size) {
+    const upload_arg = {
+      chunk: chunk,
+      path: path,
+      size: size,
+      headers: headers,
+      index: 0,
+      chunk_size: chunk_size,
+    };
+    let image_rst = await this.actor.assets_upload(upload_arg);
+    return image_rst;
+  }
 }
 
 export default NFTCanisterService;
