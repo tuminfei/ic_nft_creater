@@ -58,6 +58,7 @@ service : () -> {
   schedule_start : (nat64) -> ();
   schedule_stop : () -> ();
   schedule_trigger : () -> ();
+  set_icrc7_admin : (principal, principal) -> (principal);
   wallet_balance : () -> (nat) query;
   wallet_receive : () -> (WalletReceiveResult);
   whoami : () -> (principal) query;

@@ -1,4 +1,4 @@
-use crate::canister_icrc7::CanisterInfo;
+use crate::canister_icrc7::{CanisterInfo, ICRC7};
 use crate::stable::{is_admin, must_be_running, STATE};
 use crate::types::{CanisterData, CreateArg, InitArg};
 use candid::{Encode, Nat, Principal};
@@ -99,4 +99,14 @@ pub async fn create_icrc7_collection(arg: CreateArg) -> Principal {
         state.canisters.canisters.insert(record_id, canister_info);
     });
     return result;
+}
+
+#[ic_cdk::update(name = "set_icrc7_admin", guard = "is_admin")]
+#[candid::candid_method(update, rename = "set_icrc7_admin")]
+pub async fn set_icrc7_admin(canister_id: Principal, admin: Principal) -> Principal {
+    must_be_running();
+
+    let icrc7_token = ICRC7::new(canister_id);
+    let update_admin: Principal = icrc7_token.permission_set_admin(admin).await;
+    return update_admin;
 }

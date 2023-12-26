@@ -34,8 +34,14 @@ impl ICRC7 {
 
     pub async fn get_status(&self, status_request: StatusRequest) -> StatusResponse {
         let call_result: Result<(StatusResponse,), _> =
-            ic_cdk::api::call::call(self.principal, "get_status", (status_request, )).await;
+            ic_cdk::api::call::call(self.principal, "get_status", (status_request,)).await;
 
         call_result.unwrap().0
+    }
+
+    pub async fn permission_set_admin(&self, admin: Principal) -> Principal {
+        let _call_result: Result<(), _> =
+            ic_cdk::api::call::call(self.principal, "permission_set_admin", (admin,)).await;
+        admin
     }
 }
