@@ -4,7 +4,7 @@ import NFTCanisterService from "../canister/nft_icrc7_service";
 
 // upload image 5.9M size
 const CHUNK_SIZE = 1024 * 1024 * 6 - 1024 * 128;
-const FILE_BASE_PATH = "nft/";
+const FILE_BASE_PATH = "/nft/";
 
 export async function getNFTInfo(id, graphql) {
   const nft_info = await db.nFTInfo.findFirst({ where: { id } });
@@ -100,12 +100,15 @@ export async function canisterUploadImg(
   ];
   const binary_data = Buffer.from(file_data, "base64");
   const chunk = new Uint8Array(binary_data);
+  // console.log("chunk:", chunk.length);
+  // console.log("chunk_size:", chunk_size);
+  // console.log("size:", file_size);
 
   const service = new NFTCanisterService(nft_collection.canister_id);
   const rest = await service.assets_upload(
     chunk,
     file_path,
-    file_size,
+    chunk.length,
     file_headers,
     chunk_size
   );
