@@ -92,7 +92,12 @@ export async function canisterUploadImg(
 
   const chunk_size = CHUNK_SIZE;
   const file_path = FILE_BASE_PATH + file_name;
-  const file_headers = [[file_type, file_type]];
+  const file_headers = [
+    [
+      '"Content-Type";"image/jpeg"',
+      '"Cache-Control";"public, max-age=31536000"',
+    ],
+  ];
   const binary_data = Buffer.from(file_data, "base64");
   const chunk = new Uint8Array(binary_data);
 

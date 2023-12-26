@@ -54,7 +54,7 @@ class NFTCanisterService {
       index: 0,
       chunk_size: chunk_size,
     };
-    let image_rst = await this.actor.assets_upload(upload_arg);
+    let image_rst = await this.actor.assets_upload([upload_arg]);
     return image_rst;
   }
 }
