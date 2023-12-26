@@ -70,7 +70,7 @@ export async function read_file(file) {
 
     reader.onload = function (event) {
       // Remove the prefix such as "data:application/octet-stream;base64,"
-      resolve(event.target.result.split(',')[1]);
+      resolve(event.target.result.split(",")[1]);
     };
 
     reader.onerror = function (error) {
