@@ -61,6 +61,19 @@ export function converData(data) {
   if (data.image && data.image == "null") {
     data.image = null;
   }
+  if (data.file_size) {
+    delete data.file_size;
+  }
+  if (data.file_type) {
+    delete data.file_type;
+  }
+  if (data.file_name) {
+    delete data.file_name;
+  }
+  if (data.file_data) {
+    delete data.file_data;
+  }
+
   return data;
 }
 
@@ -93,19 +106,28 @@ export async function canisterUploadImg(
   const chunk_size = CHUNK_SIZE;
   const file_path = FILE_BASE_PATH + file_name;
   const file_headers = [
-    ["Content-Type", "image/jpeg"],
+    ["Content-Type", file_type],
     ["Cache-Control", "public, max-age=31536000"],
   ];
   const binary_data = Buffer.from(file_data, "base64");
   const chunk = new Uint8Array(binary_data);
 
   const service = new NFTCanisterService(nft_collection.canister_id);
-  const rest = await service.assets_upload(
-    chunk,
-    file_path,
-    chunk.length,
-    file_headers,
-    chunk_size
-  );
-  return rest;
+  let image_url = "";
+  try {
+    await service.assets_upload(
+      chunk,
+      file_path,
+      chunk.length,
+      file_headers,
+      chunk_size
+    );
+    image_url =
+      process.env.NODE_ENV == "production"
+        ? "https://" + nft_collection.canister_id + ".raw.icp0.io" + file_path
+        : "http://127.0.0.1:4943" + file_path;
+  } catch (error) {
+    console.log("assets_upload error");
+  }
+  return image_url;
 }

@@ -93,13 +93,14 @@ export async function action({ request, params }) {
 
   // upload image to canister
   if (data.file_size && parseInt(data.file_size) > 0) {
-    await canisterUploadImg(
+    let image_url = await canisterUploadImg(
       parseInt(data.nft_collection_id),
       parseInt(data.file_size),
       data.file_type,
       data.file_name,
       data.file_data
     );
+    data.image = image_url;
   }
 
   const errors = validateInfo(data);
@@ -167,7 +168,6 @@ export default function NFTInfoForm() {
       data["file_type"] = file.type;
       data["file_name"] = file.name;
       data["file_data"] = base64data;
-      data["file"] = file;
     }
 
     setCleanFormState({ ...formState });
