@@ -62,3 +62,5 @@ dfx canister call nft_factory_backend create_icrc7_collection '(record{
 dfx canister call nft_factory_backend schedule_trigger
 
 dfx canister call nft_factory_backend schedule_start  '(100:nat64)'
+
+dfx canister call local nft_factory_backend set_icrc7_admin  '(principal"ahw5u-keaaa-aaaaa-qaaha-cai", principal"i7z6q-2c4ks-pjwft-gw5fb-jxd2n-mp6v7-3sxuy-v66y7-c3jjv-2te7o-nqe")'
