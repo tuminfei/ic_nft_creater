@@ -93,16 +93,11 @@ export async function canisterUploadImg(
   const chunk_size = CHUNK_SIZE;
   const file_path = FILE_BASE_PATH + file_name;
   const file_headers = [
-    [
-      '"Content-Type";"image/jpeg"',
-      '"Cache-Control";"public, max-age=31536000"',
-    ],
+    ["Content-Type", "image/jpeg"],
+    ["Cache-Control", "public, max-age=31536000"],
   ];
   const binary_data = Buffer.from(file_data, "base64");
   const chunk = new Uint8Array(binary_data);
-  // console.log("chunk:", chunk.length);
-  // console.log("chunk_size:", chunk_size);
-  // console.log("size:", file_size);
 
   const service = new NFTCanisterService(nft_collection.canister_id);
   const rest = await service.assets_upload(

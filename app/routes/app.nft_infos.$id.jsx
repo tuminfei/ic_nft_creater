@@ -69,7 +69,8 @@ export async function read_file(file) {
     const reader = new FileReader();
 
     reader.onload = function (event) {
-      resolve(event.target.result);
+      // Remove the prefix such as "data:application/octet-stream;base64,"
+      resolve(event.target.result.split(',')[1]);
     };
 
     reader.onerror = function (error) {
@@ -156,10 +157,10 @@ export default function NFTInfoForm() {
       token_id: formState.token_id,
       subaccount: formState.subaccount,
       image: formState.image,
-      nft_collection_id: formState.nft_collection_id,
+      nft_collection_id: formState.nft_collection_id || nft_collections[0].id,
     };
 
-    if (file.size > 0) {
+    if (file && file.size > 0) {
       var base64data = await read_file(file);
 
       data["file_size"] = file.size;
@@ -173,7 +174,7 @@ export default function NFTInfoForm() {
     submit(data, { method: "post" });
   }
 
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(nft_collections[0].id.toString());
   const handleSelectChange = useCallback((nft_collection_id) => {
     setSelected(nft_collection_id);
     setFormState({ ...formState, nft_collection_id });
