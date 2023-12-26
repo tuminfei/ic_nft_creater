@@ -76,6 +76,10 @@ icrc7_with_assets: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=vght4-jya
 
 icrc7_with_assets: https://vght4-jyaaa-aaaag-aceyq-cai.raw.icp0.io/
 
+## Local test canister
+
+http://127.0.0.1:4943/?canisterId=avqkn-guaaa-aaaaa-qaaea-cai
+
 
 # Shopify App Template - Remix
 

@@ -9,7 +9,7 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   button.setAttribute("disabled", true);
 
   // Interact with foo actor, calling the greet method
-  const greeting = await nft_factory_backend.greet(name);
+  const greeting = await nft_factory_backend.wallet_balance();
 
   button.removeAttribute("disabled");
 

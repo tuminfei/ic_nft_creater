@@ -63,4 +63,6 @@ dfx canister call nft_factory_backend schedule_trigger
 
 dfx canister call nft_factory_backend schedule_start  '(100:nat64)'
 
-dfx canister call local nft_factory_backend set_icrc7_admin  '(principal"ahw5u-keaaa-aaaaa-qaaha-cai", principal"i7z6q-2c4ks-pjwft-gw5fb-jxd2n-mp6v7-3sxuy-v66y7-c3jjv-2te7o-nqe")'
+dfx canister call nft_factory_backend set_icrc7_admin  '(principal"ahw5u-keaaa-aaaaa-qaaha-cai", principal"i7z6q-2c4ks-pjwft-gw5fb-jxd2n-mp6v7-3sxuy-v66y7-c3jjv-2te7o-nqe")'
+
+dfx canister call nft_factory_backend set_icrc7_admin  '(principal"ahw5u-keaaa-aaaaa-qaaha-cai", principal"3yyxm-t5fpe-v32em-ac6lr-xyort-wuscb-dvl4x-3wnwi-hqkyj-xortw-oqe")'
