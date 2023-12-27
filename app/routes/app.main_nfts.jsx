@@ -9,6 +9,7 @@ import {
   IndexTable,
   Thumbnail,
   Text,
+  Badge,
 } from "@shopify/polaris";
 
 import { getNFTInfos } from "../models/NFTInfo.server";
@@ -88,7 +89,13 @@ const NFTTableRow = ({ nft_info }) => (
     </IndexTable.Cell>
     <IndexTable.Cell>{nft_info.owner}</IndexTable.Cell>
     <IndexTable.Cell>{nft_info.product_id}</IndexTable.Cell>
-    <IndexTable.Cell>{nft_info.onchain}</IndexTable.Cell>
+    <IndexTable.Cell>
+      {nft_info.onchain === true ? (
+        <Badge tone="success">OnChain</Badge>
+      ) : (
+        <Badge tone="warning">OffChain</Badge>
+      )}
+    </IndexTable.Cell>
     <IndexTable.Cell>
       {new Date(nft_info.createdAt).toDateString()}
     </IndexTable.Cell>
