@@ -80,6 +80,16 @@ icrc7_with_assets: https://vght4-jyaaa-aaaag-aceyq-cai.raw.icp0.io/
 
 http://127.0.0.1:4943/?canisterId=avqkn-guaaa-aaaaa-qaaea-cai
 
+## Docker
+
+1. update to latest image
+
+`docker pull tuminfei1981/ic_nft_creater:latest`
+
+2. Run image:
+
+`docker run -p 8081:8081 --rm --env-file dev.env tuminfei1981/ic_nft_creater:latest`
+
 
 # Shopify App Template - Remix
 
