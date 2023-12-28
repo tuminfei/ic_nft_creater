@@ -2,6 +2,7 @@ use crate::canister_icrc7::{CanisterInfo, ICRC7};
 use crate::stable::{is_admin, must_be_running, STATE};
 use crate::types::{CanisterData, CreateArg, InitArg};
 use candid::{Encode, Nat, Principal};
+use ic_cdk::api::call::CallResult;
 use ic_cdk::api::management_canister::main::{
     CanisterIdRecord, CanisterInstallMode, CanisterSettings, CreateCanisterArgument,
     InstallCodeArgument,
@@ -109,4 +110,22 @@ pub async fn set_icrc7_admin(canister_id: Principal, admin: Principal) -> Princi
     let icrc7_token = ICRC7::new(canister_id);
     let update_admin: Principal = icrc7_token.permission_set_admin(admin).await;
     return update_admin;
+}
+
+#[ic_cdk::update(name = "set_icrc7_cyclse", guard = "is_admin")]
+#[candid::candid_method(update, rename = "set_icrc7_cyclse")]
+pub async fn set_icrc7_cyclse(canister_id: Principal) -> CallResult<()> {
+    must_be_running();
+
+    let args: CanisterIdRecord = CanisterIdRecord {
+        canister_id: canister_id,
+    };
+
+    ic_cdk::api::call::call_with_payment(
+        Principal::management_canister(),
+        "deposit_cycles",
+        (args,),
+        200_000_000_000,
+    )
+    .await
 }

@@ -1,4 +1,5 @@
 use candid::Principal;
+use ic_cdk::api::call::CallResult;
 
 #[candid::candid_method(query, rename = "__get_candid_interface_tmp_hack")]
 fn __export_candid() -> String {
