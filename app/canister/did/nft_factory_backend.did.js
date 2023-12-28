@@ -49,6 +49,19 @@ const idlFactory = ({ IDL }) => {
     'proxy' : IDL.Principal,
     'symbol' : IDL.Text,
   });
+  const RejectionCode = IDL.Variant({
+    'NoError' : IDL.Null,
+    'CanisterError' : IDL.Null,
+    'SysTransient' : IDL.Null,
+    'DestinationInvalid' : IDL.Null,
+    'Unknown' : IDL.Null,
+    'SysFatal' : IDL.Null,
+    'CanisterReject' : IDL.Null,
+  });
+  const Result = IDL.Variant({
+    'Ok' : IDL.Null,
+    'Err' : IDL.Tuple(RejectionCode, IDL.Text),
+  });
   const MaintainingReason = IDL.Record({
     'created' : IDL.Nat64,
     'message' : IDL.Text,
@@ -64,6 +77,12 @@ const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'factory_canister_list' : IDL.Func([], [IDL.Vec(CanisterData)], ['query']),
+    'factory_canister_set_admin' : IDL.Func(
+        [IDL.Principal, IDL.Principal],
+        [IDL.Principal],
+        [],
+      ),
+    'factory_canister_set_cyclse' : IDL.Func([IDL.Principal], [Result], []),
     'maintainable_is_maintaining' : IDL.Func([], [IDL.Bool], ['query']),
     'maintainable_set_maintaining' : IDL.Func(
         [IDL.Opt(MaintainingReason)],
