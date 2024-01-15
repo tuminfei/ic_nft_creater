@@ -38,20 +38,20 @@ import CollectionInfo from "./collection_info";
 
 export async function loader({ request, params }) {
   const { admin, session } = await authenticate.admin(request);
+  const nft_collections = await db.nFTCollection.findMany({
+    where: { shop: session.shop },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      symbol: true,
+      image: true,
+      owner: true,
+      canister_id: true,
+    },
+  });
 
   if (params.id === "new") {
-    const nft_collections = await db.nFTCollection.findMany({
-      where: { shop: session.shop },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        symbol: true,
-        image: true,
-        owner: true,
-        canister_id: true,
-      },
-    });
     return json({
       nft_info: {
         name: "",
@@ -61,7 +61,12 @@ export async function loader({ request, params }) {
     });
   }
 
-  return json(await getNFTInfo(Number(params.id), admin.graphql));
+  const nft_info = await getNFTInfo(Number(params.id), admin.graphql);
+
+  return json({
+    ...nft_info,
+    nft_collections: nft_collections,
+  });
 }
 
 export async function read_file(file) {
