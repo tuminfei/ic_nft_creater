@@ -2,19 +2,19 @@
 
 name = "ic-nft-creater"
 client_id = "5d61dbdb607945556f5270399712c180"
-application_url = "https://jose-claimed-plot-findings.trycloudflare.com"
+application_url = "https://different-random-concerts-annual.trycloudflare.com"
 embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "write_products, read_products, read_orders"
 
 [auth]
 redirect_urls = [
-  "https://jose-claimed-plot-findings.trycloudflare.com/auth/callback",
-  "https://jose-claimed-plot-findings.trycloudflare.com/auth/shopify/callback",
-  "https://jose-claimed-plot-findings.trycloudflare.com/api/auth/callback",
-  "https://jose-claimed-plot-findings.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://different-random-concerts-annual.trycloudflare.com/auth/callback",
+  "https://different-random-concerts-annual.trycloudflare.com/auth/shopify/callback",
+  "https://different-random-concerts-annual.trycloudflare.com/api/auth/callback",
+  "https://different-random-concerts-annual.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
