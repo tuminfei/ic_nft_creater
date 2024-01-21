@@ -85,6 +85,7 @@ model NFTInfo {
   onchain            Boolean?
   createdAt          DateTime      @default(now())
   updatedAt          DateTime?
+  is_sale            Boolean?
 
   @@index([shop])
   @@index([shop, nft_collection_id])
