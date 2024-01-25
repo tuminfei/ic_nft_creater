@@ -34,6 +34,7 @@ import {
   canisterUploadImg,
   converData,
 } from "../models/NFTInfo.server";
+import { createProduct } from "../models/NFTProduct.server";
 import CollectionInfo from "./collection_info";
 
 export async function loader({ request, params }) {
@@ -87,7 +88,7 @@ export async function read_file(file) {
 }
 
 export async function action({ request, params }) {
-  const { session } = await authenticate.admin(request);
+  const { admin, session } = await authenticate.admin(request);
   const { shop } = session;
 
   /** @type {any} */
@@ -95,6 +96,7 @@ export async function action({ request, params }) {
     ...Object.fromEntries(await request.formData()),
     shop,
   };
+  const action_name = data.action || "";
 
   // upload image to canister
   if (data.file_size && parseInt(data.file_size) > 0) {
@@ -116,23 +118,40 @@ export async function action({ request, params }) {
   }
 
   let nft_info = null;
-  if (params.id === "new") {
-    nft_info = await db.nFTInfo.create({ data });
-    try {
-      await canisterMintNFT(nft_info);
-      await db.nFTInfo.update({
-        where: { id: nft_info.id },
-        data: { onchain: true },
-      });
-    } catch (error) {
-      console.log(error);
-      console.log("mint nft error, token_id:", nft_info.token_id);
-    }
-  } else {
-    nft_info = await db.nFTInfo.update({
+
+  if (action_name === "create_product") {
+    const response = await createProduct(
+      shop,
+      data.name,
+      100,
+      admin.graphql
+    );
+    const responseJson = await response.json();
+    const product = responseJson.data?.productCreate?.product;
+    await db.nFTInfo.update({
       where: { id: Number(params.id) },
-      data,
+      data: { product_id: product.id },
     });
+
+  } else {
+    if (params.id === "new") {
+      nft_info = await db.nFTInfo.create({ data });
+      try {
+        await canisterMintNFT(nft_info);
+        await db.nFTInfo.update({
+          where: { id: nft_info.id },
+          data: { onchain: true },
+        });
+      } catch (error) {
+        console.log(error);
+        console.log("mint nft error, token_id:", nft_info.token_id);
+      }
+    } else {
+      nft_info = await db.nFTInfo.update({
+        where: { id: Number(params.id) },
+        data,
+      });
+    }
   }
 
   return redirect(`/app/main_nfts/`);
@@ -179,6 +198,21 @@ export default function NFTInfoForm() {
     submit(data, { method: "post" });
   }
 
+  async function createProductSave() {
+    const data = {
+      action: "create_product",
+      name: formState.name,
+      description: formState.description || "",
+      owner: formState.owner,
+      token_id: formState.token_id,
+      subaccount: formState.subaccount,
+      image: formState.image,
+      nft_collection_id: formState.nft_collection_id || nft_collections[0].id,
+    };
+    setCleanFormState({ ...formState });
+    submit(data, { method: "post" });
+  }
+
   const [selected, setSelected] = useState(nft_collections[0].id.toString());
   const handleSelectChange = useCallback((nft_collection_id) => {
     setSelected(nft_collection_id);
@@ -220,6 +254,34 @@ export default function NFTInfoForm() {
         </Text>
       </div>
     </LegacyStack>
+  );
+
+  const createProduction = nft_info.id ? (
+    <PageActions
+      primaryAction={{
+        content: "Save",
+        loading: isSaving,
+        disabled: !isDirty || isSaving,
+        onAction: handleSave,
+      }}
+      secondaryActions={[
+        {
+          loading: isSaving,
+          disabled: isDirty || isSaving,
+          content: "Create NFT Product",
+          onAction: createProductSave,
+        },
+      ]}
+    />
+  ) : (
+    <PageActions
+      primaryAction={{
+        content: "Save",
+        loading: isSaving,
+        disabled: !isDirty || isSaving,
+        onAction: handleSave,
+      }}
+    />
   );
 
   return (
@@ -315,16 +377,7 @@ export default function NFTInfoForm() {
                 </LegacyCard>
               </BlockStack>
             </Layout.Section>
-            <Layout.Section>
-              <PageActions
-                primaryAction={{
-                  content: "Save",
-                  loading: isSaving,
-                  disabled: !isDirty || isSaving,
-                  onAction: handleSave,
-                }}
-              />
-            </Layout.Section>
+            <Layout.Section>{createProduction}</Layout.Section>
           </Layout>
         </Grid.Cell>
         <Grid.Cell columnSpan={{ xs: 6, sm: 2, md: 2, lg: 4, xl: 4 }}>

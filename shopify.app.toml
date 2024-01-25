@@ -2,18 +2,18 @@
 
 name = "ic-nft-creater"
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
-application_url = "https://paying-beds-weather-thirty.trycloudflare.com"
+application_url = "https://survey-newly-impaired-ff.trycloudflare.com"
 embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "write_products, read_products, read_customers, write_customers"
 
 [auth]
 redirect_urls = [
-  "https://paying-beds-weather-thirty.trycloudflare.com/auth/callback",
-  "https://paying-beds-weather-thirty.trycloudflare.com/auth/shopify/callback",
-  "https://paying-beds-weather-thirty.trycloudflare.com/api/auth/callback"
+  "https://survey-newly-impaired-ff.trycloudflare.com/auth/callback",
+  "https://survey-newly-impaired-ff.trycloudflare.com/auth/shopify/callback",
+  "https://survey-newly-impaired-ff.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

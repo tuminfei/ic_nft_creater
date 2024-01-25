@@ -35,3 +35,40 @@ export async function getProducts(shop, graphql) {
     return null;
   }
 }
+
+export async function createProduct(shop, title, price, graphql) {
+  const response = await graphql(
+    `
+      #graphql
+      mutation populateProduct($input: ProductInput!) {
+        productCreate(input: $input) {
+          product {
+            id
+            title
+            handle
+            status
+            variants(first: 10) {
+              edges {
+                node {
+                  id
+                  price
+                  barcode
+                  createdAt
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    {
+      variables: {
+        input: {
+          title: title,
+          variants: [{ price }],
+        },
+      },
+    }
+  );
+  return response;
+}
