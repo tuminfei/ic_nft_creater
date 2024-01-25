@@ -125,6 +125,8 @@ export async function action({ request, params }) {
       data.name,
       100,
       data.image,
+      data.canister_id,
+      data.token_id.toString(),
       admin.graphql
     );
     const responseJson = await response.json();
@@ -133,7 +135,6 @@ export async function action({ request, params }) {
       where: { id: Number(params.id) },
       data: { product_id: product.id },
     });
-
   } else {
     if (params.id === "new") {
       nft_info = await db.nFTInfo.create({ data });
@@ -200,6 +201,7 @@ export default function NFTInfoForm() {
   }
 
   async function createProductSave() {
+    console.log(collectionState);
     const data = {
       action: "create_product",
       name: formState.name,
@@ -209,6 +211,7 @@ export default function NFTInfoForm() {
       subaccount: formState.subaccount,
       image: formState.image,
       nft_collection_id: formState.nft_collection_id || nft_collections[0].id,
+      canister_id: collectionState.canister_id,
     };
     setCleanFormState({ ...formState });
     submit(data, { method: "post" });

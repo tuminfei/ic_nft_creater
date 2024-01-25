@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
-application_url = "https://survey-newly-impaired-ff.trycloudflare.com"
+application_url = "https://translate-modeling-purchases-ratings.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products, read_products, read_customers, write_customers"
 
 [auth]
 redirect_urls = [
-  "https://survey-newly-impaired-ff.trycloudflare.com/auth/callback",
-  "https://survey-newly-impaired-ff.trycloudflare.com/auth/shopify/callback",
-  "https://survey-newly-impaired-ff.trycloudflare.com/api/auth/callback"
+  "https://translate-modeling-purchases-ratings.trycloudflare.com/auth/callback",
+  "https://translate-modeling-purchases-ratings.trycloudflare.com/auth/shopify/callback",
+  "https://translate-modeling-purchases-ratings.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

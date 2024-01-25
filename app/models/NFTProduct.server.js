@@ -36,17 +36,37 @@ export async function getProducts(shop, graphql) {
   }
 }
 
-export async function createProduct(shop, title, price, image_src, graphql) {
+export async function createProduct(
+  shop,
+  title,
+  price,
+  image_src,
+  canister_id,
+  token_id,
+  graphql
+) {
   const response = await graphql(
     `
       #graphql
-      mutation populateProduct($input: ProductInput!) {
-        productCreate(input: $input) {
+      mutation populateProduct(
+        $input: ProductInput!
+        $media: [CreateMediaInput!]
+      ) {
+        productCreate(input: $input, media: $media) {
           product {
             id
             title
             handle
             status
+            media(first: 10) {
+              nodes {
+                alt
+                mediaContentType
+                preview {
+                  status
+                }
+              }
+            }
             variants(first: 10) {
               edges {
                 node {
@@ -68,13 +88,28 @@ export async function createProduct(shop, title, price, image_src, graphql) {
           variants: [{ price }],
           customProductType: "IC NFT",
           vendor: "IC NFT Creator",
-          images: [
+          metafields: [
             {
-              altText: title + " NFT Image",
-              src: image_src
-            }
+              namespace: "nft_info",
+              key: "canister_id",
+              type: "single_line_text_field",
+              value: canister_id,
+            },
+            {
+              namespace: "nft_info",
+              key: "token_id",
+              type: "single_line_text_field",
+              value: token_id,
+            },
           ],
         },
+        media: [
+          {
+            originalSource: image_src,
+            alt: title + " NFT Image",
+            mediaContentType: "IMAGE",
+          },
+        ],
       },
     }
   );
