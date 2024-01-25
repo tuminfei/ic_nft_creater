@@ -124,6 +124,7 @@ export async function action({ request, params }) {
       shop,
       data.name,
       100,
+      data.image,
       admin.graphql
     );
     const responseJson = await response.json();

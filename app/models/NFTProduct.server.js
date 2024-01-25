@@ -36,7 +36,7 @@ export async function getProducts(shop, graphql) {
   }
 }
 
-export async function createProduct(shop, title, price, graphql) {
+export async function createProduct(shop, title, price, image_src, graphql) {
   const response = await graphql(
     `
       #graphql
@@ -66,6 +66,14 @@ export async function createProduct(shop, title, price, graphql) {
         input: {
           title: title,
           variants: [{ price }],
+          customProductType: "IC NFT",
+          vendor: "IC NFT Creator",
+          images: [
+            {
+              altText: title + " NFT Image",
+              src: image_src
+            }
+          ],
         },
       },
     }
