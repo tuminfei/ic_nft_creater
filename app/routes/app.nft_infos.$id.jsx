@@ -36,7 +36,7 @@ import {
 } from "../models/NFTInfo.server";
 import { createProduct } from "../models/NFTProduct.server";
 import CollectionInfo from "./collection_info";
-import { readAndSaveImage } from '../common/local_file';
+import { readAndSaveImage } from "../common/local_file";
 
 export async function loader({ request, params }) {
   const { admin, session } = await authenticate.admin(request);
@@ -103,6 +103,8 @@ export async function action({ request, params }) {
   if (data.file_size && parseInt(data.file_size) > 0) {
     // save to public
     const result = await readAndSaveImage(data.file_data, data.file_name);
+    const app_url = process.env.SHOPIFY_APP_URL;
+    const local_image = app_url + result.file_path;
 
     // save to canister
     let image_url = await canisterUploadImg(
@@ -114,6 +116,7 @@ export async function action({ request, params }) {
     );
     data.image = image_url;
     data.image_data = data.file_data;
+    data.local_image = local_image;
   }
 
   const errors = validateInfo(data);
@@ -131,9 +134,9 @@ export async function action({ request, params }) {
       admin.graphql,
       data.name,
       100,
-      data.image,
+      data.local_image,
       data.canister_id,
-      data.token_id.toString(),
+      data.token_id.toString()
     );
     const responseJson = await response.json();
     const product = responseJson.data?.productCreate?.product;
@@ -191,6 +194,7 @@ export default function NFTInfoForm() {
       subaccount: formState.subaccount,
       image: formState.image,
       nft_collection_id: formState.nft_collection_id || nft_collections[0].id,
+      local_image: formState.local_image,
     };
 
     if (file && file.size > 0) {
@@ -218,6 +222,7 @@ export default function NFTInfoForm() {
       image: formState.image,
       nft_collection_id: formState.nft_collection_id || nft_collections[0].id,
       canister_id: collectionState.canister_id,
+      local_image: formState.local_image,
     };
     setCleanFormState({ ...formState });
     submit(data, { method: "post" });

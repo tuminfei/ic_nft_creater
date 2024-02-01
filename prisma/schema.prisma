@@ -80,6 +80,7 @@ model NFTInfo {
   canister_id        String?
   image              String?
   image_data         String?
+  local_image        String?
   shop_image         String?
   product_id         String?
   product_handle     String?

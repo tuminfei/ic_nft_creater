@@ -2,7 +2,7 @@
 
 name = "ic-nft-creater"
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
-application_url = "https://societies-mixed-enormous-scenarios.trycloudflare.com"
+application_url = "https://sin-investigators-vessel-conclusions.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products, read_products, read_customers, write_customers"
 
 [auth]
 redirect_urls = [
-  "https://societies-mixed-enormous-scenarios.trycloudflare.com/auth/callback",
-  "https://societies-mixed-enormous-scenarios.trycloudflare.com/auth/shopify/callback",
-  "https://societies-mixed-enormous-scenarios.trycloudflare.com/api/auth/callback"
+  "https://sin-investigators-vessel-conclusions.trycloudflare.com/auth/callback",
+  "https://sin-investigators-vessel-conclusions.trycloudflare.com/auth/shopify/callback",
+  "https://sin-investigators-vessel-conclusions.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
