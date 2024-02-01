@@ -82,7 +82,7 @@ const NFTTableRow = ({ nft_info }) => (
     <IndexTable.Cell>{nft_info.nft_collection.name}</IndexTable.Cell>
     <IndexTable.Cell>
       <Thumbnail
-        source={nft_info.image || ImageMajor}
+        source={"data:image/png;base64, " + nft_info.image_data || ImageMajor}
         alt={nft_info.name}
         size="small"
       />

@@ -79,6 +79,8 @@ model NFTInfo {
   subaccount         String?
   canister_id        String?
   image              String?
+  image_data         String?
+  shop_image         String?
   product_id         String?
   product_handle     String?
   product_variant_id String?

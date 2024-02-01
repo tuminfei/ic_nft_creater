@@ -108,6 +108,7 @@ export async function action({ request, params }) {
       data.file_data
     );
     data.image = image_url;
+    data.image_data = data.file_data;
   }
 
   const errors = validateInfo(data);
@@ -122,12 +123,12 @@ export async function action({ request, params }) {
   if (action_name === "create_product") {
     const response = await createProduct(
       shop,
+      admin.graphql,
       data.name,
       100,
       data.image,
       data.canister_id,
       data.token_id.toString(),
-      admin.graphql
     );
     const responseJson = await response.json();
     const product = responseJson.data?.productCreate?.product;

@@ -38,12 +38,12 @@ export async function getProducts(shop, graphql) {
 
 export async function createProduct(
   shop,
+  graphql,
   title,
   price,
   image_src,
   canister_id,
-  token_id,
-  graphql
+  token_id
 ) {
   const response = await graphql(
     `
@@ -105,7 +105,7 @@ export async function createProduct(
         },
         media: [
           {
-            originalSource: image_src,
+            originalSource: encodeURI(image_src),
             alt: title + " NFT Image",
             mediaContentType: "IMAGE",
           },
