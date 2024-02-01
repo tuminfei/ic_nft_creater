@@ -36,6 +36,7 @@ import {
 } from "../models/NFTInfo.server";
 import { createProduct } from "../models/NFTProduct.server";
 import CollectionInfo from "./collection_info";
+import { readAndSaveImage } from '../common/local_file';
 
 export async function loader({ request, params }) {
   const { admin, session } = await authenticate.admin(request);
@@ -100,6 +101,10 @@ export async function action({ request, params }) {
 
   // upload image to canister
   if (data.file_size && parseInt(data.file_size) > 0) {
+    // save to public
+    const result = await readAndSaveImage(data.file_data, data.file_name);
+
+    // save to canister
     let image_url = await canisterUploadImg(
       parseInt(data.nft_collection_id),
       parseInt(data.file_size),
