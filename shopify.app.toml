@@ -1,19 +1,24 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-name = "ic-nft-creater"
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
-application_url = "https://sin-investigators-vessel-conclusions.trycloudflare.com"
+name = "ic-nft-creater"
+application_url = "https://blowing-belt-criterion-cat.trycloudflare.com"
 embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "ic-nft.myshopify.com"
+include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products, read_products, read_customers, write_customers"
+scopes = "write_products, read_products, read_customers, write_customers, read_files, write_files, read_themes, write_themes"
 
 [auth]
 redirect_urls = [
-  "https://sin-investigators-vessel-conclusions.trycloudflare.com/auth/callback",
-  "https://sin-investigators-vessel-conclusions.trycloudflare.com/auth/shopify/callback",
-  "https://sin-investigators-vessel-conclusions.trycloudflare.com/api/auth/callback"
+  "https://blowing-belt-criterion-cat.trycloudflare.com/auth/callback",
+  "https://blowing-belt-criterion-cat.trycloudflare.com/auth/shopify/callback",
+  "https://blowing-belt-criterion-cat.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
@@ -21,7 +26,3 @@ api_version = "2024-01"
 
 [pos]
 embedded = false
-
-[build]
-automatically_update_urls_on_dev = true
-dev_store_url = "ic-nft.myshopify.com"

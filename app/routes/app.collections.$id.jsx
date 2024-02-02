@@ -21,7 +21,7 @@ import {
   LegacyCard,
   DropZone,
 } from "@shopify/polaris";
-import { NoteMinor } from "@shopify/polaris-icons";
+import { NoteIcon } from "@shopify/polaris-icons";
 
 import db from "../db.server";
 import {
@@ -136,7 +136,7 @@ export default function CollectionForm() {
         source={
           validImageTypes.includes(file.type)
             ? window.URL.createObjectURL(file)
-            : NoteMinor
+            : NoteIcon
         }
       />
       <div>

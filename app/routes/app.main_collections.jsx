@@ -12,7 +12,7 @@ import {
 } from "@shopify/polaris";
 
 import { getNFTCollections } from "../models/NFTCollection.server";
-import { ImageMajor } from "@shopify/polaris-icons";
+import { ImageIcon } from "@shopify/polaris-icons";
 
 export async function loader({ request }) {
   const { admin, session } = await authenticate.admin(request);
@@ -84,7 +84,7 @@ const CollectionTableRow = ({ nft_collection }) => (
     <IndexTable.Cell>{nft_collection.symbol}</IndexTable.Cell>
     <IndexTable.Cell>
       <Thumbnail
-        source={nft_collection.image || ImageMajor}
+        source={nft_collection.image || ImageIcon}
         alt={nft_collection.name}
         size="small"
       />

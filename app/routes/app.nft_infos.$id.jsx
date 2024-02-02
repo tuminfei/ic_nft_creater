@@ -24,7 +24,7 @@ import {
   DropZone,
   Grid,
 } from "@shopify/polaris";
-import { NoteMinor } from "@shopify/polaris-icons";
+import { NoteIcon } from "@shopify/polaris-icons";
 
 import db from "../db.server";
 import {
@@ -34,7 +34,7 @@ import {
   canisterUploadImg,
   converData,
 } from "../models/NFTInfo.server";
-import { createProduct } from "../models/NFTProduct.server";
+import { createProduct, createProductImage } from "../models/NFTProduct.server";
 import CollectionInfo from "./collection_info";
 import { readAndSaveImage } from "../common/local_file";
 
@@ -140,6 +140,13 @@ export async function action({ request, params }) {
     );
     const responseJson = await response.json();
     const product = responseJson.data?.productCreate?.product;
+    const parts_id = product.id.split("/");
+    const product_num = parseInt(parts_id[parts_id.length - 1]);
+    const image_name = `nft_${data.token_id}.jpg`;
+    const image_rest = await createProductImage(admin, session, product_num, image_name, data.image_data);
+    await image_rest.save({
+      update: false,
+    });
     await db.nFTInfo.update({
       where: { id: Number(params.id) },
       data: { product_id: product.id },
@@ -223,6 +230,7 @@ export default function NFTInfoForm() {
       nft_collection_id: formState.nft_collection_id || nft_collections[0].id,
       canister_id: collectionState.canister_id,
       local_image: formState.local_image,
+      image_data: formState.image_data,
     };
     setCleanFormState({ ...formState });
     submit(data, { method: "post" });
@@ -259,7 +267,7 @@ export default function NFTInfoForm() {
         source={
           validImageTypes.includes(file.type)
             ? window.URL.createObjectURL(file)
-            : NoteMinor
+            : NoteIcon
         }
       />
       <div>
