@@ -142,8 +142,9 @@ export async function action({ request, params }) {
     const product = responseJson.data?.productCreate?.product;
     const parts_id = product.id.split("/");
     const product_num = parseInt(parts_id[parts_id.length - 1]);
-    const image_name = `nft_${data.token_id}.jpg`;
+    const image_name = `nft_${data.token_id}.png`;
     const image_rest = await createProductImage(admin, session, product_num, image_name, data.image_data);
+    console.log(image_rest);
     await image_rest.save({
       update: false,
     });
