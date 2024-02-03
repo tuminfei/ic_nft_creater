@@ -5,7 +5,7 @@ const fs = require("fs");
 export async function getProducts(shop, graphql) {
   const query = `
   {
-    products(first: 10) {
+    products(first: 20, query: "vendor:'IC NFT Creator'") {
       edges {
         node {
           id
