@@ -1,16 +1,24 @@
 import { useState, useCallback } from "react";
 import { json, redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, Link, useNavigate } from "@remix-run/react";
 import { authenticate } from "../shopify.server";
-import { Card, Page, List } from "@shopify/polaris";
+import {
+  Card,
+  Layout,
+  Page,
+  IndexTable,
+  Thumbnail,
+  Text,
+} from "@shopify/polaris";
+import { ImageIcon } from "@shopify/polaris-icons";
 
 import db from "../db.server";
 import { getProducts } from "../models/NFTProduct.server";
 
 export async function loader({ request }) {
   const { admin, session } = await authenticate.admin(request);
-  const products = await getProducts(session.shop, admin.graphql);
-  console.log(products);
+  const products_node = await getProducts(session.shop, admin.graphql);
+  const products = products_node.map((item) => item.node);
   return json({
     products,
   });
@@ -25,13 +33,13 @@ const NFTProductTable = ({ nft_products }) => (
     itemCount={nft_products.length}
     headings={[
       { title: "Index", hidden: true },
-      { title: "Name" },
-      { title: "Token Id" },
-      { title: "Collection Name" },
-      { title: "Image" },
-      { title: "Owner" },
+      { title: "Image", hidden: true },
       { title: "Product" },
-      { title: "Onchain" },
+      { title: "Collection Name" },
+      { title: "Token Id" },
+      { title: "Status" },
+      { title: "Categroy" },
+      { title: "Review" },
       { title: "Date created" },
     ]}
     selectable={false}
@@ -46,42 +54,50 @@ const NFTTableRow = ({ nft_product }) => (
   <IndexTable.Row id={nft_product.id} position={nft_product.id}>
     <IndexTable.Cell>
       <Text variant="bodyMd" fontWeight="bold" as="span">
-        # {nft_product.id}
+        # {nft_product.id.split("/")[4]}
       </Text>
     </IndexTable.Cell>
     <IndexTable.Cell>
-      <Link to={`../nft_infos/${nft_product.id}`}>{truncate(nft_product.name)}</Link>
-    </IndexTable.Cell>
-    <IndexTable.Cell>{nft_product.token_id}</IndexTable.Cell>
-    <IndexTable.Cell>{nft_product.nft_collection.name}</IndexTable.Cell>
-    <IndexTable.Cell>
       <Thumbnail
-        source={"data:image/png;base64, " + nft_product.image_data || ImageIcon}
+        source={nft_product.featuredImage?.url || ImageIcon}
         alt={nft_product.name}
         size="small"
       />
     </IndexTable.Cell>
-    <IndexTable.Cell>{nft_product.owner}</IndexTable.Cell>
-    <IndexTable.Cell>{nft_product.product_id}</IndexTable.Cell>
+    <IndexTable.Cell>{nft_product.title}</IndexTable.Cell>
+    <IndexTable.Cell>&nbsp;</IndexTable.Cell>
+    <IndexTable.Cell>&nbsp;</IndexTable.Cell>
+    <IndexTable.Cell>{nft_product.status}</IndexTable.Cell>
+    <IndexTable.Cell>{nft_product.productType}</IndexTable.Cell>
     <IndexTable.Cell>
-      {nft_product.onchain === true ? (
-        <Badge tone="success">OnChain</Badge>
-      ) : (
-        <Badge tone="warning">OffChain</Badge>
-      )}
+      <Link to={nft_product.onlineStorePreviewUrl}>review</Link>
     </IndexTable.Cell>
     <IndexTable.Cell>
       {new Date(nft_product.createdAt).toDateString()}
     </IndexTable.Cell>
   </IndexTable.Row>
 );
+
 export default function Products() {
-  const products = useLoaderData();
+  const nft_products = useLoaderData();
+  const navigate = useNavigate();
+
   return (
-    <Page>
-      <Card>
-        <List type="bullet" gap="loose"></List>
-      </Card>
+    <Page fullWidth>
+      <ui-title-bar title="NFT Product"></ui-title-bar>
+      <Layout>
+        <Layout.Section>
+          <Card padding="0">
+            {nft_products.length === 0 ? (
+              <EmptyCollectionState
+                onAction={() => navigate("/app/collections/new")}
+              />
+            ) : (
+              <NFTProductTable nft_products={nft_products.products} />
+            )}
+          </Card>
+        </Layout.Section>
+      </Layout>
     </Page>
   );
 }

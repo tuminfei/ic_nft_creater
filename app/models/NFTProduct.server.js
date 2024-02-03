@@ -12,6 +12,21 @@ export async function getProducts(shop, graphql) {
           handle
           title
           description
+          featuredImage {
+            url
+            altText
+          }
+          productType
+          status
+          vendor
+          onlineStorePreviewUrl
+          options(first: 2) {
+            id
+            name
+            position
+            values
+          }
+          createdAt
         }
       }
       pageInfo {

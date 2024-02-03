@@ -2,7 +2,7 @@
 
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
 name = "ic-nft-creater"
-application_url = "https://minerals-deals-verbal-minds.trycloudflare.com"
+application_url = "https://markers-liabilities-cents-successful.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products, read_products, read_customers, write_customers, read_f
 
 [auth]
 redirect_urls = [
-  "https://minerals-deals-verbal-minds.trycloudflare.com/auth/callback",
-  "https://minerals-deals-verbal-minds.trycloudflare.com/auth/shopify/callback",
-  "https://minerals-deals-verbal-minds.trycloudflare.com/api/auth/callback"
+  "https://markers-liabilities-cents-successful.trycloudflare.com/auth/callback",
+  "https://markers-liabilities-cents-successful.trycloudflare.com/auth/shopify/callback",
+  "https://markers-liabilities-cents-successful.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
