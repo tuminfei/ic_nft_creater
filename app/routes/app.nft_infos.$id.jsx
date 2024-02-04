@@ -20,6 +20,8 @@ import {
   PageActions,
   LegacyCard,
   LegacyStack,
+  MediaCard,
+  VideoThumbnail,
   Select,
   DropZone,
   Grid,
@@ -143,7 +145,13 @@ export async function action({ request, params }) {
     const parts_id = product.id.split("/");
     const product_num = parseInt(parts_id[parts_id.length - 1]);
     const image_name = `nft_${data.token_id}.png`;
-    const image_rest = await createProductImage(admin, session, product_num, image_name, data.image_data);
+    const image_rest = await createProductImage(
+      admin,
+      session,
+      product_num,
+      image_name,
+      data.image_data
+    );
     console.log(image_rest);
     await image_rest.save({
       update: false,
@@ -405,7 +413,10 @@ export default function NFTInfoForm() {
           </Layout>
         </Grid.Cell>
         <Grid.Cell columnSpan={{ xs: 6, sm: 2, md: 2, lg: 4, xl: 4 }}>
-          <CollectionInfo collection_info={collectionState} />
+          <CollectionInfo
+            collection_info={collectionState}
+            nft_info={formState}
+          />
         </Grid.Cell>
       </Grid>
     </Page>

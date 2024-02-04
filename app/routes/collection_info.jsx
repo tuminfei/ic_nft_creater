@@ -1,6 +1,4 @@
 import {
-  FormLayout,
-  TextField,
   BlockStack,
   Card,
   Layout,
@@ -9,13 +7,15 @@ import {
   List,
 } from "@shopify/polaris";
 
-export default function CollectionInfo({ collection_info }) {
+export default function CollectionInfo({ collection_info, nft_info }) {
   const name = collection_info.name;
   const description = collection_info.description;
   const canister_id = collection_info.canister_id;
   const symbol = collection_info.symbol;
   const image = collection_info.image;
   const owner = collection_info.owner;
+  const nft_image = nft_info.image;
+  const nft_image_source = "data:image/png;base64, " + nft_info.image_data;
 
   return (
     <Layout>
@@ -37,6 +37,27 @@ export default function CollectionInfo({ collection_info }) {
             </List>
           </Card>
         </BlockStack>
+      </Layout.Section>
+      <Layout.Section>
+        <Card roundedAbove="sm">
+          <BlockStack gap="200">
+            <InlineGrid columns="1fr auto">
+              <Text as="h2" variant="headingSm">
+                NFT Metadata
+              </Text>
+            </InlineGrid>
+            <img
+              alt=""
+              width="100%"
+              height="100%"
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+              src={ nft_image_source }
+            />
+          </BlockStack>
+        </Card>
       </Layout.Section>
     </Layout>
   );
