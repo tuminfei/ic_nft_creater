@@ -157,3 +157,42 @@ export async function createProductImage(
   image_rest.filename = file_name;
   return image_rest;
 }
+
+export async function createGiftCard(shop, graphql, card_code, note) {
+  const response = await graphql(
+    `
+      #graphql
+      mutation giftCardCreate($input: GiftCardCreateInput!) {
+        giftCardCreate(input: $input) {
+          userErrors {
+            message
+            field
+          }
+          giftCard {
+            id
+            expiresOn
+            note
+            initialValue {
+              amount
+            }
+            customer {
+              id
+            }
+          }
+          giftCardCode
+        }
+      }
+    `,
+    {
+      variables: {
+        input: {
+          initialValue: "100.0",
+          code: card_code,
+          customerId: "gid://shopify/Customer/331283560",
+          note: note,
+        },
+      },
+    }
+  );
+  return response;
+}

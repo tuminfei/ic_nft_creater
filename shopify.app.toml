@@ -2,7 +2,7 @@
 
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
 name = "ic-nft-creater"
-application_url = "https://flashers-module-arrival-hats.trycloudflare.com"
+application_url = "https://latter-resist-karen-modems.trycloudflare.com"
 embedded = true
 
 [build]
@@ -12,13 +12,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products, read_products, read_customers, write_customers, read_files, write_files, read_themes, write_themes"
+scopes = "write_products, read_products, read_customers, write_customers, read_files, write_files, read_themes, write_themes, write_gift_cards, read_gift_cards"
 
 [auth]
 redirect_urls = [
-  "https://flashers-module-arrival-hats.trycloudflare.com/auth/callback",
-  "https://flashers-module-arrival-hats.trycloudflare.com/auth/shopify/callback",
-  "https://flashers-module-arrival-hats.trycloudflare.com/api/auth/callback"
+  "https://latter-resist-karen-modems.trycloudflare.com/auth/callback",
+  "https://latter-resist-karen-modems.trycloudflare.com/auth/shopify/callback",
+  "https://latter-resist-karen-modems.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

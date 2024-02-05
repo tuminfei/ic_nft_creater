@@ -20,8 +20,6 @@ import {
   PageActions,
   LegacyCard,
   LegacyStack,
-  MediaCard,
-  VideoThumbnail,
   Select,
   DropZone,
   Grid,
@@ -37,8 +35,10 @@ import {
   converData,
 } from "../models/NFTInfo.server";
 import { createProduct, createProductImage } from "../models/NFTProduct.server";
+import { createNFTGift } from "../models/NFTGift.server";
 import CollectionInfo from "./collection_info";
-import { readAndSaveImage } from "../common/local_file";
+import { readAndSaveImage } from "../utils/local_file";
+import { generateGiftCardCode } from "../utils/tools";
 
 export async function loader({ request, params }) {
   const { admin, session } = await authenticate.admin(request);
@@ -160,6 +160,19 @@ export async function action({ request, params }) {
       where: { id: Number(params.id) },
       data: { product_id: product.id },
     });
+  } else if (action_name === "create_gift") {
+    const card_code = generateGiftCardCode(16);
+    const nft_gift = await createNFTGift(
+      shop,
+      Number(params.id),
+      card_code,
+      null
+    );
+
+    await db.nFTInfo.update({
+      where: { id: Number(params.id) },
+      data: { nft_gift_id: nft_gift.id },
+    });
   } else {
     if (params.id === "new") {
       nft_info = await db.nFTInfo.create({ data });
@@ -193,6 +206,7 @@ export default function NFTInfoForm() {
   const [collectionState, setCollectionState] = useState(nft_collections[0]);
   const [cleanFormState, setCleanFormState] = useState(nft_info);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
+  const isCreateProduct = nft_info.product_id != null;
 
   const nav = useNavigation();
   const isSaving =
@@ -227,9 +241,26 @@ export default function NFTInfoForm() {
   }
 
   async function createProductSave() {
-    console.log(collectionState);
     const data = {
       action: "create_product",
+      name: formState.name,
+      description: formState.description || "",
+      owner: formState.owner,
+      token_id: formState.token_id,
+      subaccount: formState.subaccount,
+      image: formState.image,
+      nft_collection_id: formState.nft_collection_id || nft_collections[0].id,
+      canister_id: collectionState.canister_id,
+      local_image: formState.local_image,
+      image_data: formState.image_data,
+    };
+    setCleanFormState({ ...formState });
+    submit(data, { method: "post" });
+  }
+
+  async function createGiftSave() {
+    const data = {
+      action: "create_gift",
       name: formState.name,
       description: formState.description || "",
       owner: formState.owner,
@@ -299,9 +330,15 @@ export default function NFTInfoForm() {
       secondaryActions={[
         {
           loading: isSaving,
-          disabled: isDirty || isSaving,
+          disabled: isDirty || isSaving || isCreateProduct,
           content: "Create NFT Product",
           onAction: createProductSave,
+        },
+        {
+          loading: isSaving,
+          disabled: isDirty || isSaving || isCreateProduct,
+          content: "Create NFT Gift",
+          onAction: createGiftSave,
         },
       ]}
     />
