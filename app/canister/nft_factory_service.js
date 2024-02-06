@@ -38,9 +38,8 @@ class FactoryCanisterService {
     permitted_drift
   ) {
     const p_owner = Principal.fromText(owner);
-    const p_description = description
-      ? CryptoUtils.fromHexString(description)
-      : [];
+    const p_description = description ? [description] : [];
+
     const create_arg = {
       tx_window: tx_window || 24,
       owner: p_owner,

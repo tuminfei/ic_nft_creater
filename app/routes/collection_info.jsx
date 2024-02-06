@@ -15,7 +15,10 @@ export default function CollectionInfo({ collection_info, nft_info }) {
   const image = collection_info.image;
   const owner = collection_info.owner;
   const nft_image = nft_info.image;
-  const nft_image_source = "data:image/png;base64, " + nft_info.image_data;
+  const nft_image_source =
+    nft_info.image_data != null
+      ? "data:image/png;base64, " + nft_info.image_data
+      : "https://cdn.shopify.com/shopifycloud/web/assets/v1/93a30c07e111eac4.svg";
 
   return (
     <Layout>
@@ -54,7 +57,7 @@ export default function CollectionInfo({ collection_info, nft_info }) {
                 objectFit: "cover",
                 objectPosition: "center",
               }}
-              src={ nft_image_source }
+              src={nft_image_source}
             />
           </BlockStack>
         </Card>

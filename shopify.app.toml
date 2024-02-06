@@ -2,7 +2,7 @@
 
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
 name = "ic-nft-creater"
-application_url = "https://hwy-become-terrorist-mortgages.trycloudflare.com"
+application_url = "https://lebanon-methodology-airplane-angry.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products, read_products, read_customers, write_customers, read_f
 
 [auth]
 redirect_urls = [
-  "https://hwy-become-terrorist-mortgages.trycloudflare.com/auth/callback",
-  "https://hwy-become-terrorist-mortgages.trycloudflare.com/auth/shopify/callback",
-  "https://hwy-become-terrorist-mortgages.trycloudflare.com/api/auth/callback"
+  "https://lebanon-methodology-airplane-angry.trycloudflare.com/auth/callback",
+  "https://lebanon-methodology-airplane-angry.trycloudflare.com/auth/shopify/callback",
+  "https://lebanon-methodology-airplane-angry.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
