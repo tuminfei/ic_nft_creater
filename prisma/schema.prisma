@@ -85,11 +85,26 @@ model NFTInfo {
   product_id         String?
   product_handle     String?
   product_variant_id String?
+  nft_gift_id        Int?
   onchain            Boolean?
   createdAt          DateTime      @default(now())
   updatedAt          DateTime?
   is_sale            Boolean?
+  gift_is_used       Boolean?
+  nft_gift           NFTGift?
 
   @@index([shop])
   @@index([shop, nft_collection_id])
+}
+
+model NFTGift {
+  id          Int       @id @default(autoincrement())
+  shop        String
+  nft_info    NFTInfo   @relation(fields: [nft_info_id], references: [id])
+  nft_info_id Int       @unique
+  card_code   String
+  expires_at  DateTime?
+  used_at     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
 }
