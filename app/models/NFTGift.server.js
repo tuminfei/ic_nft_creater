@@ -6,6 +6,7 @@ export async function getNFTGifts(shop) {
   const nft_gifts = await db.nFTGift.findMany({
     where: { shop },
     orderBy: { id: "desc" },
+    include: { nft_info: true },
   });
 
   if (nft_gifts.length === 0) return [];

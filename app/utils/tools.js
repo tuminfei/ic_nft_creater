@@ -18,3 +18,10 @@ export function generateRandomGiftCardCode() {
 
   return generateGiftCardCode(length).toUpperCase();
 }
+
+export function hideString(inputString) {
+  const visiblePart = inputString.slice(-4);
+  const hiddenPart = '*'.repeat(Math.max(0, inputString.length - 4));
+  const result = hiddenPart + visiblePart;
+  return result;
+}
