@@ -7,6 +7,8 @@ Easily design NFTs on IC network and sell them on Shopify just like regular prod
 ## Introduction
 IC_NFT_Creator is a cutting-edge Shopify app designed to streamline the process of creating and launching NFT collections, product certificates, and more on the Dfinity IC network. Elevate your Shopify store's offerings and tap into the world of blockchain-based assets with our user-friendly and efficient platform.
 
+<img width="1440" alt="dashboard" src="https://raw.githubusercontent.com/tuminfei/ic_nft_creater/master/public/show.png">
+
 ## Key Features
 
 ### Effortless NFT Creation
