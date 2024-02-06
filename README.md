@@ -55,7 +55,7 @@ Unlock the full potential of your Shopify store by integrating IC_NFT_Creator. J
 
 - Integrate Shopify Payment Gateway (Enable users to sell NFTs and receive payments through Shopify)
 - Develop NFT Search and Filtering System (Enable users to search and filter NFTs based on attributes)
-- Create Email Delivery System (Allow users to send NFTs as email attachments to buyers)
+- Create Gift Delivery System (Allow users to send NFTs as email attachments to buyers)
 
 ## Milestone #3
 
