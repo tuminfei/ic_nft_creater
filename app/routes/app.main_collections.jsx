@@ -9,6 +9,8 @@ import {
   IndexTable,
   Thumbnail,
   Text,
+  Banner,
+  BlockStack,
 } from "@shopify/polaris";
 
 import { getNFTCollections } from "../models/NFTCollection.server";
@@ -112,19 +114,28 @@ export default function Index() {
           Create NFT Collection
         </button>
       </ui-title-bar>
-      <Layout>
-        <Layout.Section>
-          <Card padding="0">
-            {nft_collections.length === 0 ? (
-              <EmptyCollectionState
-                onAction={() => navigate("/app/collections/new")}
-              />
-            ) : (
-              <CollectionTable nft_collections={nft_collections} />
-            )}
-          </Card>
-        </Layout.Section>
-      </Layout>
+      <BlockStack gap="500">
+        <Banner onDismiss={() => {}}>
+          <p>
+            IC NFT canister needs to have enough Cycles to run. Please note the
+            balance of canister cycles.
+            <Link url="">Let us know what you think</Link>
+          </p>
+        </Banner>
+        <Layout>
+          <Layout.Section>
+            <Card padding="0">
+              {nft_collections.length === 0 ? (
+                <EmptyCollectionState
+                  onAction={() => navigate("/app/collections/new")}
+                />
+              ) : (
+                <CollectionTable nft_collections={nft_collections} />
+              )}
+            </Card>
+          </Layout.Section>
+        </Layout>
+      </BlockStack>
     </Page>
   );
 }
