@@ -13,6 +13,7 @@ import {
 } from "@shopify/polaris";
 
 import { getNFTInfos } from "../models/NFTInfo.server";
+import { maskAddress } from "../utils/tools";
 import { ImageIcon } from "@shopify/polaris-icons";
 
 export async function loader({ request }) {
@@ -87,7 +88,7 @@ const NFTTableRow = ({ nft_info }) => (
         size="small"
       />
     </IndexTable.Cell>
-    <IndexTable.Cell>{nft_info.owner}</IndexTable.Cell>
+    <IndexTable.Cell>{maskAddress(nft_info.owner)}</IndexTable.Cell>
     <IndexTable.Cell>{nft_info.product_id}</IndexTable.Cell>
     <IndexTable.Cell>
       {nft_info.onchain === true ? (

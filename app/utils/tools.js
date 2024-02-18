@@ -25,3 +25,8 @@ export function hideString(inputString) {
   const result = hiddenPart + visiblePart;
   return result;
 }
+
+export function maskAddress(inputAddress) {
+  const maskAddress = inputAddress.replace(/^(.{6}).+(.{4})$/, "$1*****$2");
+  return maskAddress;
+}
