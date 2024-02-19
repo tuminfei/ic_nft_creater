@@ -85,6 +85,7 @@ model NFTInfo {
   product_id         String?
   product_handle     String?
   product_variant_id String?
+  productAt          DateTime?
   nft_gift_id        Int?
   onchain            Boolean?
   createdAt          DateTime      @default(now())

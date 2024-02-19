@@ -22,9 +22,10 @@ import {
   LegacyStack,
   Select,
   DropZone,
+  Badge,
   Grid,
 } from "@shopify/polaris";
-import { NoteIcon } from "@shopify/polaris-icons";
+import { NoteIcon, ExternalIcon } from "@shopify/polaris-icons";
 
 import db from "../db.server";
 import {
@@ -152,13 +153,12 @@ export async function action({ request, params }) {
       image_name,
       data.image_data
     );
-    console.log(image_rest);
     await image_rest.save({
       update: false,
     });
     await db.nFTInfo.update({
       where: { id: Number(params.id) },
-      data: { product_id: product.id },
+      data: { product_id: product.id, productAt: new Date() },
     });
   } else if (action_name === "create_gift") {
     const card_code = generateGiftCardCode(16);
@@ -354,7 +354,17 @@ export default function NFTInfoForm() {
   );
 
   return (
-    <Page fullWidth>
+    <Page
+      fullWidth
+      secondaryActions={[
+        {
+          content: "NFT Collection",
+          external: true,
+          icon: ExternalIcon,
+          url: "/app/collections/" + formState.nft_collection_id,
+        },
+      ]}
+    >
       <ui-title-bar title={nft_info.id ? "Edit NFT" : "Mint new NFT"}>
         <button
           variant="breadcrumb"

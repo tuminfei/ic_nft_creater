@@ -55,11 +55,12 @@ const NFTTable = ({ nft_infos }) => (
       { title: "Name" },
       { title: "Token Id" },
       { title: "Collection Name" },
-      { title: "Image" },
+      { title: "NFT Image" },
       { title: "Owner" },
       { title: "Product" },
       { title: "Onchain" },
-      { title: "Date created" },
+      { title: "Date minted" },
+      { title: "Product At" },
     ]}
     selectable={false}
   >
@@ -85,7 +86,7 @@ const NFTTableRow = ({ nft_info }) => (
       <Thumbnail
         source={"data:image/png;base64, " + nft_info.image_data || ImageIcon}
         alt={nft_info.name}
-        size="small"
+        size="medium"
       />
     </IndexTable.Cell>
     <IndexTable.Cell>{maskAddress(nft_info.owner)}</IndexTable.Cell>
@@ -99,6 +100,9 @@ const NFTTableRow = ({ nft_info }) => (
     </IndexTable.Cell>
     <IndexTable.Cell>
       {new Date(nft_info.createdAt).toDateString()}
+    </IndexTable.Cell>
+    <IndexTable.Cell>
+      {nft_info.product_id ? new Date(nft_info.productAt).toDateString() : ""}
     </IndexTable.Cell>
   </IndexTable.Row>
 );
