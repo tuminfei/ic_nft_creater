@@ -41,6 +41,9 @@ model NFTCollection {
   owner                   String
   canister_id             String?
   image                   String?
+  image_data              String?
+  image_type              String?
+  image_name              String?
   symbol                  String
   tx_window               Int
   permitted_drift         Int

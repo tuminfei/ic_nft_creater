@@ -86,9 +86,13 @@ const CollectionTableRow = ({ nft_collection }) => (
     <IndexTable.Cell>{nft_collection.symbol}</IndexTable.Cell>
     <IndexTable.Cell>
       <Thumbnail
-        source={nft_collection.image || ImageIcon}
+        source={
+          nft_collection.image_data
+            ? "data:image/png;base64, " + nft_collection.image_data
+            : ImageIcon
+        }
         alt={nft_collection.name}
-        size="small"
+        size="medium"
       />
     </IndexTable.Cell>
     <IndexTable.Cell>{nft_collection.canister_id}</IndexTable.Cell>

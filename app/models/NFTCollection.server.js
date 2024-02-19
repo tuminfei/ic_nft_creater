@@ -73,6 +73,24 @@ export function converCollection(data) {
   if (data.supply_cap && data.supply_cap == "null") {
     data.supply_cap = null;
   }
+  if (data.image && data.image == "null") {
+    data.image = null;
+  }
+  if (data.file_size) {
+    delete data.file_size;
+  }
+  if (data.file_type) {
+    data.image_type = data.file_type;
+    delete data.file_type;
+  }
+  if (data.file_name) {
+    data.image_name = data.file_name;
+    delete data.file_name;
+  }
+  if (data.file_data) {
+    data.image_data = data.file_data;
+    delete data.file_data;
+  }
   return data;
 }
 

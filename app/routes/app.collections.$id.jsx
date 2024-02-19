@@ -53,6 +53,23 @@ export async function loader({ request, params }) {
   });
 }
 
+export async function read_file(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      // Remove the prefix such as "data:application/octet-stream;base64,"
+      resolve(event.target.result.split(",")[1]);
+    };
+
+    reader.onerror = function (error) {
+      reject(error);
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
 export async function action({ request, params }) {
   const { session } = await authenticate.admin(request);
   const { shop } = session;
@@ -112,7 +129,7 @@ export default function CollectionForm() {
 
   const submit = useSubmit();
 
-  function handleSave() {
+  async function handleSave() {
     const data = {
       name: formState.name,
       description: formState.description || "",
@@ -124,6 +141,15 @@ export default function CollectionForm() {
       royalties_recipient: formState.royalties_recipient || null,
       supply_cap: formState.supply_cap || null,
     };
+
+    if (file && file.size > 0) {
+      var base64data = await read_file(file);
+
+      data["file_size"] = file.size;
+      data["file_type"] = file.type;
+      data["file_name"] = file.name;
+      data["file_data"] = base64data;
+    }
 
     setCleanFormState({ ...formState });
     submit(data, { method: "post" });
@@ -140,7 +166,7 @@ export default function CollectionForm() {
   const uploadedFile = file && (
     <LegacyStack>
       <Thumbnail
-        size="small"
+        size="medium"
         alt={file.name}
         source={
           validImageTypes.includes(file.type)
