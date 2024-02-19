@@ -79,7 +79,7 @@ const CollectionTableRow = ({ nft_collection }) => (
       </Text>
     </IndexTable.Cell>
     <IndexTable.Cell>
-      <Link to={`nft_collections/${nft_collection.id}`}>
+      <Link to={`../collections/${nft_collection.id}`}>
         {truncate(nft_collection.name)}
       </Link>
     </IndexTable.Cell>

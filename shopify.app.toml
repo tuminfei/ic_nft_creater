@@ -2,7 +2,7 @@
 
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
 name = "ic-nft-creater"
-application_url = "https://affiliation-revision-hungry-conservation.trycloudflare.com"
+application_url = "https://dj-ky-face-supporting.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products, read_products, read_customers, write_customers, read_f
 
 [auth]
 redirect_urls = [
-  "https://affiliation-revision-hungry-conservation.trycloudflare.com/auth/callback",
-  "https://affiliation-revision-hungry-conservation.trycloudflare.com/auth/shopify/callback",
-  "https://affiliation-revision-hungry-conservation.trycloudflare.com/api/auth/callback"
+  "https://dj-ky-face-supporting.trycloudflare.com/auth/callback",
+  "https://dj-ky-face-supporting.trycloudflare.com/auth/shopify/callback",
+  "https://dj-ky-face-supporting.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

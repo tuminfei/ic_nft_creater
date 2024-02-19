@@ -42,7 +42,14 @@ export async function loader({ request, params }) {
     });
   }
 
-  return json(await getNFTCollection(Number(params.id), admin.graphql));
+  const nft_collection = await getNFTCollection(
+    Number(params.id),
+    admin.graphql
+  );
+
+  return json({
+    ...nft_collection,
+  });
 }
 
 export async function action({ request, params }) {
@@ -89,7 +96,7 @@ export async function action({ request, params }) {
 export default function CollectionForm() {
   const errors = useActionData()?.errors || {};
 
-  const nft_collection = useLoaderData();
+  const nft_collection = useLoaderData().nft_collection;
   const [formState, setFormState] = useState(nft_collection);
   const [cleanFormState, setCleanFormState] = useState(nft_collection);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
@@ -103,6 +110,7 @@ export default function CollectionForm() {
   const navigate = useNavigate();
 
   const submit = useSubmit();
+
   function handleSave() {
     const data = {
       name: formState.name,
