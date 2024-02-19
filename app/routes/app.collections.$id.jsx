@@ -19,6 +19,7 @@ import {
   BlockStack,
   PageActions,
   LegacyCard,
+  LegacyStack,
   DropZone,
 } from "@shopify/polaris";
 import { NoteIcon } from "@shopify/polaris-icons";
@@ -48,7 +49,7 @@ export async function loader({ request, params }) {
   );
 
   return json({
-    ...nft_collection,
+    ...nft_collection.nft_collection,
   });
 }
 
@@ -96,7 +97,7 @@ export async function action({ request, params }) {
 export default function CollectionForm() {
   const errors = useActionData()?.errors || {};
 
-  const nft_collection = useLoaderData().nft_collection;
+  const nft_collection = useLoaderData();
   const [formState, setFormState] = useState(nft_collection);
   const [cleanFormState, setCleanFormState] = useState(nft_collection);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);

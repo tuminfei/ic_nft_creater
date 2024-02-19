@@ -297,7 +297,7 @@ export default function NFTInfoForm() {
     []
   );
 
-  const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+  const validImageTypes = ["image/gif", "image/png"];
   const fileUpload = !file && <DropZone.FileUpload />;
   const uploadedFile = file && (
     <LegacyStack>
