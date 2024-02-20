@@ -57,6 +57,37 @@ class NFTCanisterService {
     let image_rst = await this.actor.assets_upload([upload_arg]);
     return image_rst;
   }
+
+  async transfer(token_id, from, to, memo, created_at) {
+    const p_from = Principal.fromText(from);
+    const from_account = {
+      owner: p_from,
+      subaccount: [],
+    };
+    const p_to = Principal.fromText(to);
+    const to_account = {
+      owner: p_to,
+      subaccount: [],
+    };
+    const spender_subaccount = [];
+    const p_memo = [CryptoUtils.asciiStringToByteArray(memo)];
+    const token_ids = [token_id];
+    const created_at_time = [created_at];
+
+    const transfer_arg = {
+      to: to_account,
+      spender_subaccount,
+      from: from_account,
+      memo: p_memo,
+      is_atomic: [true],
+      token_ids,
+      created_at_time
+    };
+    let nft_info = await this.actor.icrc7_transfer(transfer_arg);
+    return nft_info;
+  }
+
+  
 }
 
 export default NFTCanisterService;
