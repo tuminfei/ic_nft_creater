@@ -57,10 +57,20 @@ export default function Index() {
     setTokenOwnerState(owner);
   };
 
+  const handleIcTransfer = () => {
+    setActive(!active);
+    setTokenKeyState(nft_info_id);
+    setTokenNameState(nft_name);
+    setTokenIdState(token_id);
+    setTokenOwnerState(owner);
+  };
+
   const [tokenKeyState, setTokenKeyState] = useState("");
   const [tokenNameState, setTokenNameState] = useState("");
   const [tokenIdState, setTokenIdState] = useState("");
   const [tokenOwnerState, setTokenOwnerState] = useState("");
+  const [tokenToState, setTokenToState] = useState("");
+  const [tokenToAccountState, setTokenToAccountState] = useState("");
 
   const NFTGrid = ({ nft_infos }) => (
     <Grid>
@@ -192,8 +202,12 @@ export default function Index() {
                   value={tokenOwnerState}
                   readOnly
                 />
-                <TextField label="To Account Principal" autoComplete="off" />
-                <TextField label="To Account Subaccount" autoComplete="off" />
+                <TextField label="To Account Principal" autoComplete="off" onChange={(to_pid) =>
+                    setTokenToState({ to_pid })
+                  } />
+                <TextField label="To Account Subaccount" autoComplete="off"  onChange={(to_acccount) =>
+                    setTokenToAccountState({ to_acccount })
+                  } />
               </LegacyStack>
             </Modal.Section>
           </Modal>
