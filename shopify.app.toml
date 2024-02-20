@@ -2,7 +2,7 @@
 
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
 name = "ic-nft-creater"
-application_url = "https://generators-j-len-putting.trycloudflare.com"
+application_url = "https://residential-whole-bad-sh.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products, read_products, read_customers, write_customers, read_f
 
 [auth]
 redirect_urls = [
-  "https://generators-j-len-putting.trycloudflare.com/auth/callback",
-  "https://generators-j-len-putting.trycloudflare.com/auth/shopify/callback",
-  "https://generators-j-len-putting.trycloudflare.com/api/auth/callback"
+  "https://residential-whole-bad-sh.trycloudflare.com/auth/callback",
+  "https://residential-whole-bad-sh.trycloudflare.com/auth/shopify/callback",
+  "https://residential-whole-bad-sh.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

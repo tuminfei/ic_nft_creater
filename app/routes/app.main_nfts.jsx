@@ -80,7 +80,9 @@ const NFTTableRow = ({ nft_info }) => (
     <IndexTable.Cell>
       <Link to={`../nft_infos/${nft_info.id}`}>{truncate(nft_info.name)}</Link>
     </IndexTable.Cell>
-    <IndexTable.Cell>{nft_info.token_id}</IndexTable.Cell>
+    <IndexTable.Cell>
+      <Badge>{nft_info.token_id}</Badge>
+    </IndexTable.Cell>
     <IndexTable.Cell>{nft_info.nft_collection.name}</IndexTable.Cell>
     <IndexTable.Cell>
       <Thumbnail

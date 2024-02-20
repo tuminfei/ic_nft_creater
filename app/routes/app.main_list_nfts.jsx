@@ -1,5 +1,6 @@
 import { json } from "@remix-run/node";
-import { useLoaderData, Link, useNavigate } from "@remix-run/react";
+import { useLoaderData, useNavigate } from "@remix-run/react";
+import { useState, useCallback } from "react";
 import { authenticate } from "../shopify.server";
 import {
   EmptyState,
@@ -9,7 +10,12 @@ import {
   Badge,
   Grid,
   LegacyCard,
+  LegacyStack,
+  TextField,
   List,
+  Button,
+  Frame,
+  Modal,
 } from "@shopify/polaris";
 
 import { getNFTInfos } from "../models/NFTInfo.server";
@@ -36,62 +42,67 @@ const EmptyNFTInfoState = ({ onAction }) => (
   </EmptyState>
 );
 
-const NFTGrid = ({ nft_infos }) => (
-  <Grid>
-    {nft_infos.map((nft_info) => (
-      <NFTGridCell key={nft_info.id} nft_info={nft_info} />
-    ))}
-  </Grid>
-);
-
-const NFTGridCell = ({ nft_info }) => (
-  <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }}>
-    <LegacyCard
-      title={nft_info.name}
-      secondaryFooterActions={[{ content: "Transfer" }]}
-      primaryFooterAction={{ content: "Create Product" }}
-    >
-      <InlineStack align="center">
-        <img
-          alt=""
-          width="92%"
-          height="250px"
-          style={{
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-          src={
-            nft_info.image_data != null
-              ? "data:image/png;base64, " + nft_info.image_data
-              : "https://cdn.shopify.com/shopifycloud/web/assets/v1/93a30c07e111eac4.svg"
-          }
-        />
-      </InlineStack>
-
-      <LegacyCard.Section title="NFT Info">
-        <List>
-          <List.Item>
-            TokenID: <Badge>{nft_info.token_id}</Badge>
-          </List.Item>
-          <List.Item>Description: {nft_info.description}</List.Item>
-          <List.Item>Owner: {maskAddress(nft_info.owner)}</List.Item>
-          <List.Item>
-            Status:{" "}
-            {nft_info.onchain === true ? (
-              <Badge tone="success">OnChain</Badge>
-            ) : (
-              <Badge tone="warning">OffChain</Badge>
-            )}
-          </List.Item>
-        </List>
-      </LegacyCard.Section>
-    </LegacyCard>
-  </Grid.Cell>
-);
-
 export default function Index() {
   const { nft_infos } = useLoaderData();
   const navigate = useNavigate();
+  const [active, setActive] = useState(false);
+  const handleChange = useCallback(() => setActive(!active), [active]);
+  const activator = <Button onClick={handleChange}>Open</Button>;
+
+  const NFTGrid = ({ nft_infos }) => (
+    <Grid>
+      {nft_infos.map((nft_info) => (
+        <NFTGridCell key={nft_info.id} nft_info={nft_info} />
+      ))}
+    </Grid>
+  );
+
+  const NFTGridCell = ({ nft_info }) => (
+    <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }}>
+      <LegacyCard
+        title={nft_info.name}
+        secondaryFooterActions={[
+          { content: "Transfer", onAction: handleChange },
+        ]}
+        primaryFooterAction={{ content: "Create Product" }}
+      >
+        <InlineStack align="center">
+          <img
+            alt=""
+            width="92%"
+            height="250px"
+            style={{
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+            src={
+              nft_info.image_data != null
+                ? "data:image/png;base64, " + nft_info.image_data
+                : "https://cdn.shopify.com/shopifycloud/web/assets/v1/93a30c07e111eac4.svg"
+            }
+          />
+        </InlineStack>
+
+        <LegacyCard.Section title="NFT Info">
+          <List>
+            <List.Item>
+              TokenID: <Badge>{nft_info.token_id}</Badge>
+            </List.Item>
+            <List.Item>Description: {nft_info.description}</List.Item>
+            <List.Item>Owner: {maskAddress(nft_info.owner)}</List.Item>
+            <List.Item>
+              Status:{" "}
+              {nft_info.onchain === true ? (
+                <Badge tone="success">OnChain</Badge>
+              ) : (
+                <Badge tone="warning">OffChain</Badge>
+              )}
+            </List.Item>
+          </List>
+        </LegacyCard.Section>
+      </LegacyCard>
+    </Grid.Cell>
+  );
 
   return (
     <Page
@@ -117,6 +128,36 @@ export default function Index() {
           )}
         </Layout.Section>
       </Layout>
+      <div style={{ height: "500px" }}>
+        <Frame>
+          <Modal
+            open={active}
+            onClose={handleChange}
+            title="Transfer NFT"
+            size="small"
+            primaryAction={{
+              content: "Transfer",
+              onAction: handleChange,
+            }}
+            secondaryActions={[
+              {
+                content: "Cancal",
+                onAction: handleChange,
+              },
+            ]}
+          >
+            <Modal.Section>
+              <LegacyStack vertical>
+                <TextField label="Token Name" autoComplete="off" />
+                <TextField label="Token Id" autoComplete="off" />
+                <TextField label="Owner" autoComplete="off" />
+                <TextField label="To Account Principal" autoComplete="off" />
+                <TextField label="To Account Subaccount" autoComplete="off" />
+              </LegacyStack>
+            </Modal.Section>
+          </Modal>
+        </Frame>
+      </div>
     </Page>
   );
 }
