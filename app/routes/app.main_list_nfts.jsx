@@ -11,6 +11,7 @@ import {
   Grid,
   LegacyCard,
   LegacyStack,
+  ButtonGroup,
   TextField,
   List,
   Button,
@@ -47,9 +48,19 @@ export default function Index() {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
   const handleChange = useCallback(() => setActive(!active), [active]);
-  const handleTransfer = useCallback((nft_info_id, nft_name, token_id, owner) => {setActive(!active); }, [active]);
-  const [formState, setFormState] = useState(nft_infos? nft_infos[0] : null);
-  const activator = <Button onClick={handleChange}>Open</Button>;
+
+  const handleTransfer = (nft_info_id, nft_name, token_id, owner) => {
+    setActive(!active);
+    setTokenKeyState(nft_info_id);
+    setTokenNameState(nft_name);
+    setTokenIdState(token_id);
+    setTokenOwnerState(owner);
+  };
+
+  const [tokenKeyState, setTokenKeyState] = useState("");
+  const [tokenNameState, setTokenNameState] = useState("");
+  const [tokenIdState, setTokenIdState] = useState("");
+  const [tokenOwnerState, setTokenOwnerState] = useState("");
 
   const NFTGrid = ({ nft_infos }) => (
     <Grid>
@@ -61,13 +72,7 @@ export default function Index() {
 
   const NFTGridCell = ({ nft_info }) => (
     <Grid.Cell columnSpan={{ xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }}>
-      <LegacyCard
-        title={nft_info.name}
-        secondaryFooterActions={[
-          { content: "Transfer", onAction: handleTransfer(nft_info.id, nft_info.name, nft_info.token_id, nft_info.owner) },
-        ]}
-        primaryFooterAction={{ content: "Create Product" }}
-      >
+      <LegacyCard title={nft_info.name}>
         <InlineStack align="center">
           <img
             alt=""
@@ -101,6 +106,25 @@ export default function Index() {
               )}
             </List.Item>
           </List>
+        </LegacyCard.Section>
+        <LegacyCard.Section>
+          <LegacyStack distribution="trailing">
+            <ButtonGroup>
+              <Button
+                onClick={() =>
+                  handleTransfer(
+                    nft_info.id,
+                    nft_info.name,
+                    nft_info.token_id,
+                    nft_info.owner
+                  )
+                }
+              >
+                Transfer
+              </Button>
+              <Button variant="primary">Create Product</Button>
+            </ButtonGroup>
+          </LegacyStack>
         </LegacyCard.Section>
       </LegacyCard>
     </Grid.Cell>
@@ -150,9 +174,24 @@ export default function Index() {
           >
             <Modal.Section>
               <LegacyStack vertical>
-                <TextField label="Token Name" autoComplete="off" readOnly />
-                <TextField label="Token Id" autoComplete="off" readOnly/>
-                <TextField label="Owner" autoComplete="off" readOnly/>
+                <TextField
+                  label="Token Name"
+                  autoComplete="off"
+                  value={tokenNameState}
+                  readOnly
+                />
+                <TextField
+                  label="Token Id"
+                  autoComplete="off"
+                  value={tokenIdState}
+                  readOnly
+                />
+                <TextField
+                  label="Owner"
+                  autoComplete="off"
+                  value={tokenOwnerState}
+                  readOnly
+                />
                 <TextField label="To Account Principal" autoComplete="off" />
                 <TextField label="To Account Subaccount" autoComplete="off" />
               </LegacyStack>
