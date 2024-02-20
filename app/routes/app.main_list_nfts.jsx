@@ -47,6 +47,8 @@ export default function Index() {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
   const handleChange = useCallback(() => setActive(!active), [active]);
+  const handleTransfer = useCallback((nft_info_id, nft_name, token_id, owner) => {setActive(!active); }, [active]);
+  const [formState, setFormState] = useState(nft_infos? nft_infos[0] : null);
   const activator = <Button onClick={handleChange}>Open</Button>;
 
   const NFTGrid = ({ nft_infos }) => (
@@ -62,7 +64,7 @@ export default function Index() {
       <LegacyCard
         title={nft_info.name}
         secondaryFooterActions={[
-          { content: "Transfer", onAction: handleChange },
+          { content: "Transfer", onAction: handleTransfer(nft_info.id, nft_info.name, nft_info.token_id, nft_info.owner) },
         ]}
         primaryFooterAction={{ content: "Create Product" }}
       >
@@ -148,9 +150,9 @@ export default function Index() {
           >
             <Modal.Section>
               <LegacyStack vertical>
-                <TextField label="Token Name" autoComplete="off" />
-                <TextField label="Token Id" autoComplete="off" />
-                <TextField label="Owner" autoComplete="off" />
+                <TextField label="Token Name" autoComplete="off" readOnly />
+                <TextField label="Token Id" autoComplete="off" readOnly/>
+                <TextField label="Owner" autoComplete="off" readOnly/>
                 <TextField label="To Account Principal" autoComplete="off" />
                 <TextField label="To Account Subaccount" autoComplete="off" />
               </LegacyStack>
