@@ -1,5 +1,5 @@
 import { json } from "@remix-run/node";
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { useLoaderData, useNavigate, useSubmit } from "@remix-run/react";
 import { useState, useCallback } from "react";
 import { authenticate } from "../shopify.server";
 import {
@@ -19,7 +19,7 @@ import {
   Modal,
 } from "@shopify/polaris";
 
-import { getNFTInfos } from "../models/NFTInfo.server";
+import { getNFTInfos, canisterTransferNFT } from "../models/NFTInfo.server";
 import { maskAddress } from "../utils/tools";
 
 export async function loader({ request }) {
@@ -48,6 +48,7 @@ export default function Index() {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
   const handleChange = useCallback(() => setActive(!active), [active]);
+  const submit = useSubmit();
 
   const handleTransfer = (nft_info_id, nft_name, token_id, owner) => {
     setActive(!active);
@@ -58,11 +59,13 @@ export default function Index() {
   };
 
   const handleIcTransfer = () => {
-    setActive(!active);
-    setTokenKeyState(nft_info_id);
-    setTokenNameState(nft_name);
-    setTokenIdState(token_id);
-    setTokenOwnerState(owner);
+    const data = {
+      action: "transfer_nft",
+      nft_info_id: tokenKeyState,
+      to_pid: tokenToState,
+      to_subaccount: tokenToAccountState,
+    };
+    submit(data, { method: "post" });
   };
 
   const [tokenKeyState, setTokenKeyState] = useState("");
@@ -173,7 +176,7 @@ export default function Index() {
             size="small"
             primaryAction={{
               content: "Transfer",
-              onAction: handleChange,
+              onAction: handleIcTransfer,
             }}
             secondaryActions={[
               {
@@ -202,12 +205,18 @@ export default function Index() {
                   value={tokenOwnerState}
                   readOnly
                 />
-                <TextField label="To Account Principal" autoComplete="off" onChange={(to_pid) =>
-                    setTokenToState({ to_pid })
-                  } />
-                <TextField label="To Account Subaccount" autoComplete="off"  onChange={(to_acccount) =>
-                    setTokenToAccountState({ to_acccount })
-                  } />
+                <TextField
+                  label="To Account Principal"
+                  value={tokenToState}
+                  onChange={(to_pid) => setTokenToState(to_pid)}
+                />
+                <TextField
+                  label="To Account Subaccount"
+                  value={tokenToAccountState}
+                  onChange={(to_acccount) =>
+                    setTokenToAccountState(to_acccount)
+                  }
+                />
               </LegacyStack>
             </Modal.Section>
           </Modal>

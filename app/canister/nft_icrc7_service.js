@@ -58,7 +58,7 @@ class NFTCanisterService {
     return image_rst;
   }
 
-  async transfer(token_id, from, to, memo, created_at) {
+  async transfer(token_id, from, to, memo) {
     const p_from = Principal.fromText(from);
     const from_account = {
       owner: p_from,
@@ -72,7 +72,7 @@ class NFTCanisterService {
     const spender_subaccount = [];
     const p_memo = [CryptoUtils.asciiStringToByteArray(memo)];
     const token_ids = [token_id];
-    const created_at_time = [created_at];
+    const created_at_time = [];
 
     const transfer_arg = {
       to: to_account,
@@ -81,13 +81,11 @@ class NFTCanisterService {
       memo: p_memo,
       is_atomic: [true],
       token_ids,
-      created_at_time
+      created_at_time,
     };
     let nft_info = await this.actor.icrc7_transfer(transfer_arg);
     return nft_info;
   }
-
-  
 }
 
 export default NFTCanisterService;

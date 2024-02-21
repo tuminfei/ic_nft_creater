@@ -92,6 +92,23 @@ export async function canisterMintNFT(nft_info) {
   return rest;
 }
 
+export async function canisterTransferNFT(nft_info_id, to_pid, to_subaccount) {
+  const nft_info = await db.nFTInfo.findFirst({
+    where: { id: nft_info_id },
+  });
+  const nft_collection = await db.nFTCollection.findFirst({
+    where: { id: nft_info.nft_collection_id },
+  });
+  const service = new NFTCanisterService(nft_collection.canister_id);
+  const rest = await service.transfer(
+    nft_info.token_id,
+    nft_info.owner,
+    to_pid,
+    "transfer"
+  );
+  return rest;
+}
+
 export async function canisterUploadImg(
   nft_collection_id,
   file_size,
