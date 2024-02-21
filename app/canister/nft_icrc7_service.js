@@ -71,7 +71,7 @@ class NFTCanisterService {
     };
     const spender_subaccount = [];
     const p_memo = [CryptoUtils.asciiStringToByteArray(memo)];
-    const token_ids = [token_id];
+    const token_ids = [BigInt(token_id)];
     const created_at_time = [];
 
     const transfer_arg = {

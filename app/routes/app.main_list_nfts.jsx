@@ -1,4 +1,4 @@
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { useLoaderData, useNavigate, useSubmit } from "@remix-run/react";
 import { useState, useCallback } from "react";
 import { authenticate } from "../shopify.server";
@@ -21,6 +21,29 @@ import {
 
 import { getNFTInfos, canisterTransferNFT } from "../models/NFTInfo.server";
 import { maskAddress } from "../utils/tools";
+
+export async function action({ request, params }) {
+  const { admin, session } = await authenticate.admin(request);
+  const { shop } = session;
+
+  /** @type {any} */
+  let data = {
+    ...Object.fromEntries(await request.formData()),
+    shop,
+  };
+  const action_name = data.action || "";
+
+  if (action_name === "transfer_nft") {
+    const nft = await canisterTransferNFT(
+      parseInt(data.nft_info_id),
+      data.to_pid,
+      data.to_subaccount
+    );
+    console.log(nft);
+  }
+
+  return redirect(`/app/main_list_nfts/`);
+}
 
 export async function loader({ request }) {
   const { admin, session } = await authenticate.admin(request);
