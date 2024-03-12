@@ -1,25 +1,17 @@
 import { useState, useCallback } from "react";
 import { json, redirect } from "@remix-run/node";
-import {
-  useActionData,
-  useLoaderData,
-  useNavigation,
-  useSubmit,
-  useNavigate,
-} from "@remix-run/react";
+import { useLoaderData, useNavigation, useSubmit } from "@remix-run/react";
 import { authenticate } from "../shopify.server";
 import {
   Card,
   FormLayout,
   Layout,
   Page,
-  Text,
   TextField,
-  Thumbnail,
   BlockStack,
   PageActions,
-  LegacyCard,
-  DropZone,
+  Toast,
+  Frame,
 } from "@shopify/polaris";
 
 import db from "../db.server";
@@ -27,7 +19,14 @@ import { getSettings, SETTING_KEYS } from "../models/AppSetting.server";
 
 export async function loader({ request, params }) {
   const { admin, session } = await authenticate.admin(request);
-  return json(await getSettings(session.shop, admin.graphql));
+  // const url = new URL(request.url);
+  // if (url.searchParams.get("active")) {
+  //   settings["save_active"] = true;
+  // } else {
+  //   settings["save_active"] = false;
+  // }
+  let settings = await getSettings(session.shop, admin.graphql);
+  return json(settings);
 }
 
 export async function action({ request, params }) {
@@ -43,7 +42,6 @@ export async function action({ request, params }) {
   for (const key in data) {
     if (SETTING_KEYS.includes(key)) {
       const value = data[key];
-      console.log(value);
       await db.appSetting.upsert({
         where: { shop_info_key: { shop, info_key: key } },
         update: { info_value: value },
@@ -52,18 +50,29 @@ export async function action({ request, params }) {
     }
   }
 
-  return redirect(`/app/main_settings`);
+  return redirect(`/app/main_settings?active=true`);
 }
 
 export default function AppSettingForm() {
   const settings = useLoaderData();
+  const [active, setActive] = useState(false);
   const [formState, setFormState] = useState(settings);
+
   const [cleanFormState, setCleanFormState] = useState(settings);
   const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
 
   const nav = useNavigation();
   const isSaving =
     nav.state === "submitting" && nav.formData?.get("action") !== "delete";
+
+  const toggleActive = useCallback(() => setActive((active) => !active), []);
+  const toastMarkup = active ? (
+    <Toast
+      content="App Settings Save Success"
+      onClick={toggleActive}
+      duration={3500}
+    />
+  ) : null;
 
   const submit = useSubmit();
   function handleSave() {
@@ -76,6 +85,7 @@ export default function AppSettingForm() {
     };
 
     setCleanFormState({ ...formState });
+    toggleActive();
     submit(data, { method: "post" });
   }
 
@@ -149,6 +159,7 @@ export default function AppSettingForm() {
           />
         </Layout.Section>
       </Layout>
+      <Frame>{toastMarkup}</Frame>
     </Page>
   );
 }
