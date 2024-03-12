@@ -21,14 +21,38 @@ import {
   LegacyCard,
   DropZone,
 } from "@shopify/polaris";
-import { NoteMinor } from "@shopify/polaris-icons";
 
 import db from "../db.server";
-import { getSettings } from "../models/AppSetting.server";
+import { getSettings, SETTING_KEYS } from "../models/AppSetting.server";
 
 export async function loader({ request, params }) {
   const { admin, session } = await authenticate.admin(request);
   return json(await getSettings(session.shop, admin.graphql));
+}
+
+export async function action({ request, params }) {
+  const { session } = await authenticate.admin(request);
+  const { shop } = session;
+
+  /** @type {any} */
+  let data = {
+    ...Object.fromEntries(await request.formData()),
+    shop,
+  };
+
+  for (const key in data) {
+    if (SETTING_KEYS.includes(key)) {
+      const value = data[key];
+      console.log(value);
+      await db.appSetting.upsert({
+        where: { shop_info_key: { shop, info_key: key } },
+        update: { info_value: value },
+        create: { info_key: key, info_value: value, shop: shop },
+      });
+    }
+  }
+
+  return redirect(`/app/main_settings`);
 }
 
 export default function AppSettingForm() {
@@ -46,6 +70,9 @@ export default function AppSettingForm() {
     const data = {
       merchant_principal: formState.merchant_principal,
       app_description: formState.app_description || "",
+      royalties_recipient_principal:
+        formState.royalties_recipient_principal || "",
+      nft_product_description: formState.nft_product_description || "",
     };
 
     setCleanFormState({ ...formState });
@@ -73,16 +100,37 @@ export default function AppSettingForm() {
                     onChange={(merchant_principal) =>
                       setFormState({ ...formState, merchant_principal })
                     }
-                    i
+                  />
+                  <TextField
+                    id="royalties_recipient_principal"
+                    label="Royalties Recipient Principal"
+                    autoComplete="off"
+                    value={formState.royalties_recipient_principal}
+                    onChange={(royalties_recipient_principal) =>
+                      setFormState({
+                        ...formState,
+                        royalties_recipient_principal,
+                      })
+                    }
                   />
                   <TextField
                     id="app_description"
-                    label="Description"
+                    label="Shop Description"
                     autoComplete="off"
                     value={formState.app_description}
                     multiline={5}
                     onChange={(app_description) =>
                       setFormState({ ...formState, app_description })
+                    }
+                  />
+                  <TextField
+                    id="nft_product_description"
+                    label="Product Description"
+                    autoComplete="off"
+                    value={formState.nft_product_description}
+                    multiline={5}
+                    onChange={(nft_product_description) =>
+                      setFormState({ ...formState, nft_product_description })
                     }
                   />
                 </FormLayout>
