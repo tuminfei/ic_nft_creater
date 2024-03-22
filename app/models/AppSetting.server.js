@@ -28,3 +28,14 @@ export async function getSettings(shop, graphql) {
   }, {});
   return result;
 }
+
+export async function getSettingValue(shop, info_key) {
+  const setting = await db.appSetting.findFirst({
+    where: { shop, info_key },
+    orderBy: { id: "desc" },
+  });
+
+  if (setting == null) return "";
+
+  return setting.info_value;
+}

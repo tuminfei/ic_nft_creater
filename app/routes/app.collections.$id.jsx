@@ -31,15 +31,27 @@ import {
   converCollection,
   canisterCreateCollection,
 } from "../models/NFTCollection.server";
+import { getSettingValue } from "../models/AppSetting.server";
 import { Principal } from "@dfinity/principal";
 
 export async function loader({ request, params }) {
-  const { admin } = await authenticate.admin(request);
+  const { admin, session } = await authenticate.admin(request);
+  const { shop } = session;
 
   if (params.id === "new") {
+    let setting_merchant_principal = await getSettingValue(
+      shop,
+      "merchant_principal"
+    );
+    let setting_royalties_recipient = await getSettingValue(
+      shop,
+      "royalties_recipient_principal"
+    );
     return json({
       name: "",
       canister_id: null,
+      owner: setting_merchant_principal,
+      royalties_recipient: setting_royalties_recipient,
     });
   }
 
