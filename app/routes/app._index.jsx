@@ -17,7 +17,17 @@ import {
 } from "@shopify/polaris";
 import { getStatistics } from "../models/NFTCollection.server";
 import logo from "../images/logo.png";
-import { ViewIcon, ExternalIcon } from "@shopify/polaris-icons";
+import main1 from "../images/main_index1.png";
+import main2 from "../images/main_index2.png";
+import main3 from "../images/main_index3.png";
+import main4 from "../images/main_index4.jpeg";
+
+import {
+  ViewIcon,
+  ExternalIcon,
+  FolderAddIcon,
+  NoteAddIcon,
+} from "@shopify/polaris-icons";
 
 export async function loader({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -60,7 +70,7 @@ export default function Index() {
           objectFit: "cover",
           objectPosition: "center",
         }}
-        src="https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850"
+        src={main1}
       />
     </MediaCard>
   );
@@ -85,7 +95,7 @@ export default function Index() {
           objectFit: "cover",
           objectPosition: "center",
         }}
-        src="https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850"
+        src={main2}
       />
     </MediaCard>
   );
@@ -110,7 +120,7 @@ export default function Index() {
           objectFit: "cover",
           objectPosition: "center",
         }}
-        src="https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850"
+        src={main3}
       />
     </MediaCard>
   );
@@ -135,7 +145,7 @@ export default function Index() {
           objectFit: "cover",
           objectPosition: "center",
         }}
-        src="https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850"
+        src={main4}
       />
     </MediaCard>
   );
@@ -240,6 +250,7 @@ export default function Index() {
               primaryAction={{
                 content: "Create Collection",
                 url: "/app/main_collections",
+                icon: FolderAddIcon,
               }}
             >
               <p>
@@ -256,6 +267,7 @@ export default function Index() {
               primaryAction={{
                 content: "Mint NFT",
                 url: "/app/main_nfts",
+                icon: NoteAddIcon,
               }}
             >
               <p>Total number created:&nbsp;&nbsp;{statisticState.nft_count}</p>

@@ -2,7 +2,7 @@
 
 client_id = "cd6696504fe0eac3fcf152fed0d96d93"
 name = "ic-nft-creater"
-application_url = "https://bikes-families-terrain-webshots.trycloudflare.com"
+application_url = "https://monthly-len-though-all.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products, read_products, read_customers, write_customers, read_f
 
 [auth]
 redirect_urls = [
-  "https://bikes-families-terrain-webshots.trycloudflare.com/auth/callback",
-  "https://bikes-families-terrain-webshots.trycloudflare.com/auth/shopify/callback",
-  "https://bikes-families-terrain-webshots.trycloudflare.com/api/auth/callback"
+  "https://monthly-len-though-all.trycloudflare.com/auth/callback",
+  "https://monthly-len-though-all.trycloudflare.com/auth/shopify/callback",
+  "https://monthly-len-though-all.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
