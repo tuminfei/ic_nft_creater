@@ -13,11 +13,11 @@ import {
   Button,
   Frame,
   Modal,
-  TextContainer,
   Tabs,
 } from "@shopify/polaris";
 import { getStatistics } from "../models/NFTCollection.server";
 import logo from "../images/logo.png";
+import { ViewIcon, ExternalIcon } from "@shopify/polaris-icons";
 
 export async function loader({ request, params }) {
   const { session } = await authenticate.admin(request);
@@ -39,29 +39,173 @@ export default function Index() {
     (selectedTabIndex) => setSelected(selectedTabIndex),
     []
   );
+
+  const tab_page1 = (
+    <MediaCard
+      title="ADD NFT COLLECTIONS"
+      primaryAction={{
+        content: "ADD NFT COLLECTIONS",
+        url: "/app/main_collections",
+        icon: ExternalIcon,
+      }}
+      description="NFT collections are groups of digital objects (artworks or other collectibles), based on the same concept."
+      popoverActions={[{ content: "Dismiss", onAction: () => {} }]}
+      size="small"
+    >
+      <img
+        alt=""
+        width="100%"
+        height="100%"
+        style={{
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
+        src="https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850"
+      />
+    </MediaCard>
+  );
+
+  const tab_page2 = (
+    <MediaCard
+      title="ADD NFTS"
+      primaryAction={{
+        content: "ADD NFTS",
+        url: "/app/main_nfts",
+        icon: ExternalIcon,
+      }}
+      description="Inside these NFT Collections, you can setup and manage your NFTs (unique digital objects)."
+      popoverActions={[{ content: "Dismiss", onAction: () => {} }]}
+      size="small"
+    >
+      <img
+        alt=""
+        width="100%"
+        height="100%"
+        style={{
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
+        src="https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850"
+      />
+    </MediaCard>
+  );
+
+  const tab_page3 = (
+    <MediaCard
+      title="CREATE PRODUCT & SELL YOUR NFTS"
+      primaryAction={{
+        content: "CREATE PRODUCT",
+        url: "/app/main_products",
+        icon: ExternalIcon,
+      }}
+      description="Create NFT product, Use your Shopify webshop to sell your NFTS."
+      popoverActions={[{ content: "Dismiss", onAction: () => {} }]}
+      size="small"
+    >
+      <img
+        alt=""
+        width="100%"
+        height="100%"
+        style={{
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
+        src="https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850"
+      />
+    </MediaCard>
+  );
+
+  const tab_page4 = (
+    <MediaCard
+      title="MANAGE YOUR NFTS"
+      primaryAction={{
+        content: "MANAGE YOUR NFTS",
+        url: "/app/main_list_nfts",
+        icon: ExternalIcon,
+      }}
+      description="Manage your NFT products online, create small gifts, send NFTs, and more.."
+      popoverActions={[{ content: "Dismiss", onAction: () => {} }]}
+      size="small"
+    >
+      <img
+        alt=""
+        width="100%"
+        height="100%"
+        style={{
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
+        src="https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850"
+      />
+    </MediaCard>
+  );
+
   const tabs = [
     {
       id: "collection-fitted-2",
       content: "1.Create Collection",
       accessibilityLabel: "All customers",
       panelID: "collection-content-2",
+      page: tab_page1,
     },
     {
       id: "nft-fitted-2",
       content: "2.Mint NFT",
       panelID: "nft-content-2",
+      page: tab_page2,
     },
     {
-      id: "production-fitted-2",
-      content: "3.Create Production",
-      panelID: "production-content-2",
+      id: "product-fitted-2",
+      content: "3.Create Product",
+      panelID: "product-content-2",
+      page: tab_page3,
     },
     {
       id: "manage-fitted-2",
       content: "4.Manage NFT",
       panelID: "manage-content-2",
+      page: tab_page4,
     },
   ];
+
+  const desc_str = (
+    <p>
+      <div>
+        Easily design NFTs on IC network and sell them on Shopify just like
+        regular products. It's so much fun to send NFTs to your customers'
+        emails! <br />
+        Discover how IC NFT Creator can power up your entrepreneurial journey.
+      </div>
+      <ul>
+        <li>
+          <b>Effortless NFT Creation</b>
+        </li>
+        Easily generate and deploy NFT collections on the Dfinity IC network
+        directly from your Shopify store. Our intuitive interface ensures a
+        seamless experience, allowing even non-technical users to harness the
+        power of blockchain technology.
+        <br />
+        <br />
+        <li>
+          <b>Product Certification</b>
+        </li>
+        Provide authenticity and provenance to your products by creating digital
+        certificates on the Dfinity IC network. Enhance customer trust and
+        satisfaction by offering verifiable proof of ownership and origin.
+        <br />
+        <br />
+        <li>
+          <b>Multi-Channel Sales</b>
+        </li>
+        IC_NFT_Creator enables you to leverage Shopify's extensive sales
+        channels to market and sell your NFT collections. Expand your reach and
+        connect with a broader audience through Shopify's established e-commerce
+        ecosystem.
+        <br />
+        <br />
+      </ul>
+    </p>
+  );
 
   return (
     <Page fullWidth>
@@ -71,8 +215,9 @@ export default function Index() {
           primaryAction={{
             content: "Learn about getting started",
             onAction: handleChange,
+            icon: ViewIcon,
           }}
-          description="Easily design NFTs on IC network and sell them on Shopify just like regular products. It's so much fun to send NFTs to your customers' emails! Discover how IC NFT Creator can power up your entrepreneurial journey."
+          description={desc_str}
           popoverActions={[{ content: "Dismiss", onAction: () => {} }]}
           size="small"
         >
@@ -127,15 +272,9 @@ export default function Index() {
             onClose={handleChange}
             title="Instructions for use IC NFT Creator"
             primaryAction={{
-              content: "Add Instagram",
+              content: "Close",
               onAction: handleChange,
             }}
-            secondaryActions={[
-              {
-                content: "Learn more",
-                onAction: handleChange,
-              },
-            ]}
           >
             <Modal.Section>
               <LegacyCard>
@@ -146,7 +285,7 @@ export default function Index() {
                   fitted
                 >
                   <LegacyCard.Section title={tabs[selected].content}>
-                    <p>Tab {selected} selected</p>
+                    {tabs[selected].page}
                   </LegacyCard.Section>
                 </Tabs>
               </LegacyCard>
