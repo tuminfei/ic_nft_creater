@@ -169,7 +169,7 @@ export default function AppSettingForm() {
                     label="Factory Canister Id"
                     autoComplete="off"
                     value={formState.factory_id}
-                    disabled="true"                                                                      
+                    disabled="true"
                   />
                   <TextField
                     id="env_value3"
