@@ -16,16 +16,25 @@ import {
 
 import db from "../db.server";
 import { getSettings, SETTING_KEYS } from "../models/AppSetting.server";
+import {
+  SYSTEM_FACTORY_CANISTER_ID,
+  SYSTEM_LOCAL_FACTORY_CANISTER_ID,
+} from "../utils/constants";
 
 export async function loader({ request, params }) {
   const { admin, session } = await authenticate.admin(request);
-  // const url = new URL(request.url);
-  // if (url.searchParams.get("active")) {
-  //   settings["save_active"] = true;
-  // } else {
-  //   settings["save_active"] = false;
-  // }
+  const env_code = process.env.NODE_ENV;
+  const factory_id =
+    env_code == "production"
+      ? SYSTEM_FACTORY_CANISTER_ID
+      : SYSTEM_LOCAL_FACTORY_CANISTER_ID;
+  const system_account = process.env.SYSTEM_ACCOUNT_PID;
+
   let settings = await getSettings(session.shop, admin.graphql);
+  settings["env_code"] = env_code;
+  settings["factory_id"] = factory_id;
+  settings["system_account"] = system_account;
+
   return json(settings);
 }
 
@@ -66,6 +75,7 @@ export default function AppSettingForm() {
     nav.state === "submitting" && nav.formData?.get("action") !== "delete";
 
   const toggleActive = useCallback(() => setActive((active) => !active), []);
+
   const toastMarkup = active ? (
     <Toast
       content="App Settings Save Success"
@@ -142,6 +152,31 @@ export default function AppSettingForm() {
                     onChange={(nft_product_description) =>
                       setFormState({ ...formState, nft_product_description })
                     }
+                  />
+                </FormLayout>
+              </Card>
+              <Card>
+                <FormLayout>
+                  <TextField
+                    id="env_value1"
+                    label="Env Level"
+                    autoComplete="off"
+                    value={formState.env_code}
+                    disabled="true"
+                  />
+                  <TextField
+                    id="env_value2"
+                    label="Factory Canister Id"
+                    autoComplete="off"
+                    value={formState.factory_id}
+                    disabled="true"                                                                      
+                  />
+                  <TextField
+                    id="env_value3"
+                    label="app system account"
+                    autoComplete="off"
+                    value={formState.system_account}
+                    disabled="true"
                   />
                 </FormLayout>
               </Card>
