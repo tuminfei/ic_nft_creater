@@ -1,5 +1,6 @@
 FROM node:18-alpine3.18
 
+RUN apk add ca-certificates fuse3 sqlite
 EXPOSE 3000
 WORKDIR /app
 COPY . .
