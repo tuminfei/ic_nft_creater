@@ -10,6 +10,8 @@ import {
   Thumbnail,
   Text,
   Badge,
+  BlockStack,
+  Banner,
 } from "@shopify/polaris";
 
 import { getNFTInfos } from "../models/NFTInfo.server";
@@ -123,19 +125,27 @@ export default function Index() {
           Mint NFT
         </button>
       </ui-title-bar>
-      <Layout>
-        <Layout.Section>
-          <Card padding="0">
-            {nft_infos.length === 0 ? (
-              <EmptyNFTInfoState
-                onAction={() => navigate("/app/nft_infos/new")}
-              />
-            ) : (
-              <NFTTable nft_infos={nft_infos} />
-            )}
-          </Card>
-        </Layout.Section>
-      </Layout>
+      <BlockStack gap="500">
+        <Banner onDismiss={() => {}}>
+          <p>
+            Once the NFT is minted, it has been issued on the blockchain.&nbsp;&nbsp;
+            <Link url="">Let us know what you think</Link>
+          </p>
+        </Banner>
+        <Layout>
+          <Layout.Section>
+            <Card padding="0">
+              {nft_infos.length === 0 ? (
+                <EmptyNFTInfoState
+                  onAction={() => navigate("/app/nft_infos/new")}
+                />
+              ) : (
+                <NFTTable nft_infos={nft_infos} />
+              )}
+            </Card>
+          </Layout.Section>
+        </Layout>
+      </BlockStack>
     </Page>
   );
 }

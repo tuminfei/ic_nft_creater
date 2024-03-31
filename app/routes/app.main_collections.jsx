@@ -122,7 +122,7 @@ export default function Index() {
         <Banner onDismiss={() => {}}>
           <p>
             IC NFT canister needs to have enough Cycles to run. Please note the
-            balance of canister cycles.
+            balance of canister cycles.&nbsp;&nbsp;
             <Link url="">Let us know what you think</Link>
           </p>
         </Banner>
