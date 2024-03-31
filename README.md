@@ -92,6 +92,16 @@ http://127.0.0.1:4943/?canisterId=avqkn-guaaa-aaaaa-qaaea-cai
 
 `docker run -p 8081:8081 --rm --env-file dev.env tuminfei1981/ic_nft_creater:latest`
 
+## Deploy to Fly.io
+
+```
+flyctl launch --no-deploy
+flyctl secrets set SHOPIFY_API_SECRET="xxxxxx"  
+flyctl secrets set SHOPIFY_API_KEY="xxxxxx"
+flyctl secrets set SYSTEM_ACCOUNT_SEED="xxxxxx"
+flyctl deploy
+```
+
 
 # Shopify App Template - Remix
 
