@@ -1,6 +1,8 @@
 FROM node:18-alpine3.18
 
 RUN apk add ca-certificates fuse3 sqlite
+COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
+
 EXPOSE 3000
 WORKDIR /app
 COPY . .

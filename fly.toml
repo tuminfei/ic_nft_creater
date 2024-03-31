@@ -1,0 +1,33 @@
+# fly.toml app configuration file generated for ic-nft-creator on 2024-03-29T10:18:30+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'ic-nft-creator'
+primary_region = 'hkg'
+
+[build]
+
+[mount]
+  source = "data_nft"
+  destination = "/data"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[env]
+  PORT = "3000"
+  SHOPIFY_APP_URL = "https://ic-nft-creator.fly.dev"
+  SCOPES = "write_products, read_products, read_customers, write_customers, read_files, write_files, read_themes, write_themes, write_gift_cards, read_gift_cards"
+  NODE_ENV = "production"
+  SYSTEM_ACCOUNT_PID = "i7z6q-2c4ks-pjwft-gw5fb-jxd2n-mp6v7-3sxuy-v66y7-c3jjv-2te7o-nqe"
