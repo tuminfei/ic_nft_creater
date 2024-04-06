@@ -19,7 +19,11 @@ import {
   Modal,
 } from "@shopify/polaris";
 
-import { getNFTInfos, canisterTransferNFT } from "../models/NFTInfo.server";
+import {
+  getNFTInfos,
+  canisterTransferNFT,
+  saveTransferNFT,
+} from "../models/NFTInfo.server";
 import { maskAddress } from "../utils/tools";
 
 export async function action({ request, params }) {
@@ -40,9 +44,18 @@ export async function action({ request, params }) {
       data.to_subaccount
     );
     console.log(nft);
+
+    if ("Ok" in nft) {
+      let nft_save = await saveTransferNFT(
+        parseInt(data.nft_info_id),
+        data.to_pid,
+        data.to_subaccount
+      );
+      console.log(nft_save);
+    }
   }
 
-  return redirect(`/app/main_list_nfts/`);
+  return redirect(`/app/main_nfts/`);
 }
 
 export async function loader({ request }) {

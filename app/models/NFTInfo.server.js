@@ -109,6 +109,14 @@ export async function canisterTransferNFT(nft_info_id, to_pid, to_subaccount) {
   return rest;
 }
 
+export async function saveTransferNFT(nft_info_id, to_pid, to_subaccount) {
+  const nft_info = await db.nFTInfo.update({
+    where: { id: nft_info_id },
+    data: { owner: to_pid, subaccount: to_subaccount },
+  });
+  return nft_info;
+}
+
 export async function canisterUploadImg(
   nft_collection_id,
   file_size,
