@@ -24,6 +24,7 @@ import {
   canisterTransferNFT,
   saveTransferNFT,
 } from "../models/NFTInfo.server";
+import { getSettingValue } from "../models/AppSetting.server";
 import { maskAddress } from "../utils/tools";
 
 export async function action({ request, params }) {
@@ -61,8 +62,13 @@ export async function action({ request, params }) {
 export async function loader({ request }) {
   const { admin, session } = await authenticate.admin(request);
   const nft_infos = await getNFTInfos(session.shop, admin.graphql);
+  let setting_merchant_principal = await getSettingValue(
+    session.shop,
+    "merchant_principal"
+  );
   return json({
     nft_infos,
+    setting_merchant_principal,
   });
 }
 
@@ -80,9 +86,11 @@ const EmptyNFTInfoState = ({ onAction }) => (
 );
 
 export default function Index() {
-  const { nft_infos } = useLoaderData();
+  const { nft_infos, setting_merchant_principal } = useLoaderData();
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
+  const [transfer_active, setTransferActive] = useState(false);
+  const [merchant_principal, setMerchantPrincipal] = useState(setting_merchant_principal);
   const handleChange = useCallback(() => setActive(!active), [active]);
   const submit = useSubmit();
 
@@ -168,6 +176,7 @@ export default function Index() {
                     nft_info.owner
                   )
                 }
+                disabled={nft_info.owner == merchant_principal ? false : true }
               >
                 Transfer
               </Button>
@@ -213,6 +222,7 @@ export default function Index() {
             primaryAction={{
               content: "Transfer",
               onAction: handleIcTransfer,
+              loading: transfer_active,
             }}
             secondaryActions={[
               {
