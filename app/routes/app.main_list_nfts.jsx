@@ -55,7 +55,6 @@ export async function action({ request, params }) {
       console.log(nft_save);
     }
   }
-
   return redirect(`/app/main_nfts/`);
 }
 
@@ -90,7 +89,9 @@ export default function Index() {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
   const [transfer_active, setTransferActive] = useState(false);
-  const [merchant_principal, setMerchantPrincipal] = useState(setting_merchant_principal);
+  const [merchant_principal, setMerchantPrincipal] = useState(
+    setting_merchant_principal
+  );
   const handleChange = useCallback(() => setActive(!active), [active]);
   const submit = useSubmit();
 
@@ -103,6 +104,7 @@ export default function Index() {
   };
 
   const handleIcTransfer = () => {
+    setTransferActive(true);
     const data = {
       action: "transfer_nft",
       nft_info_id: tokenKeyState,
@@ -176,11 +178,16 @@ export default function Index() {
                     nft_info.owner
                   )
                 }
-                disabled={nft_info.owner == merchant_principal ? false : true }
+                disabled={nft_info.owner == merchant_principal ? false : true}
               >
                 Transfer
               </Button>
-              <Button variant="primary">Create Product</Button>
+              <Button
+                variant="primary"
+                disabled={nft_info.owner == merchant_principal ? false : true}
+              >
+                Create Product
+              </Button>
             </ButtonGroup>
           </LegacyStack>
         </LegacyCard.Section>
